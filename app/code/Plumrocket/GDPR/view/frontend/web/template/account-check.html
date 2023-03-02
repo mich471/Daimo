@@ -1,0 +1,31 @@
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_GDPR
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+
+<div class="page-title">
+    <h1 data-bind="i18n: 'Privacy Center'"></h1>
+</div>
+<div class="prgdpr-guest">
+    <p class="prgdpr__descr prgdpr-guest__descr" data-bind="i18n: 'Please enter your email address below to download your account data or remove your personal information from our store. We will email you instructions soon.'"></p>
+    <form id="prgdpr-checking-from" class="prgdpr-guest__form" method="post" data-bind="attr: {action: fromActionUrl}, blockLoader: toggleLoader">
+        <label for="email" data-bind="i18n: 'Email Address'"></label>
+        <div class="prgdpr-guest__inputs">
+            <input class='prgdpr-guest__email' id="email" type="email" required name="email" data-bind="attr: {placeholder: emailPlaceholder}"/>
+            <input class="button prgdpr-guest__btn primary action" type="submit" data-bind="click: sendEmailForm, value: buttonValue"/>
+        </div>
+    </form>
+</div>

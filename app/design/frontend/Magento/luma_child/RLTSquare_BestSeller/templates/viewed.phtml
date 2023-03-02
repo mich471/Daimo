@@ -1,0 +1,131 @@
+<?php /** @var \RLTSquare\BestSeller\Block\Product\GridProduct $block */ ?>
+
+
+
+    <?php $collection = $block->getCollection();
+    $list_product = $block->getListProduct();
+    $iterator = 1;
+    $image = 'category_page_grid';
+    $pos = $list_product->getPositioned();
+    $_helper = $block->getCatalogHelper();
+    $config = $list_product->getWidgetCfg();
+    $showCart = 1;
+    $showCompare = 1;
+    $showWishlist = 1;
+    $showReview = 1;
+    $viewMode = 'grid';
+    $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    ?>
+    <?php if ($collection->getData()): ?>
+        <div class="block widget block-products-list grid most_viewed-wrapper">
+            <div class=" products-grid grid">
+                <?php $iterator = 1; ?>
+               
+                <ol class="product-items widget-product-grid">
+                    <?php foreach ($collection->getData() as $data) { ?>
+                        <?php $product_id = $data['product_id']; ?>
+                        <?php $_product = $block->getLoadProduct($product_id); ?>
+                        <?php if (isset($_product)): ?>
+                            <?php if ($_product->getID()): ?>
+                                <?php /* @escapeNotVerified */ ?>
+                                <?php echo ($iterator++ == 1) ? '<li class="item product product-item">' : '</li><li class="item product product-item ">' ?>
+                                <div class="product-item-info per-product" data-container="product-grid">
+                                    <?php $productImage = $list_product->getImage($_product, $image); ?>
+                                    <?php if ($pos != null): ?>
+                                        <?php $position = ' style="left:' . $productImage->getWidth() . 'px;' . 'top:' . $productImage->getHeight() . 'px;"'; ?>
+                                    <?php endif; ?>
+                                    
+                                    <?php $_productNameStripped = $list_product->stripTags($_product->getName(), null, true); ?>
+                                   
+                                    <a href="<?php /* @escapeNotVerified */
+                                    echo $_product->getProductUrl() ?>" class="product photo product-item-photo"
+                                       tabindex="-1">
+                                      
+                                        <?php echo $productImage->toHtml() ?>
+                                    </a>
+
+                                    <div class="product details product-item-details products-textlink clearfix">
+
+                                        <strong class="product-name product-item-name">
+                                            <a class="product-item-link"
+                                               href="<?php /* @escapeNotVerified */
+                                               echo $_product->getProductUrl() ?>"
+                                               title="<?php echo $this->stripTags($_product->getName(), null, true) ?>">
+                                                <?php /* @escapeNotVerified */
+                                                echo $_helper->productAttribute($_product, $_product->getName(), 'name'); ?>
+                                            </a>
+                                        </strong>
+
+                                        <?php 
+
+                                            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                                            $customerSession = $objectManager->create('Magento\Customer\Model\Session');
+
+                                          
+                                        ?>
+
+                                        <div class="product-item-price-container">
+
+                                            <?php echo $list_product->getProductPrice($_product) ?>
+                                           
+
+                                            <?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow() && $showWishlist): ?>
+                                                <a href="#"
+                                                   class="action towishlist alotheme-tooltip"
+                                                   title="<?php echo $list_product->escapeHtml(__('Add to Wish List')); ?>"
+                                                   aria-label="<?php echo $list_product->escapeHtml(__('Add to Wish List')); ?>"
+                                                   data-post='<?php /* @escapeNotVerified */
+                                                   echo $list_product->getAddToWishlistParams($_product); ?>'
+                                                   data-action="add-to-wishlist"
+                                                   role="button">
+                                                    <span><?= $block->escapeHtml(__('Add to Wish List')) ?></span>
+                                                </a>
+                                            <?php endif; ?>
+
+                                        </div>
+
+                                        <div class="product-item-inner">
+                                            <div class="product-item-actions">
+
+                                                <div class="actions-primary">
+
+                                                    <a class="action tocart primary"
+                                                       href="<?php /* @escapeNotVerified */
+                                                       echo $_product->getProductUrl() ?>"
+                                                       title="<?php echo $this->stripTags($_product->getName(), null, true) ?>">
+                                                        <span><?= $block->escapeHtml(__('See details')) ?></span>
+                                                    </a>
+                                                </div>
+
+                                                
+                                                <?php if ($showCompare) : ?>
+                                                    <div class="actions-secondary" data-role="add-to-links">
+                                                        <?php //phpcs:disable ?>
+                                                        
+                                                       
+                                                            <?php //phpcs:disable ?>
+                                                            <?php $compareHelper = $this->helper(\Magento\Catalog\Helper\Product\Compare::class);?>
+                                                            <?php //phpcs:enable ?>
+                                                            <a href="#" class="action tocompare" data-post='<?= /* @noEscape */ $compareHelper->getPostDataParams($_product) ?>' title="<?= $block->escapeHtmlAttr(__('Add to Compare')) ?>">
+                                                                <span><?= $block->escapeHtml(__('Add to Compare')) ?></span>
+                                                            </a>
+                                                       
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+
+                                       
+                                    </div>
+                                   
+                                </div>
+                                <?php echo ($iterator == count($collection) + 1) ? '</li>' : '' ?>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    <?php } ?>
+                </ol>
+            </div>
+        </div>
+    <?php endif; ?>
+
+   

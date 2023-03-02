@@ -1,0 +1,28 @@
+
+<?php
+     $priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
+     $product = $block->getProduct();
+     $price = $product->getData('precokilo');
+?>
+<?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $customerSession = $objectManager->create('Magento\Customer\Model\Session');
+?>
+
+<?php if ( !empty($price) ) {?>
+ <?php if ($customerSession->isLoggedIn()): ?>
+<span>Preço por kilo - <?php echo $priceHelper->currency($price, true, false); ?><br></span>
+<span>Valores já com impostos.<br><br></span>
+ <?php endif; ?>
+<?php } ?>
+
+
+<script>
+function showhide() {
+  var div = document.getElementById("newpost");
+  div.classList.toggle('hidden2');
+}
+</script>
+<style>
+.hidden2{
+display : none;}</style>

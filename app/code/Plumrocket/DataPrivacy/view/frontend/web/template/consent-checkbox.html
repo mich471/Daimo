@@ -1,0 +1,37 @@
+<!--
+/**
+ * @package     Plumrocket_DataPrivacy
+ * @copyright   Copyright (c) 2018 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+
+<div data-role="prgdpr-consent-checkboxes" afterRender="checkboxesRendered">
+    <input type="hidden" name="prgdpr_location" value="" data-bind="value: getPrgdprLocation()" />
+    <input type="hidden" name="data_privacy_location" value="" data-bind="value: getLocationKey()" />
+    <div class="prgdpr-consent-checkboxes" data-bind="visible: isVisible">
+        <!-- ko foreach: checkboxes -->
+        <div class="prgdpr-consent-checkbox required">
+            <!-- ko if: is_required -->
+            <input type="checkbox" class="required-entry" data-bind="attr: {
+                        'id': $parent.getCheckboxId($parentContext, consentId),
+                        'name': 'prgdpr_consent[' + consentId + ']',
+                        'value': consentId
+                    }" data-validate="{required:true}" />
+            <!-- /ko -->
+            <!-- ko ifnot: is_required -->
+            <input type="checkbox" class="" data-bind="attr: {
+                        'id': $parent.getCheckboxId($parentContext, consentId),
+                        'name': 'prgdpr_consent[' + consentId + ']',
+                        'value': consentId
+                    }" data-validate="{required:false}" />
+            <!-- /ko -->
+            <label data-bind="attr: {'for': $parent.getCheckboxId($parentContext, consentId), style: $parent.checkboxLabelStyle}">
+                <span bindHtml="checkboxLabel"></span>
+            </label>
+            <span if="policy" data-bind="attr: {'data-checkboxid': $parent.getCheckboxId($parentContext, consentId)}"
+                  afterRender="function(element, data) {$parent.initModal(element, data)}"></span>
+        </div>
+        <!-- /ko -->
+    </div>
+</div>

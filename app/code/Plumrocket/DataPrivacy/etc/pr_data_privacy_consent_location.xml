@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_DataPrivacy
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+-->
+<locations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:module:Plumrocket_DataPrivacy:etc/pr_data_privacy_consent_location.xsd">
+    <location key="popup_notify"
+              name="Popup Notify"
+              type="0"
+              description="Default Data Privacy Popup Notify"
+              visible="false"/>
+
+    <location key="checkout"
+              name="Checkout Page"
+              type="0"
+              description="Default Data Privacy Magento Checkout Page"/>
+
+    <location key="registration"
+              name="Registration Page"
+              type="0"
+              description="Default Data Privacy Magento Account Registration Page"/>
+
+    <location key="newsletter"
+              name="Newsletter Subscription"
+              type="0"
+              description="Default Data Privacy Magento Newsletter Subscription Form"/>
+
+    <location key="contact_us"
+              name="Contact Us"
+              type="0"
+              description="Default GDPR Magento Contact Us Page"/>
+
+    <location key="my_account"
+              name="My Account"
+              type="0"
+              description="Default GDPR Magento My Account Page"
+              visible="false"/>
+</locations>

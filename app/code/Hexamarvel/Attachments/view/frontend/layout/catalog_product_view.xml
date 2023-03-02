@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Hexamarvel Team
+ * @copyright Copyright (c) 2021 Hexamarvel (https://www.hexamarvel.com)
+ * @package Hexamarvel_Attachments
+ */
+  -->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- Product short description -->
+        <referenceBlock name="product.info.main">
+            <block class="Hexamarvel\Attachments\Block\Product\Attachments" name="packaging-content-short" template="Hexamarvel_Attachments::product/view/attachment-content.phtml" after="product.info.addto" >
+                <arguments>
+                    <argument name="display_area" xsi:type="string">productshortdesc</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <!-- Product Tabs -->
+        <referenceBlock name="product.info.details">
+            <block class="Hexamarvel\Attachments\Block\Product\Attachments" name="packaging-content" template="Hexamarvel_Attachments::product/view/attachment-content.phtml" group="detailed_info">
+                <arguments>
+                    <argument name="display_area" xsi:type="string">producttab</argument>
+                    <argument name="title" xsi:type="helper" helper="Hexamarvel\Attachments\Block\Product\Attachments::getTabTitle"></argument>
+                    <argument name="sort_order" xsi:type="helper" helper="Hexamarvel\Attachments\Block\Product\Attachments::getTabSortOrder"></argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

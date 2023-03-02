@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_CookieConsent
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add module="Plumrocket_CookieConsent" parent="Plumrocket_Base::elements" id="Plumrocket_CookieConsent::pr_menu" resource="Plumrocket_CookieConsent::pr_menu" title="Cookie Consent" translate="title" sortOrder="1547904"/>
+        <add module="Plumrocket_CookieConsent" parent="Plumrocket_CookieConsent::pr_menu" id="Plumrocket_CookieConsent::cookie_categories" resource="Plumrocket_CookieConsent::cookie_categories" action="pr_cookie/category/index" title="Cookie Categories" translate="title" sortOrder="10"/>
+        <add module="Plumrocket_CookieConsent" parent="Plumrocket_CookieConsent::pr_menu" id="Plumrocket_CookieConsent::cookies" resource="Plumrocket_CookieConsent::cookies" action="pr_cookie/item/index" title="Cookies" translate="title" sortOrder="20"/>
+        <add module="Plumrocket_CookieConsent" parent="Plumrocket_CookieConsent::pr_menu" id="Plumrocket_CookieConsent::consent_log" resource="Plumrocket_CookieConsent::consent_log" action="pr_cookie/consent_log/index" title="Cookie Consent Log" translate="title" sortOrder="30"/>
+        <add module="Plumrocket_CookieConsent" parent="Plumrocket_CookieConsent::pr_menu" id="Plumrocket_CookieConsent::configuration" resource="Plumrocket_CookieConsent::configuration" action="adminhtml/system_config/edit/section/pr_cookie" title="Configuration" translate="title" sortOrder="60"/>
+
+        <add module="Plumrocket_CookieConsent" parent="Magento_Customer::customer" id="Plumrocket_CookieConsent::pr_group_icon_customer" resource="Plumrocket_CookieConsent::pr_menu" title="Cookie Consent" translate="title" sortOrder="1547904"/>
+        <add module="Plumrocket_CookieConsent" parent="Plumrocket_CookieConsent::pr_group_icon_customer" id="Plumrocket_CookieConsent::customer__cookie_categories" resource="Plumrocket_CookieConsent::cookie_categories" action="pr_cookie/category/index" title="Cookie Categories" translate="title" sortOrder="10"/>
+        <add module="Plumrocket_CookieConsent" parent="Plumrocket_CookieConsent::pr_group_icon_customer" id="Plumrocket_CookieConsent::customer__cookies" resource="Plumrocket_CookieConsent::cookies" action="pr_cookie/item/index" title="Cookies" translate="title" sortOrder="20"/>
+        <add module="Plumrocket_CookieConsent" parent="Plumrocket_CookieConsent::pr_group_icon_customer" id="Plumrocket_CookieConsent::customer__consent_log" resource="Plumrocket_CookieConsent::consent_log" action="pr_cookie/consent_log/index" title="Cookie Consent Log" translate="title" sortOrder="30"/>
+    </menu>
+</config>

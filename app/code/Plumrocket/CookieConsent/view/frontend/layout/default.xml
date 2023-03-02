@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_CookieConsent
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Plumrocket_CookieConsent::css/cookie-consent.css"/>
+    </head>
+    <body>
+        <referenceContainer name="after.body.start">
+            <block class="Plumrocket\CookieConsent\Block\RestrictionConfig" name="pr.cookie.restriction.config">
+                <arguments>
+                    <argument name="template" xsi:type="string">Plumrocket_CookieConsent::restriction_config.phtml</argument>
+                </arguments>
+            </block>
+            <block class="Plumrocket\CookieConsent\Block\Html\BodyScripts" name="pr_cookie_absolute_header" after="pr.cookie.restriction.config" ifconfig="pr_cookie/general/enabled">
+                <arguments>
+                    <argument name="template" xsi:type="string">Plumrocket_CookieConsent::html/absolute_header.phtml</argument>
+                </arguments>
+            </block>
+            <block class="Plumrocket\CookieConsent\Block\CookieNotice" name="pr_cookie_notice" ifconfig="pr_cookie/general/enabled">
+                <arguments>
+                    <argument name="template" xsi:type="string">Plumrocket_CookieConsent::notice.phtml</argument>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="pr-cookie-notice" xsi:type="array">
+                                <item name="component" xsi:type="string">Plumrocket_CookieConsent/js/view/notice</item>
+                                <item name="template" xsi:type="string">Plumrocket_CookieConsent/notice/default</item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+            <block class="Plumrocket\CookieConsent\Block\Settings" name="pr-cookie-settings" ifconfig="pr_cookie/general/enabled">
+                <arguments>
+                    <argument name="template" xsi:type="string">Plumrocket_CookieConsent::settings.phtml</argument>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="pr-cookie-settings-bar" xsi:type="array">
+                                <item name="component" xsi:type="string">Plumrocket_CookieConsent/js/view/settings</item>
+                                <item name="template" xsi:type="string">Plumrocket_CookieConsent/settings/left-bar</item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+            <block class="Plumrocket\CookieConsent\Block\Gtm" name="google_tag_manager" as="google_tag_manager" template="Plumrocket_CookieConsent::gtm.phtml" ifconfig="pr_cookie/general/enabled"/>
+        </referenceContainer>
+        <referenceContainer name="before.body.end">
+            <block class="Plumrocket\CookieConsent\Block\Html\BodyScripts" name="pr_cookie_absolute_footer" after="absolute_footer" ifconfig="pr_cookie/general/enabled">
+                <arguments>
+                    <argument name="template" xsi:type="string">Plumrocket_CookieConsent::html/absolute_footer.phtml</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="footer_links">
+            <block name="pr-cookie-settings-link" class="Plumrocket\CookieConsent\Block\Html\CookieSettingsLink" ifconfig="pr_cookie/settings_link/show_footer_link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Cookie Settings</argument>
+                    <argument name="path" xsi:type="string">#</argument>
+                    <argument name="class" xsi:type="string">pr-open-cookie-settings</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

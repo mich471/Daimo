@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_CookieConsent
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+-->
+<cookies xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:module:Plumrocket_CookieConsent:etc/pr-cookies.xsd">
+    <cookie name="pr-cookie-notice-status" category="necessary">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::SESSION</duration>
+        <description>Stores close status of cookie notice.</description>
+    </cookie>
+    <cookie name="user_allowed_save_cookie" category="necessary">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::ONE_YEAR</duration>
+        <description>Stores built-in cookie consent per website.</description>
+    </cookie>
+    <cookie name="guest-view" category="necessary">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::SESSION</duration>
+        <description>Stores the Order ID that guest shoppers use to retrieve their order status. Guest orders view. Used in “Orders and Returns” widgets.</description>
+    </cookie>
+    <cookie name="login_redirect" category="necessary">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::SESSION</duration>
+        <description>Preserves the destination page the customer was loading before being directed to log in.</description>
+    </cookie>
+    <cookie name="mage-messages" category="necessary">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::ONE_YEAR</duration>
+        <description>Tracks error messages and other notifications that are shown to the user, such as the cookie consent message, and various error messages. The message is deleted from the cookie after it is shown to the shopper.</description>
+    </cookie>
+    <cookie name="section_data_ids" category="necessary">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::SESSION</duration>
+        <description>Stores customer-specific information related to shopper-initiated actions such as display wish list, checkout information, etc.</description>
+    </cookie>
+    <cookie name="store" category="necessary">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::ONE_YEAR</duration>
+        <description>Tracks the specific store view / locale selected by the shopper.</description>
+    </cookie>
+    <cookie name="amz_auth_err" category="necessary">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::ONE_YEAR</duration>
+        <description>Used if Enable Login with Amazon is enabled. Value 1 indicates an authorization error.</description>
+    </cookie>
+    <cookie name="amz_auth_logout" category="necessary">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::ONE_DAY</duration>
+        <description>Used if Enable Login with Amazon is enabled. Value 1 indicates that the user should be logged out.</description>
+    </cookie>
+    <cookie name="mage-cache-sessid" category="necessary">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::SESSION</duration>
+        <description>The value of this cookie triggers the cleanup of local cache storage. When the cookie is removed by the backend application, the Admin cleans up local storage, and sets the cookie value to true.</description>
+    </cookie>
+    <cookie name="mage-cache-storage" category="necessary">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::SESSION</duration>
+        <description>Local storage of visitor-specific content that enables ecommerce functions.</description>
+    </cookie>
+    <cookie name="stf" category="necessary">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::SESSION</duration>
+        <description>Records the time messages are sent by the SendFriend (Email a Friend) module.</description>
+    </cookie>
+    <cookie name="recently_viewed_product" category="necessary">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::FOR_LOCAL_STORAGE_COOKIE</duration>
+        <description>Stores product IDs of recently viewed products for easy navigation.</description>
+    </cookie>
+    <cookie name="recently_viewed_product_previous" category="necessary">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::FOR_LOCAL_STORAGE_COOKIE</duration>
+        <description>Stores product IDs of recently previously viewed products for easy navigation.</description>
+    </cookie>
+    <cookie name="mage-translation-storage" category="necessary">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::FOR_LOCAL_STORAGE_COOKIE</duration>
+        <description>Stores translated content when requested by the shopper. Used when Translation Strategy is configured as "Dictionary (Translation on Storefront side)".</description>
+    </cookie>
+    <cookie name="mage-translation-file-version" category="necessary">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::FOR_LOCAL_STORAGE_COOKIE</duration>
+        <description>Tracks the version of translations in local storage. Used when Translation Strategy is configured as Dictionary (Translation on Storefront side).</description>
+    </cookie>
+    <cookie name="product_data_storage" category="necessary">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::FOR_LOCAL_STORAGE_COOKIE</duration>
+        <description>Stores configuration for product data related to Recently Viewed / Compared Products.</description>
+    </cookie>
+    <cookie name="recently_compared_product" category="necessary">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::FOR_LOCAL_STORAGE_COOKIE</duration>
+        <description>Stores product IDs of recently compared products.</description>
+    </cookie>
+    <cookie name="recently_compared_product_previous" category="necessary">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::FOR_LOCAL_STORAGE_COOKIE</duration>
+        <description>Stores product IDs of previously compared products for easy navigation.</description>
+    </cookie>
+    <cookie name="mage-cache-storage-section-invalidation" category="necessary">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::FOR_LOCAL_STORAGE_COOKIE</duration>
+        <description>Forces local storage of specific content sections that should be invalidated.</description>
+    </cookie>
+    <cookie name="_ga" category="statistics">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::TWO_YEARS</duration>
+        <description>Used to distinguish users.</description>
+    </cookie>
+    <cookie name="_gid" category="statistics">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::ONE_DAY</duration>
+        <description>Used to distinguish users.</description>
+    </cookie>
+    <cookie name="_gat" category="statistics">
+        <duration xsi:type="const">Plumrocket\CookieConsent\Model\Cookie\Duration::FOR_LOCAL_STORAGE_COOKIE</duration>
+        <description>Used to throttle request rate.</description>
+    </cookie>
+    <cookie name="_dc_gtm_*" category="statistics">
+        <duration xsi:type="number">60</duration>
+        <description>Used to throttle request rate.</description>
+    </cookie>
+</cookies>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="cancelorder" frontName="cancelorder">
+            <module name="Magepow_CancelOrder" />
+        </route>
+        <route id="requests" frontName="requests">
+            <module name="Magepow_CancelOrder" />
+        </route>
+    </router>
+</config>

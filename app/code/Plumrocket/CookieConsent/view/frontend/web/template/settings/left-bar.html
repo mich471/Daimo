@@ -1,0 +1,172 @@
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_CookieConsent
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+
+<div id="pr-cookie-setting-bar" afterRender="createModal()">
+    <div class="pr-cookie-setting-bar-wrap">
+        <button class="pr-cookie-close" click="closeModal" type="button" aria-label="close popup"></button>
+
+        <div class="pr-cookie-detail-view" data-bind="visible: ! isDetailView()">
+            <h3 class="pr-cookie-title" data-bind="text: overview.title"></h3>
+            <div class="pr-cookie-description" data-bind="html: overview.text"></div>
+            <div class="pr-actions-buttons">
+                <button click="allowAll" class="action allow primary" type="button" data-role="action"
+                    data-bind="style: {
+                        color: acceptButtonConfig.text_color,
+                        backgroundColor: acceptButtonConfig.background_color,
+                        borderColor: acceptButtonConfig.background_color
+                    }"
+                >
+                    <translate args="acceptButtonConfig.label"></translate>
+                </button>
+                <button click="declineAll" class="action decline" type="button" data-role="action" if="declineButtonConfig.enabled"
+                    data-bind="style: {
+                        color: declineButtonConfig.text_color,
+                        backgroundColor: declineButtonConfig.background_color,
+                        borderColor: declineButtonConfig.background_color
+                    }"
+                >
+                    <translate args="declineButtonConfig.label"></translate>
+                </button>
+            </div>
+            <h3 class="pr-cookie-manage-title" data-bind="i18n: 'Manage Consent Preferences'"></h3>
+            <ul class="message-system-list">
+                <li repeat="foreach: categories, item: 'category'">
+                    <div class="pr-cookie-option">
+                        <strong class="option-label">
+                            <text args="category().name"></text>
+                        </strong>
+                        <if args="category().is_essential">
+                            <strong class="option-status">
+                                <translate args="'Always Active'"></translate>
+                            </strong>
+                        </if>
+                        <ifnot args="category().is_essential">
+                            <div class="pr-cookie-switch" data-role="switcher">
+                                <label class="switch-label" aria-label="Switch">
+                                    <input type="checkbox"
+                                           data-bind="
+                                            attr: {name: category().key},
+                                            checked: isAllowed(category().key),
+                                            event: {change: toggleSelectedCategory}
+                                           "/>
+                                    <div class="switch-area">
+                                        <div class="switch-nob"></div>
+                                    </div>
+                                </label>
+                            </div>
+                        </ifnot>
+                    </div>
+
+                    <div class="pr-cookie-category-descrip">
+                        <text args="category().description"></text>
+                    </div>
+
+                    <button  if="canShowCookieDetails" class="pr-cookie-details"
+                        data-bind="
+                            i18n: 'Cookie Details',
+                            attr: {'data-category-key': category().key},
+                            click: showCookieDetails"
+                    >
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <div if="isDetailView()">
+           <div class="pr-cookie-view">
+            <div class="pr-cookie-view-wrap">
+                <div class="pr-cookie-view-top">
+                     <button class="pr-cookie-view-back" data-bind="
+                         i18n: 'Back',
+                         click: hideCookieDetails"
+                     >
+                     </button>
+                     <strong data-bind="i18n: getCategoryNameByKey(currentCategory())"></strong>
+                 </div>
+                 <h3 class="pr-cookie-view-title" data-bind="i18n: 'Cookies List'"></h3>
+            </div>
+                <div class="pr-cookies-list">
+                    <div class="pr-cookie-item" if="isCategoryHasCookie(currentCategory())" repeat="foreach: getGroupedCookies(currentCategory()), item: 'group'">
+                        <details class="pr-cookie-details-info">
+                            <summary>
+                                <h4 class="pr-cookie-details-title" data-bind="i18n: group().name"></h4>
+                                <span class="pr-cookie-group-view">View Cookies</span>
+                            </summary>
+                            <div class="pr-cookie-group" repeat="foreach: group().cookies, item: 'cookie'">
+                                <div class="pr-cookie-group-row">
+                                    <span class="pr-cookie-property" data-bind="i18n: 'Name'"></span>
+                                    <span
+                                        class="pr-cookie-property-value"
+                                        data-bind="
+                                            i18n: cookie().name,
+                                            attr: {title: cookie().name}"
+                                    >
+                                    </span>
+                                </div>
+                                <div class="pr-cookie-group-row">
+                                    <span class="pr-cookie-property" data-bind="i18n: 'Domain'"></span>
+                                    <span
+                                        class="pr-cookie-property-value"
+                                        data-bind="
+                                            i18n: cookie().domainLabel,
+                                            attr: {title: cookie().domainLabel}"
+                                    >
+                                    </span>
+                                </div>
+                                <div class="pr-cookie-group-row">
+                                    <span class="pr-cookie-property" data-bind="i18n: 'Duration'"></span>
+                                    <span
+                                        class="pr-cookie-property-value"
+                                        data-bind="i18n: cookie().durationLabel"
+                                    >
+                                    </span>
+                                </div>
+                                <div class="pr-cookie-group-row">
+                                    <span class="pr-cookie-property" data-bind="i18n: 'Type'"></span>
+                                    <span data-bind="i18n: cookie().typeLabel"></span>
+                                </div>
+                                <div class="pr-cookie-group-row">
+                                    <span class="pr-cookie-property" data-bind="i18n: 'Category'"></span>
+                                    <span data-bind="i18n: getCategoryNameByKey(cookie().category_key)"></span>
+                                </div>
+                                <div class="pr-cookie-group-row">
+                                    <span class="pr-cookie-property" data-bind="i18n: 'Description'"></span>
+                                    <span data-bind="i18n: cookie().description"></span>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                    <p ifnot="isCategoryHasCookie(currentCategory())">
+                        <translate args="'There are no cookies.'"></translate>
+                    </p>
+                </div>
+           </div>
+        </div>
+
+        <button class="action confirm primary" click="confirmChosen"
+            data-bind="style: {
+                color: confirmButtonConfig.text_color,
+                backgroundColor: confirmButtonConfig.background_color,
+                borderColor: confirmButtonConfig.background_color
+            }"
+        >
+            <translate args="confirmButtonConfig.label"></translate>
+        </button>
+    </div>
+
+</div>

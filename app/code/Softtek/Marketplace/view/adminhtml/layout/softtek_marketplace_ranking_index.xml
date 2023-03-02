@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<page>
+    <body>
+        <referenceContainer name="content">
+            <uiComponent name="softtek_marketplace_ranking_listing"/>
+        </referenceContainer>
+    </body>
+</page>

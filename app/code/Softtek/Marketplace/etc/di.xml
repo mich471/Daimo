@@ -1,0 +1,32 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <!--<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="softtek_marketplace_ranking_listing_data_source" xsi:type="string">Softtek\Marketplace\Model\ResourceModel\OrderReview\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Softtek\Marketplace\Model\ResourceModel\OrderReview\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">st_order_review</argument>
+            <argument name="resourceModel" xsi:type="string">Softtek\Marketplace\Model\ResourceModel\OrderReview</argument>
+        </arguments>
+    </virtualType>-->
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="softtek_marketplace_ranking_listing_data_source" xsi:type="string">Softtek\Marketplace\Model\ResourceModel\OrderReview\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Softtek\Marketplace\Model\ResourceModel\OrderReview\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">st_order_review</argument>
+            <argument name="resourceModel" xsi:type="string">Softtek\Marketplace\Model\ResourceModel\OrderReview</argument>
+        </arguments>
+    </type>
+
+    <!-- Declaración del preference -->
+    <preference for="Purpletree\Marketplace\Model\ResourceModel\Reviews" type="Softtek\Marketplace\Model\ResourceModel\Reviews" />
+</config>

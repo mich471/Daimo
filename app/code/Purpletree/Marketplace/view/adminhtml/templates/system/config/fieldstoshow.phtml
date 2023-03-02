@@ -1,0 +1,25 @@
+<?php
+/**
+* Purpletree_Marketplace FieldstoShow
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Purpletree License that is bundled with this package in the file license.txt.
+* It is also available through online at this URL: https://www.purpletreesoftware.com/license.html
+*
+* @category    Purpletree
+* @package     Purpletree_Marketplace
+* @author      Purpletree Software
+* @copyright   Copyright (c) 2017
+* @license     https://www.purpletreesoftware.com/license.html
+*/
+?>
+<input type="hidden" name="<?php echo $this->getNamePrefix() ?>" value="" /><!-- this is send if nothing is checked -->
+<ul class="checkboxes">
+    <?php foreach ($this->getValues() as $name => $label): ?>
+        <li>
+            <input type="checkbox" value="<?php echo $name ?>" name="<?php echo $this->getNamePrefix() ?>[]" id="<?php echo $this->getHtmlId() . '_' . $name; ?>"<?php echo ($this->getIsChecked($name) ? ' checked="checked"' : '') ?>/><label for="<?php echo $this->getHtmlId() . '_' . $name; ?>">
+                <?php echo $label ?>
+            </label>
+        </li>
+    <?php endforeach;?>
+</ul>

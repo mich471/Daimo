@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--<preference for="Magento\Tax\Model\TaxCalculation" type="Softtek\Tax\Model\TaxCalculation" />-->
+    <type name="Magento\CatalogSearch\Model\Search\RequestGenerator">
+        <plugin name="dow_model_search_request_generator" type="Softtek\CatalogSearch\Plugin\Model\Search\RequestGeneratorPlugin" sortOrder="1" disabled="false" />
+    </type>
+    <type name="Magento\CatalogSearch\Block\Advanced\Result">
+        <plugin name="dow_block_advanced_result" type="Softtek\CatalogSearch\Plugin\Block\Advanced\ResultPlugin" sortOrder="1" disabled="false" />
+    </type>
+</config>

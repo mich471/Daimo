@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @package     Plumrocket_DataPrivacy
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">pr_removal_request_listing.prgdpr_removalrequests_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>pr_removal_request_columns</spinner>
+        <deps>
+            <dep>pr_removal_request_listing.prgdpr_removalrequests_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="prgdpr_removalrequests_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <filterUrlParams>
+                <param name="id">*</param>
+            </filterUrlParams>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">request_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Magento_Customer::manage</aclResource>
+        <dataProvider class="Plumrocket\DataPrivacy\Ui\Component\Listing\RemovalRequest\DataProvider"
+                      name="prgdpr_removalrequests_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <columns name="pr_removal_request_columns">
+        <column name="request_id" sortOrder="0">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+        <column name="website" sortOrder="40">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Website</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        <column name="created_by" sortOrder="45">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Created By</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+            </settings>
+        </column>
+        <column name="created_at"
+                class="Magento\Ui\Component\Listing\Columns\Date"
+                component="Magento_Ui/js/grid/columns/date"
+                sortOrder="50">
+            <settings>
+                <filter>dateRange</filter>
+                <label translate="true">Request Date</label>
+                <dataType>date</dataType>
+                <visible>true</visible>
+            </settings>
+        </column>
+        <column name="customer_ip" sortOrder="60">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">IP</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        <column name="cancelled_at" class="Magento\Ui\Component\Listing\Columns\Date" sortOrder="70">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="label" xsi:type="string" translate="true">Cancellation Date</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </column>
+        <column name="cancelled_by" sortOrder="80">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Cancelled By</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </column>
+        <column name="scheduled_at" class="Magento\Ui\Component\Listing\Columns\Date" sortOrder="90">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="label" xsi:type="string" translate="true">Removal Date</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </column>
+        <column name="status" sortOrder="100" component="Magento_Ui/js/grid/columns/select">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Plumrocket\DataPrivacy\Model\OptionSource\RemovalStatus</item>
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">Plumrocket_GDPR/ui/grid/cells/removalrequests_status</item>
+                    <item name="fieldClass" xsi:type="string">prgdpr-removalstatus-column</item>
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Status</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </column>
+        <actionsColumn name="actions"
+                       class="Plumrocket\DataPrivacy\Ui\Component\Listing\RemovalRequest\Column\Actions"
+                       component="Plumrocket_DataPrivacy/js/customer/grid/columns/actions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">request_id</item>
+                    <item name="response" xsi:type="string">json</item>
+                    <item name="messagesName" xsi:type="string">pr_removal_request_listing.pr_removal_request_listing.removal_request_messages</item>
+                </item>
+            </argument>
+        </actionsColumn>
+    </columns>
+</listing>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Softtek_Base::softtek" title="Softtek" module="Softtek_Base" sortOrder="12" resource="Softtek_Base::softtek" />
+        <add id="Softtek_Base::title" title="Information &amp; Communication" translate="title" module="Softtek_Base" sortOrder="50" parent="Softtek_Base::softtek" dependsOnModule="Softtek_Base" resource="Softtek_Base::title"/>
+        <!--add id="Softtek_Base::extensions" title="More Extensions" translate="title" module="Softtek_Base" sortOrder="50" parent="Softtek_Base::title" action="extensions/index/index" resource="Softtek_Base::extensions"/!-->
+        <add id="Softtek_Base::support" title="Support" translate="title" module="Softtek_Base" sortOrder="100" parent="Softtek_Base::title" action="support/index/index" resource="Softtek_Base::support"/>
+    </menu>
+</config>

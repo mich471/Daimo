@@ -1,0 +1,29 @@
+<?php
+/**
+ * @author Hexamarvel Team
+ * @copyright Copyright (c) 2021 Hexamarvel (https://www.hexamarvel.com)
+ * @package Hexamarvel_Attachments
+ */
+
+/** @var \Hexamarvel\Attachments\Block\Adminhtml\Attachments\Edit\AssignProducts $block */
+
+/** @var \Magento\Catalog\Block\Adminhtml\Category\Tab\Product $blockGrid */
+$blockGrid = $block->getBlockGrid();
+$gridJsObjectName = $blockGrid->getJsObjectName();
+?>
+<?= $block->getGridHtml(); ?>
+<input type="hidden" name="product[attach]" id="in_category_products" data-form-part="product_form" value="" />
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Catalog/catalog/category/assign-products": {
+                "selectedProducts": <?= /* @noEscape */ $block->getProductsJson(); ?>,
+                "gridJsObjectName": <?= /* @escapeNotVerified */ '"' . $gridJsObjectName . '"' ?: '{}'; ?>
+            }
+        }
+    }
+</script>
+<!-- @todo remove when "UI components" will support such initialization -->
+<script>
+    require('mage/apply/main').apply();
+</script>

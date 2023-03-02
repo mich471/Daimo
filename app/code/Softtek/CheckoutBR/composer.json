@@ -1,0 +1,46 @@
+{
+    "name": "softtek/checkoutbr",
+    "description":"Magento 2 module to adapt customer and address fields to brazil.",
+    "keywords": [
+        "magento 2",
+        "brazil fields",
+        "campos brasil",
+        "magento2 campos",
+        "magento2 endereço",
+        "magento2 address brazil",
+        "magento2 person type",
+        "magento2 pessoa física",
+        "magento2 pessoa jurídica",
+        "magento2 tipo pessoa"
+    ],
+    "require": {
+        "softtek/base": "*",
+        "magedev/brazilzipcode": "*"
+    },
+    "type": "magento2-module",
+    "version": "1.1.2",
+    "license": [
+        "proprietary"
+    ],
+    "homepage": "https://www.softtek.com/",
+    "support": {
+        "email": "info.brasil@softtek.com",
+        "issues": ""
+    },
+    "authors": [
+        {
+            "name": "Softtek",
+            "email": "info.brasil@softtek.com",
+            "homepage": "https://www.softtek.com/",
+            "role": "CTO"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Softtek\\CheckoutBR\\": ""
+        }
+    }
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- N1 OBSERVERS-->
+	<event name="checkout_onepage_controller_success_action">
+		<observer name="softtek_monitorintegration_observer_frontend_checkout_onepagecontrollersuccessaction_checkout_onepage_controller_success_action" 
+                        instance="Softtek\MonitorIntegration\Observer\Checkout\OnepageControllerSuccessAction"/>
+	</event>
+    <event name="sales_order_place_after">
+        <observer name="softtek_monitorintegration_observer_place_order_after" instance="Softtek\MonitorIntegration\Observer\Checkout\OnepageControllerSuccessAction"/>
+    </event>
+    <!-- N9 Observers -->
+	<event name="order_cancel_after">
+        <observer name="order_cancel_monitorn9" instance="Softtek\MonitorIntegration\Observer\CancelOrderN9" />
+    </event>
+    <!-- STOCK OBSERVERS -->
+    <event name="controller_action_predispatch_checkout_index_index">
+        <observer name="checkout_page" instance="Softtek\MonitorIntegration\Observer\BeforeCheckoutObserver" />
+    </event>
+    <event name="checkout_cart_product_add_after">
+        <observer name="remove_session_variables" instance="Softtek\MonitorIntegration\Observer\RemoveOldSessionsVariables" />
+    </event>
+</config>

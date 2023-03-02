@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_CookieConsent
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <pr_cookie>
+            <general>
+                <enable>0</enable>
+                <serial></serial>
+            </general>
+            <main_settings>
+                <use_cookie_before_opt_in>0</use_cookie_before_opt_in>
+                <block_unknown_cookie>0</block_unknown_cookie>
+                <consent_expiry>365</consent_expiry>
+                <reload_after_accept>1</reload_after_accept>
+                <reload_after_decline>0</reload_after_decline>
+            </main_settings>
+            <cookie_notice>
+                <display_style>bottom</display_style>
+                <title>We use cookies</title>
+                <text><![CDATA[<p>This website requires cookies to provide all of its features. For more information on what data is contained in the cookies, please see our <a href="{{store url="privacy-policy-cookie-restriction-mode"}}" target="_blank">Cookie Policy</a> page. To accept cookies from this site, please click the Accept Cookies button below.</p>]]></text>
+                <title_color>#f6f6f6</title_color>
+                <text_color>#e6e6e6</text_color>
+                <background_color>#002244E3</background_color>
+                <overlay_blur>0</overlay_blur>
+                <accept_button>
+                    <label>Accept Cookies</label>
+                </accept_button>
+                <decline_button>
+                    <enabled>1</enabled>
+                    <label>Decline</label>
+                </decline_button>
+                <settings_button>
+                    <enabled>1</enabled>
+                    <type>link</type>
+                    <label>Customize Settings</label>
+                </settings_button>
+            </cookie_notice>
+            <settings_bar>
+                <show_details>1</show_details>
+                <overview_title>Privacy and Cookies</overview_title>
+                <overview_text><![CDATA[<p>A cookie is information stored on your computer by a website you visit. Cookies provide a way for the site to recognize you and keep track of your preferences. Ecommerce websites place cookies on visitors' browsers to retain login credentials, identify customers, and provide a customized shopping experience.</p><p>We respect the privacy of individuals and recognize the importance of personal data entrusted to us by our customers. Any website visitor may choose not to allow some types of cookies. Click on cookie category headings and cookie details to find out more and change our default settings. However, blocking some types of cookies may impact your website experience and prevent you from using all the features on our store.</p>]]></overview_text>
+                <text_color>inherit</text_color>
+                <background_color>inherit</background_color>
+                <accept_button>
+                    <label>Accept All</label>
+                </accept_button>
+                <decline_button>
+                    <enabled>1</enabled>
+                    <label>Decline All</label>
+                </decline_button>
+                <confirm_button>
+                    <label>Confirm My Choices</label>
+                </confirm_button>
+            </settings_bar>
+            <settings_link>
+                <widget_code><![CDATA[{{widget type="Plumrocket\CookieConsent\Block\Widget\CookieSettingsButton" title="Cookie Settings" template="widget/cookie_settings_button.phtml"}}]]></widget_code>
+            </settings_link>
+            <gtm>
+                <category>marketing</category>
+            </gtm>
+        </pr_cookie>
+    </default>
+</config>

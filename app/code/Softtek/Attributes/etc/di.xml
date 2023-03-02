@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Softtek Attributes Module
+ *
+ * @package Softtek_Attributes
+ * @author Paul Soberanes <paul.soberanes@softtek.com>
+ * @copyright Softtek 2020
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\InventoryApi\Api\SourceRepositoryInterface">
+        <plugin name="softtek_attributes_add_source_extension_attribute"
+                type="Softtek\Attributes\Plugin\SourceRepositoryPlugin" />
+    </type>
+    <type name="Softtek\Attributes\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Softtek\Attributes\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">benavidesSource_log</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Softtek\Attributes\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+     <preference for="Magento\InventoryAdminUi\Controller\Adminhtml\Source\Save" type="Softtek\Attributes\Controller\Adminhtml\Source\Save" />
+</config>

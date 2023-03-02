@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+<extensions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:module:Plumrocket_Base:etc/pr_extensions.xsd">
+    <extension name="GeoIPLookup"
+               title="GeoIP Lookup"
+               config_section="prgeoiplookup"
+               is_enabled_path="prgeoiplookup/general/enabled"
+               wiki="https://plumrocket.com/docs/magento-geoip-lookup/v1"
+    >
+        <customer key="054618e1f3c9cff69e0c7780fa3a19cec1f5a53080"/>
+    </extension>
+</extensions>

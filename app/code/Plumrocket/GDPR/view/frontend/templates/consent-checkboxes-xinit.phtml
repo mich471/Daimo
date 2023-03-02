@@ -1,0 +1,62 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_GDPR
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+
+// @codingStandardsIgnoreFile
+
+use Plumrocket\GDPR\Helper\Checkboxes;
+
+/**
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Plumrocket\GDPR\Helper\Checkboxes $helper
+ */
+$helper = $this->helper(Checkboxes::class);
+$locationKey = $block->getData('locationKey');
+$withAlreadyChecked = (bool) $block->getData('useAlreadyChecked');
+$useOldCheckboxes = (bool) $block->getData('useOldCheckboxes');
+$componentName = $block->getData('componentName');
+$checkboxes = $helper->getCheckboxes($locationKey, $withAlreadyChecked, true, $useOldCheckboxes);
+
+if (empty($checkboxes)) {
+    return;
+}
+
+$scope = ! empty($componentName)
+    ? ($componentName . '-scope')
+    : 'prgdpr-scope-' . rand(1000, 9999);
+?>
+
+<div data-bind="scope: '<?= /* @noEscape */ $scope ?>'" class="prgdpr-consent-checkboxes-block">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "<?= /* @noEscape */ $scope ?>": {
+                        "component": "Plumrocket_GDPR/js/view/consent-checkbox",
+                        "checkboxes": <?= /* @noEscape */ $helper->serialize($checkboxes, (bool) $block->getData('markCheckedCheckboxes')) ?>,
+                        "locationKey": "<?= /* @noEscape */ $locationKey ?>",
+                        "isVisible": true,
+                        "template": "<?= /* @noEscape */ $block->getData('componentTemplate') ?: 'Plumrocket_GDPR/consent-checkbox'?>"
+                    }
+                }
+            }
+        }
+    }
+</script>

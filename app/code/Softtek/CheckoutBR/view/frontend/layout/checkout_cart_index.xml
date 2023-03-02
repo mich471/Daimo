@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="checkout_cart_item_renderers"/>
+    <body>
+        <referenceBlock name="additional.product.info">
+            <block class="Magento\Catalog\Block\Product\View" name="product.info.weight.additional" as="product.info.weight.additional" template="Softtek_CheckoutBR::product/view/product-weight.phtml"/>
+        </referenceBlock>
+           <referenceContainer name="cart.discount" remove="true"/>
+    </body>
+</page>

@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_GDPR
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="prgdpr">
+            <group id="dashboard" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Privacy Center Dashboard</label>
+
+                <field id="privacy_policy_page" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Privacy Policy Page</label>
+                    <source_model>Plumrocket\GDPR\Model\Config\Source\Pages</source_model>
+                    <comment>Please select Privacy Policy from the list of CMS Pages.</comment>
+                </field>
+
+                <field id="cookie_policy_page" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cookie Policy Page</label>
+                    <source_model>Plumrocket\GDPR\Model\Config\Source\Pages</source_model>
+                    <comment>Please select Cookie Policy from the list of CMS Pages.</comment>
+                </field>
+
+                <field id="guest_enable" type="select" sortOrder="40" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Privacy Center for Guests</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If enabled, guest users and not logged-in customers will be able to access Privacy Center Dashboard. The new "Privacy Center" link will be added in the footer section of your store.</comment>
+                </field>
+
+                <field id="guest_expiration_link" type="text" sortOrder="50" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Guest Link Expiration (Days)</label>
+                    <comment>Set number of days when shared link to Privacy Center for Guests must expire. This temporary shared URL is only displayed in the email to a Guest user after they request access to their personal data.</comment>
+                    <depends>
+                        <field id="guest_enable">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

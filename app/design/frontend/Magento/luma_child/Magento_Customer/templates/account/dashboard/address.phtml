@@ -1,0 +1,103 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Customer\Block\Account\Dashboard\Address $block */
+?>
+<?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $customerSession = $objectManager->create('Magento\Customer\Model\Session');
+?>
+ <?php if ($customerSession->getCustomer()->getIsSeller()): ?>
+    <script>
+        //document.getElementById("search").className += " seller";
+        createCookie("seller", "seller", "1");
+        function createCookie(name, value, days) {
+            var expires;
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toGMTString();
+            } else {
+                expires = "";
+            }
+            document.cookie = escape(name) + "=" + escape(value) + expires + "; path=/";
+        }
+
+        function delete_cookie(name) {
+            document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        }
+
+        function getCookie(name) {
+            function escape(s) {
+                return s.replace(/([.*+?\^$(){}|\[\]\/\\])/g, '\\$1');
+            }
+            var match = document.cookie.match(RegExp('(?:^|;\\s*)' + escape(name) + '=([^;]*)'));
+            return match ? match[1] : null;
+        }
+    </script>
+ <?php else :?>
+    <script>
+        //document.getElementById("search").className += " seller";
+        delete_cookie("seller");
+        function createCookie(name, value, days) {
+            var expires;
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toGMTString();
+            } else {
+                expires = "";
+            }
+            document.cookie = escape(name) + "=" + escape(value) + expires + "; path=/";
+        }
+
+        function delete_cookie(name) {
+            document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        }
+
+        function getCookie(name) {
+            function escape(s) {
+                return s.replace(/([.*+?\^$(){}|\[\]\/\\])/g, '\\$1');
+            }
+            var match = document.cookie.match(RegExp('(?:^|;\\s*)' + escape(name) + '=([^;]*)'));
+            return match ? match[1] : null;
+        }
+    </script>
+<div class="block block-dashboard-addresses">
+    <div class="block-title">
+        <strong><?= $block->escapeHtml(__('Address Book')) ?></strong>
+        <a class="action edit" href="<?= $block->escapeUrl($block->getAddressBookUrl()) ?>"><span><?= $block->escapeHtml(__('Manage Addresses')) ?></span></a>
+    </div>
+    <div class="block-content">
+        <div class="box box-billing-address">
+            <strong class="box-title">
+                <span><?= $block->escapeHtml(__('Default Billing Address')) ?></span>
+            </strong>
+            <div class="box-content">
+                <address>
+                    <?= $block->getPrimaryBillingAddressHtml() ?>
+                </address>
+            </div>
+            <div class="box-actions">
+                <a class="action edit" href="<?= $block->escapeUrl($block->getPrimaryBillingAddressEditUrl()) ?>" data-ui-id="default-billing-edit-link"><span><?= $block->escapeHtml(__('Edit Address')) ?></span></a>
+            </div>
+        </div>
+        <div class="box box-shipping-address">
+            <strong class="box-title">
+                <span><?= $block->escapeHtml(__('Default Shipping Address')) ?></span>
+            </strong>
+            <div class="box-content">
+                <address>
+                    <?= $block->getPrimaryShippingAddressHtml() ?>
+                </address>
+            </div>
+            <div class="box-actions">
+                <a class="action edit" href="<?= $block->escapeUrl($block->getPrimaryShippingAddressEditUrl()) ?>" data-ui-id="default-shipping-edit-link"><span><?= $block->escapeHtml(__('Edit Address')) ?></span></a>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>

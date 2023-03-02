@@ -1,0 +1,33 @@
+/**
+ * @package     Plumrocket_DataPrivacy
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+
+table.data-grid tbody tr td.prgdpr-removalstatus-column span.data-grid-cell-content {
+    border: solid 1px #514943;
+    display: block;
+    font-weight: bold;
+    line-height: 17px;
+    padding: 0 3px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+table.data-grid tbody tr td.prgdpr-removalstatus-column span.data-grid-cell-content.gdpr-status-completed {
+    background: #d0e5a9 none repeat scroll 0 0;
+    border-color: #5b8116;
+    color: #185b00;
+}
+
+table.data-grid tbody tr td.prgdpr-removalstatus-column span.data-grid-cell-content.gdpr-status-cancelled {
+    background: #f9d4d4 none repeat scroll 0 0;
+    border-color: #e22626;
+    color: #e22626;
+}
+
+table.data-grid tbody tr td.prgdpr-removalstatus-column span.data-grid-cell-content.gdpr-status-pending {
+    background: #fdf0d5 none repeat scroll 0 0;
+    border-color: #6f4400;
+    color: #6f4400;
+}

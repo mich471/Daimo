@@ -1,0 +1,39 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+?>
+<?php
+/**
+ * Shopping cart additional info
+ * @var $block \Magento\Framework\View\Element\Template
+ */
+?>
+<?php
+$name = $block->getNameInLayout();
+foreach ($block->getChildNames($name) as $childName) {
+    // phpcs:ignore Magento2.Security.LanguageConstruct.DirectOutput
+    echo $block->getChildBlock($childName)->setItem($block->getItem())->toHtml();
+}
+?>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'inputMask'
+    ], function ($) {
+        function stSetPostCodeMask() {
+            if ($('#shipping-zip-form input[name="postcode"]').length > 0) {
+                $('#shipping-zip-form input[name="postcode"]').first().mask('00000-000', {clearIfNotMatch: true});
+            }
+        }
+        $(document).ready(function($) {
+            setTimeout(stSetPostCodeMask, 2000);
+            setTimeout(stSetPostCodeMask, 4000);
+            $('#block-shipping').on('click', function() {
+                setTimeout(stSetPostCodeMask, 2000);
+            });
+        });
+    });
+</script>

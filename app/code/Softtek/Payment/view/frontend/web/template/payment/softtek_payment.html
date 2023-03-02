@@ -1,0 +1,68 @@
+<style>
+    .checkout-payment-method .ccard .cvv .input-text {
+        width: 60px;
+    }
+
+    span.dots {
+        width: auto;
+        padding: 4px 1px 4px 0px;
+        position: absolute;
+        line-height: 23px;
+        top: 1px;
+        left: 10px;
+        text-align: left;
+        letter-spacing: 3px;
+        font-family: 'DotAweasome';
+        font-size: 5px;
+    }
+</style>
+<div class="payment-method" data-bind="css: {'_active': (getCode() == isChecked())}">
+    <div class="payment-method-title field choice">
+        <input type="radio" name="payment[method]" class="radio"
+            data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()" />
+        <label data-bind="attr: {'for': getCode()}" class="label"><span data-bind="text: getTitle()"></span></label>
+    </div>
+    <div class="payment-method-content">
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() -->
+        <!-- /ko -->
+        <!--/ko-->
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() -->
+            <!-- /ko -->
+            <!--/ko-->
+        </div>
+
+        <form class="form"
+            data-bind="attr: {'id': getCode() + '-form', 'finger': getFingerPrint(), 'paste': paste(), 'change': credit_card_change_event(), urlInit: getUrlCyber(), 'initHide': hideCCV_CC(), 'hideCardNumber': CardNumberHide()}">
+            <!-- ko template: 'Magento_Payment/payment/cc-form' -->
+            <!-- /ko -->
+            <div data-bind="visible: false">
+                <input type="text" name="payment[finger]" id="finger" data-bind="value: finger" hidden>
+            </div>
+        </form>
+
+        <iframe id="cybersource" style="width: 100px; height: 100px; border: 0; position:absolute; top: -5000px;"
+            src=""></iframe>
+
+        <div class="checkout-agreements-block">
+            <!-- ko foreach: $parent.getRegion('before-place-order') -->
+            <!-- ko template: getTemplate() -->
+            <!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button class="action primary checkout" type="submit" data-bind="
+                        click: placeOrder,
+                        attr: {title: $t('Place Order')},
+                        css: {disabled: !isPlaceOrderActionAllowed()},
+                        enable: (getCode() == isChecked())
+                        " disabled>
+                    <span data-bind="text: $t('Place Order')"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div

@@ -1,0 +1,50 @@
+<?php
+/**
+ * @package     Plumrocket_CookieConsent
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+?>
+
+<?php
+/** @var \Plumrocket\CookieConsent\Block\Html\BodyScripts $block */
+$essentialCategoriesWithScripts = $block->getEssentialCategoriesWithScripts();
+$optionalCategoriesWithScripts = $block->getOptionalCategoriesWithScripts();
+?>
+
+<?php foreach ($essentialCategoriesWithScripts as $category): ?>
+    <?= /* @noEscape */ $category->getFooterMiscellaneousHtml() ?>
+<?php endforeach; ?>
+
+<?php if ($optionalCategoriesWithScripts): ?>
+    <?php foreach ($optionalCategoriesWithScripts as $category): ?>
+        <div id="pr-cookie-absolute-footer-<?= $block->escapeHtmlAttr($category->getKey()) ?>"></div>
+    <?php endforeach; ?>
+
+    <script>
+        requirejs(['prCookieRestriction', 'prCookieBodyScripts'], function (prCookieRestriction, prCookieBodyScripts) {
+            'use strict';
+            var container;
+            <?php foreach ($optionalCategoriesWithScripts as $category): ?>
+            container = document.getElementById(
+                'pr-cookie-absolute-footer-' + '<?= $block->escapeJs($category->getKey()) ?>'
+            );
+            if (container && prCookieRestriction.isAllowedCategory('<?= $block->escapeJs($category->getKey()) ?>')) {
+                container.innerHTML = '<?= $block->prepareHtml($category->getFooterMiscellaneousHtml()) ?>';
+                prCookieBodyScripts.execute(container, 'pr-cookie-footer-script');
+            }
+            <?php endforeach; ?>
+        });
+    </script>
+<?php endif; ?>
+
+<?php /** Activate all scripts like <script type="pr_cookie_category/..."> */ ?>
+<script id="pr_cookie_consent_on_load_activate">
+    requirejs(['prCookieRestriction', 'prCookieBodyScripts', 'domReady!'], function (prCookieRestriction, prCookieBodyScripts) {
+        'use strict';
+        var scripts = document.querySelectorAll('script[type^="pr_cookie_category"]');
+        [].forEach.call(scripts, function (notActiveScript) {
+            prCookieBodyScripts.activatePrCookieCategoryScript(notActiveScript);
+        });
+    });
+</script>

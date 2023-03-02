@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_CookieConsent
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Plumrocket\CookieConsent\Api\CanManageCookieInterface" type="Plumrocket\CookieConsent\Model\CanManageCookie" />
+    <type name="Plumrocket\GDPR\Api\ConsentLocationRegistryInterface">
+        <arguments>
+            <argument name="list" xsi:type="array">
+                <item name="cookie" xsi:type="array">
+                    <item name="name" xsi:type="string">Cookie Notice</item>
+                    <item name="type" xsi:type="number">1</item>
+                    <item name="description" xsi:type="string">Plumrocket Cookie Consent - Cookie Notice</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Plumrocket\CookieConsent\Api\CookieRepositoryInterface" type="Plumrocket\CookieConsent\Model\CookieRepository" />
+    <preference for="Plumrocket\CookieConsent\Api\CategoryRepositoryInterface" type="Plumrocket\CookieConsent\Model\CategoryRepository" />
+    <preference for="Plumrocket\CookieConsent\Api\Data\CookieSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Plumrocket\CookieConsent\Api\Data\CategorySearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Plumrocket\CookieConsent\Api\Data\CookieInterface" type="Plumrocket\CookieConsent\Model\Cookie" />
+    <preference for="Plumrocket\CookieConsent\Api\Data\CategoryInterface" type="Plumrocket\CookieConsent\Model\Category" />
+    <preference for="Plumrocket\CookieConsent\Api\GetCookieToCategoryMappingInterface" type="Plumrocket\CookieConsent\Model\GetCookieToCategoryMapping" />
+    <preference for="Plumrocket\CookieConsent\Api\GetEssentialCategoryKeysInterface" type="Plumrocket\CookieConsent\Model\Category\GetEssentialKeys" />
+    <preference for="Plumrocket\CookieConsent\Api\GetCategoryIdByKeyInterface" type="Plumrocket\CookieConsent\Model\ResourceModel\Category\GetIdByKey" />
+    <preference for="Plumrocket\CookieConsent\Api\GetCookieIdByNameInterface" type="Plumrocket\CookieConsent\Model\ResourceModel\Cookie\GetIdByName" />
+    <preference for="Plumrocket\CookieConsent\Api\KnownCookieRegistryInterface" type="Plumrocket\CookieConsent\Model\Cookie\KnownCookieRegistry" />
+    <preference for="Plumrocket\CookieConsent\Api\GetUserConsentInterface" type="Plumrocket\CookieConsent\Model\User\GetConsent" />
+    <preference for="Plumrocket\CookieConsent\Api\IsUserOptInInterface" type="Plumrocket\CookieConsent\Model\User\IsOptIn" />
+    <preference for="Plumrocket\CookieConsent\Api\IsAllowedCategoryInterface" type="Plumrocket\CookieConsent\Model\Category\IsAllowed" />
+    <preference for="Plumrocket\CookieConsent\Api\IsAllowedCookieInterface" type="Plumrocket\CookieConsent\Model\Cookie\IsAllowed" />
+    <preference for="Plumrocket\CookieConsent\Api\Data\ConsentLogInterface" type="Plumrocket\CookieConsent\Model\Consent\Log" />
+
+    <virtualType name="Plumrocket\CookieConsent\Model\Api\SearchCriteria\CollectionProcessor" type="Magento\Eav\Model\Api\SearchCriteria\CollectionProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="filters" xsi:type="object">Magento\Eav\Model\Api\SearchCriteria\CollectionProcessor\FilterProcessor</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Plumrocket\CookieConsent\Model\CategoryRepository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Plumrocket\CookieConsent\Model\Api\SearchCriteria\CollectionProcessor</argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\CookieConsent\Model\CookieRepository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Plumrocket\CookieConsent\Model\Api\SearchCriteria\CollectionProcessor</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\App\Http\Context">
+        <arguments>
+            <argument name="default" xsi:type="array">
+                <item name="pr_allow_manage_cookie" xsi:type="number">0</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Plumrocket\CookieConsent\Api\Data\CategoryInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">pr_cookie_category_entity</item>
+                    <item name="eavEntityType" xsi:type="string">pr_cookie_category</item>
+                    <item name="identifierField" xsi:type="string">entity_id</item>
+                </item>
+                <item name="Plumrocket\CookieConsent\Api\Data\CookieInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">pr_cookie_entity</item>
+                    <item name="eavEntityType" xsi:type="string">pr_cookie</item>
+                    <item name="identifierField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="pr_cookie_category_listing_data_source" xsi:type="string">Plumrocket\CookieConsent\Model\ResourceModel\Category\Collection</item>
+                <item name="pr_cookie_item_listing_data_source" xsi:type="string">Plumrocket\CookieConsent\Model\ResourceModel\Cookie\Grid\Collection</item>
+                <item name="pr_cookie_consent_log_listing_data_source" xsi:type="string">Plumrocket\CookieConsent\Model\ResourceModel\ConsentLog\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\CookieConsent\Model\Cookie\IsAllowed">
+        <arguments>
+            <argument name="systemCookies" xsi:type="array">
+                <item name="php-session-id" xsi:type="string">PHPSESSID</item>
+                <item name="pr-cookie-consents" xsi:type="const">Plumrocket\CookieConsent\Api\GetUserConsentInterface::COOKIE_CONSENT_NAME</item>
+                <item name="magento-cookie-consents" xsi:type="const">Magento\Cookie\Helper\Cookie::IS_USER_ALLOWED_SAVE_COOKIE</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Plumrocket\CookieConsent\Model\Cookie\Config\SchemaLocator" type="Magento\Framework\Config\SchemaLocator">
+        <arguments>
+            <argument name="realPath" xsi:type="string">urn:magento:module:Plumrocket_CookieConsent:etc/pr-cookies.xsd</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PrCookiesConfigReader" type="Magento\Framework\Config\Reader\Filesystem">
+        <arguments>
+            <argument name="idAttributes" xsi:type="array">
+                <item name="/cookies/cookie" xsi:type="string">name</item>
+            </argument>
+            <argument name="fileName" xsi:type="string">pr-cookies.xml</argument>
+            <argument name="converter" xsi:type="object">Plumrocket\CookieConsent\Model\Cookie\Config\Converter</argument>
+            <argument name="schemaLocator" xsi:type="object">Plumrocket\CookieConsent\Model\Cookie\Config\SchemaLocator</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PrCookiesConfigData" type="Magento\Framework\Config\Data">
+        <arguments>
+            <argument name="reader" xsi:type="object">PrCookiesConfigReader</argument>
+            <argument name="cacheId" xsi:type="string">pr_cookie_consent_cookies</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Plumrocket\CookieConsent\Model\Cookie\KnownCookieRegistry">
+        <arguments>
+            <argument name="cookieConfig" xsi:type="object">PrCookiesConfigData</argument>
+        </arguments>
+    </type>
+</config>

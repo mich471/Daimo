@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+<!--        <add id="Softtek_Marketplace::menu" title="Order Review" module="Softtek_Marketplace" sortOrder="100" resource="Softtek_Marketplace::menu"/>-->
+        <add id="Softtek_Marketplace::blog" title="Avaliações dos pedidos" module="Softtek_Marketplace" sortOrder="10" action="softtek_marketplace/ranking" resource="Softtek_Marketplace::blog" parent="Magento_Sales::sales_operation"/>
+    </menu>
+</config>

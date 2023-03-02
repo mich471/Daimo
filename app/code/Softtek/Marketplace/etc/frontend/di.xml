@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Customer\Controller\Account\Create">
+        <plugin name="stm_customer_account_create" type="Softtek\Marketplace\Plugin\Customer\Account\CreateAfter" sortOrder="1" />
+    </type>
+    <type name="Magento\Customer\Controller\Account\CreatePost">
+        <plugin name="stm_customer_account_create_post" type="Softtek\Marketplace\Plugin\Customer\Account\CreatePostAfter" sortOrder="1" />
+    </type>
+    <type name="Magento\Framework\Url">
+        <plugin name="stm_framework_url" type="Softtek\Marketplace\Plugin\Framework\BeforeGetUrl" sortOrder="1" />
+    </type>
+    <type name="Magento\Customer\Controller\Account\LoginPost">
+        <plugin name="stm_after_login_seller_validation" type="Softtek\Marketplace\Plugin\Customer\Account\LoginPostAfter" sortOrder="1" />
+    </type>
+    <type name="Purpletree\Marketplace\Controller\Index\Sellers">
+        <plugin name="stm_after_index_sellers" type="Softtek\Marketplace\Plugin\Marketplace\Index\SellersAfter" sortOrder="1" />
+    </type>
+    <preference for="PHPCuong\ProductQuestionAndAnswer\Controller\Product\ListAjax" type="Softtek\Marketplace\Controller\Product\ListAjax" />
+    <preference for="PHPCuong\ProductQuestionAndAnswer\Block\Product\View\ListView" type="Softtek\Marketplace\Block\Product\View\ListView" />
+    <preference for="Purpletree\Marketplace\Controller\Index\ChangeSellerStatus" type="Softtek\Marketplace\Controller\Index\ChangeSellerStatus" />
+    <preference for="Purpletree\Marketplace\Block\OrderView" type="Softtek\Marketplace\Block\OrderView" />
+    <preference for="Plumrocket\GDPR\Observer\CustomerLogin" type="Softtek\Marketplace\Observer\Gdpr\CustomerLogin" />
+    <preference for="Magepow\CancelOrder\Controller\Cancelorder\Index" type="Softtek\Marketplace\Controller\Cancelorder\Index" />
+    <preference for="Magento\Sales\Model\Order\Config" type="Softtek\Marketplace\Model\Order\Config" />
+    <preference for="Purpletree\Marketplace\Block\Orders" type="Softtek\Marketplace\Block\Seller\Orders" />
+    <preference for="Magento\Sales\Block\Order\History" type="Softtek\Marketplace\Block\Order\History" />
+    <preference for="Magento\Sales\Controller\AbstractController\OrderViewAuthorization" type="Softtek\Marketplace\Controller\AbstractController\OrderViewAuthorization" />
+</config>

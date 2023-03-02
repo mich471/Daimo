@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">product_question_listing.product_question_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>product_question_columns</spinner>
+        <deps>
+            <dep>product_question_listing.product_question_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="product_question_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Softtek_Base::softtek</aclResource>
+        <dataProvider class="ProductQuestionGridDataProvider" name="product_question_listing_data_source">
+            <settings>
+                <requestFieldName>question_id</requestFieldName>
+                <primaryFieldName>main_table.question_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <exportButton name="export_button"/>
+        <filterSearch name="fulltext"/>
+        <filters name="listing_filters" />
+        <paging name="listing_paging"/>
+        <massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+                    <item name="indexField" xsi:type="string">id</item>
+                </item>
+            </argument>
+            <action name="change_status">
+                <settings>
+                    <type>change_status</type>
+                    <label translate="true">Change Status</label>
+                    <actions class="Softtek\ReviewProductQuestion\Ui\Component\MassAction\Status\Options"/>
+                </settings>
+            </action>
+        </massaction>
+    </listingToolbar>
+    <columns name="product_question_columns">
+        <settings>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">product_question_listing.product_question_listing.product_question_columns.actions</item>
+                    <item name="target" xsi:type="string">applyAction</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">view</item>
+                        <item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>question_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="product_name_global">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Product</label>
+            </settings>
+        </column>
+        <column name="question_id">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="question_detail">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Name</label>
+            </settings>
+        </column>
+        <column name="question_status_id" class="Softtek\ReviewProductQuestion\Ui\Component\Listing\Column\Status">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+    </columns>
+</listing>

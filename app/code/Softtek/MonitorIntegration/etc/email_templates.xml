@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="monitor_email_template" label="Monitor Comunication Error" file="email_monitor.html" type="html" module="Softtek_MonitorIntegration" area="frontend"/>
+    <template id="monitor_email_general_failure" label="Monitor General Failure" file="email_general_failure.html" type="html" module="Softtek_MonitorIntegration" area="frontend"/>
+</config>

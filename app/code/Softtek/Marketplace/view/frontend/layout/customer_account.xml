@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <link src="Softtek_Marketplace::js/updateUserMenu.js" />
+    </head>
+    <body>
+        <referenceContainer name="sidebar.main">
+            <block class="Softtek\Marketplace\Block\SellerData" name="Softtek_Marketplace_SellerData" before="seller_menu" template="Softtek_Marketplace::sellerdatatab.phtml" />
+        </referenceContainer>
+        <referenceBlock name="customer_account_navigation">
+            <block class="Softtek\Marketplace\Block\Customer\Account\ReviewsLink" name="customer-account-navigation-product-reviews-link" ifconfig="catalog/review/active">
+                <arguments>
+                    <argument name="path" xsi:type="string">review/customer</argument>
+                    <argument name="label" xsi:type="string" translate="true">My Product Reviews</argument>
+                    <argument name="sortOrder" xsi:type="number">50</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

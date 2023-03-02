@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_DataPrivacy
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="newsletter_subscriber_save_after">
+        <observer name="prgdpr_subscriber_consents" instance="Plumrocket\DataPrivacy\Observer\NewsletterSubscriberSaveAfterObserver"/>
+    </event>
+
+    <event name="layout_load_before">
+        <observer name="prgdpr_add_body_class" instance="Plumrocket\DataPrivacy\Observer\AddClassToBody"/>
+    </event>
+</config>

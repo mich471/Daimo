@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * @package     Plumrocket_DataPrivacy
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="locations">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="location" type="locationDeclaration" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="uniqueLocationName">
+            <xs:annotation>
+                <xs:documentation>
+                    Consent location key must be unique.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:selector xpath="location" />
+            <xs:field xpath="@key" />
+        </xs:unique>
+    </xs:element>
+
+    <xs:complexType name="locationDeclaration">
+        <xs:annotation>
+            <xs:documentation>
+                Consent location declaration.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="key" type="xs:string" use="required" />
+        <xs:attribute name="name" type="xs:string" use="required" />
+        <xs:attribute name="type" type="xs:int" use="required" />
+        <xs:attribute name="description" type="xs:string" use="required" />
+        <xs:attribute name="visible" type="xs:boolean" default="true" />
+    </xs:complexType>
+</xs:schema>

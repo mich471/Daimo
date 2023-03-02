@@ -1,0 +1,94 @@
+<?php
+/**
+ * @category    Softtek
+ * @package     Softtek_Marketplace
+ * @author      J. Abraham Serena <jorge.serena@softtek.com>
+ * @copyright   © Softtek 2022. All rights reserved.
+ */
+?>
+<?php
+    $storeData = $this->getStoreDetails();
+    $mainFieldAliases = [
+        'rest_api_key' => __('REST API Key'),
+        'rest_api_secret_key' => __('REST API Shared Secret Key'),
+        'merchant_id' => __('Merchant ID'),
+        'org_id' => __('Org ID'),
+        'profile_id' => __('Profile ID'),
+        'key_alias' => __('Key Alias'),
+        'key_pass' => __('Key Pass'),
+        'key_filename' => __('Key FileName')
+    ];
+    $ptFieldAliases = [
+        'merchant_id' => __('Merchant ID'),
+        'rest_api_key' => __('Transaction Key')
+    ];
+    $tsaPtFieldAliases = [
+        'rest_api_key' => __('REST API Key'),
+        'rest_api_secret_key' => __('REST API Shared Secret Key'),
+    ];
+?>
+<div class="pts-seller-payment-info">
+	<div class="payment-info__container">
+		<h3><?= __('CyberSource Payment Settings') ?></h3>
+        <form method="post" action="<?= $block->getUrl('sellerinfo/cyber/save') ?>" class="form cybersource-payment-info" id="cybersource_form" data-mage-init='{"validation": {}}' data-hasrequired="* Required Fields" novalidate="novalidate" enctype="multipart/form-data">
+            <input name="form_key" type="hidden" value="<?php /* @escapeNotVerified */ echo $block->getFormKey() ?>" />
+            <fieldset class="fieldset info" style="display: block;">
+                <legend class="legend"><span><?= __('Credit Card Method'); ?></span></legend>
+                <span><?= __("Using 'REST - Shared Secret Key', and other ways") ?></span><br /><br />
+                <?php foreach ($mainFieldAliases as $mfk => $mfv) { ?>
+                    <div class="field text-field field-cs-cc-<?= preg_replace('/\_/', '-', $mfk) ?> required">
+                        <label class="label" for="cs_cc_<?= $mfk ?>"><span><?= $mfv ?></span></label>
+                        <div class="control">
+                            <input type="<?= ($mfk == "rest_api_secret_key") ? "password" : "text" ?>" id="cs_cc_<?= $mfk ?>" name="cs_cc_<?= $mfk ?>" value="<?= $storeData["cs_cc_$mfk"] ?? '' ?>" title="<?= $mfv; ?>" class="required-entry input-text" aria-required="true">
+                        </div>
+                    </div>
+                <?php } ?>
+                <input type="hidden" id="changed_cs_cc_rest_api_secret_key" name="changed_cs_cc_rest_api_secret_key" value="0">
+            </fieldset>
+            <fieldset class="fieldset info" style="display: block;">
+                <legend class="legend"><span><?= __('Purchase Ticket Method'); ?></span></legend>
+                <span><?= __("Using 'SOAP Toolkit Key'") ?></span><br /><br />
+                <?php foreach ($ptFieldAliases as $mfk => $mfv) { ?>
+                    <div class="field text-field field-cs-pt-<?= preg_replace('/\_/', '-', $mfk) ?> required">
+                        <label class="label" for="cs_pt_<?= $mfk ?>"><span><?= $mfv ?></span></label>
+                        <div class="control">
+                            <input type="<?= ($mfk == "rest_api_key") ? "password" : "text" ?>" id="cs_pt_<?= $mfk ?>" name="cs_pt_<?= $mfk ?>" value="<?= $storeData["cs_pt_$mfk"] ?? '' ?>" title="<?= $mfv; ?>" class="required-entry input-text" aria-required="true">
+                        </div>
+                    </div>
+                <?php } ?>
+                <input type="hidden" id="changed_cs_pt_rest_api_key" name="changed_cs_pt_rest_api_key" value="0"><br />
+                <h3><?= __('Connection to obtain information about existing purchase tickets'); ?></h3>
+                <span><?= __("Using 'REST - Shared Secret Key'") ?></span><br /><br />
+                <?php foreach ($tsaPtFieldAliases as $mfk => $mfv) { ?>
+                    <div class="field text-field field-cs-tsa-pt-<?= preg_replace('/\_/', '-', $mfk) ?> required">
+                        <label class="label" for="cs_tsa_pt_<?= $mfk ?>"><span><?= $mfv ?></span></label>
+                        <div class="control">
+                            <input type="<?= ($mfk == "rest_api_secret_key") ? "password" : "text" ?>" id="cs_tsa_pt_<?= $mfk ?>" name="cs_tsa_pt_<?= $mfk ?>" value="<?= $storeData["cs_tsa_pt_$mfk"] ?? '' ?>" title="<?= $mfv; ?>" class="required-entry input-text" aria-required="true">
+                        </div>
+                    </div>
+                <?php } ?>
+                <input type="hidden" id="changed_cs_tsa_pt_rest_api_secret_key" name="changed_cs_tsa_pt_rest_api_secret_key" value="0">
+            </fieldset>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button type="submit" class="action save primary" title="<?= __('Save'); ?>"><span><?= __('Save'); ?></span></button>
+                </div>
+            </div>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+    require(['jquery'], function($) {
+        $(document).ready(function($) {
+            $('#cs_cc_rest_api_secret_key').on('change', function() {
+                $('#changed_cs_cc_rest_api_secret_key').val('1');
+            });
+            $('#cs_pt_rest_api_key').on('change', function() {
+                $('#changed_cs_pt_rest_api_key').val('1');
+            });
+            $('#cs_tsa_pt_rest_api_secret_key').on('change', function() {
+                $('#changed_cs_tsa_pt_rest_api_secret_key').val('1');
+            });
+        });
+    });
+</script>

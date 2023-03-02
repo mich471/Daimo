@@ -1,0 +1,10 @@
+<?php
+
+$_item = $block->getItem();
+$product = $_item->getProduct(); // Get cart product details
+?>
+<div>
+    <?php if ($product->getWeight()): ?>
+        <div class="product-weight"><?= $block->escapeHtml(__('Embalagem de')) ?>&nbsp;<?php echo floatval($product->getWeight()); ?>&nbsp;kg</div>
+    <?php endif ?>
+</div>

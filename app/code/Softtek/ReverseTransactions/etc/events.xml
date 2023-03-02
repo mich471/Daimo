@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_place_before">
+        <observer name="Softtek_ReverseTransactions_Observer_Before_Place" instance="Softtek\ReverseTransactions\Observer\CheckoutSubmit" />
+    </event>
+    <event name="paypal_express_place_order_success">
+        <observer name="Softtek_ReverseTransactions_Observer_After_Place" instance="Softtek\ReverseTransactions\Observer\CheckoutAfter" />
+    </event>
+</config>

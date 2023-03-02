@@ -1,0 +1,45 @@
+<div id="accordion" data-mage-init='{
+        "accordion":{
+            "active": [1, 2],
+            "collapsible": true,
+            "openedState": "active",
+            "multipleCollapsible": true
+        }}'>
+    <div class="content-policy-envio" data-role="collapsible" style="cursor: pointer">
+        <div data-role="trigger">
+            <a class="policy policy-shipping">Política de envio da loja</a>
+        </div>
+    </div>
+
+    <div data-role="content" class="content-policy content-policy-shipping">
+        <h2>Política de envio da loja</h2>
+        <div data-role="content  "><?= $block->getPolity()['store_shipping_policy'];?></div>
+    </div>
+
+
+    <div data-role="collapsible" style="cursor: pointer">
+        <div data-role="trigger">
+            <a class="policy policy-devolution">Política de devolução da loja</a>
+        </div>
+    </div>
+    <div data-role="content" class="content-policy content-policy-devolution">
+        <h2>Política de devolução da loja</h2>
+        <div data-role="content"><?= $block->getShippingPolity()['store_return_policy'];?></div>
+    </div>
+</div>
+<script type="text/x-magento-init">
+     {
+        "*":
+        {
+             "Magento_Ui/js/core/app": {
+                    "components": {
+                        "mycomponent": {
+                            "component": "Softtek_RemoveDescription/js/storeReviewPolicy",
+                            "title": "Switch"
+                        }
+                    }
+                }
+
+        }
+     }
+</script>

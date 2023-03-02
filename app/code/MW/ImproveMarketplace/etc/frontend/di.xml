@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\CustomerData\AbstractItem">
+        <plugin name="MW_ImproveMarketplace::CustomerDataItem" type="MW\ImproveMarketplace\Plugin\CustomerDataItem" sortOrder="5" />
+    </type>
+
+    <type name="Magento\Catalog\Block\Product\AbstractProduct">
+        <plugin name="MW_ImproveMarketplace::ProductAbstractProduct" type="MW\ImproveMarketplace\Plugin\ProductAbstractProduct" sortOrder="5" />
+    </type>
+</config>

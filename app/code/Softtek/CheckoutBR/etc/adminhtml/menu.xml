@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Softtek_CheckoutBR::title" title="Brazil Customer Attributes" translate="title" module="Softtek_CheckoutBR" sortOrder="200" parent="Softtek_Base::softtek" dependsOnModule="Softtek_CheckoutBR" resource="Softtek_CheckoutBR::checkoutbr"/>
+        <add id="Softtek_CheckoutBR::configuration" title="Configuration" translate="title" module="Softtek_CheckoutBR" sortOrder="100" parent="Softtek_CheckoutBR::title" action="adminhtml/system_config/edit/section/checkoutbr" dependsOnModule="Softtek_CheckoutBR" resource="Softtek_CheckoutBR::configuration"/>
+    </menu>
+</config>

@@ -1,0 +1,21 @@
+<?php
+$storeData=$this->getStoreDetails();
+?>
+<input type="hidden" name="ut" value="seller" />
+<script type="text/javascript">
+    require([
+        'jquery',
+        'jquery/ui'
+    ], function($) {
+        $(document).ready(function() {
+            <?php if (isset($storeData['tcagreecreateaccount'])) { ?>
+                $('#tcagreecreateaccount').prop('checked', true);
+            <?php } ?>
+            var pageTitle = $('.page-title-wrapper .page-title span');
+            if (pageTitle.length > 0) {
+                pageTitle.html('<?= __('Quer vender na Daimo? <br>Faça seu pré-cadastro preenchendo o formulário abaixo.') ?>');
+                $('.page-title-wrapper').show('blind', {}, 500);
+            }
+        });
+    });
+</script>

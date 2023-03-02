@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_GDPR
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_login">
+        <observer name="prgdpr_customer_login" instance="Plumrocket\GDPR\Observer\CustomerLogin"/>
+    </event>
+    <event name="customer_register_success">
+        <observer name="prgdpr_customer_register_success" instance="Plumrocket\GDPR\Observer\CustomerRegisterSuccess"/>
+    </event>
+    <event name="controller_action_predispatch">
+        <observer name="prgdpr_validate_consent_checkboxes" instance="Plumrocket\GDPR\Observer\ValidateConsentsObserver"/>
+    </event>
+    <event name="controller_action_postdispatch">
+        <observer name="prgdpr_save_consent_checkboxes" instance="Plumrocket\GDPR\Observer\SaveConsentsObserver"/>
+    </event>
+</config>

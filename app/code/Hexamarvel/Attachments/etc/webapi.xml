@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Hexamarvel Team
+ * @copyright Copyright (c) 2021 Hexamarvel (https://www.hexamarvel.com)
+ * @package Hexamarvel_Attachments
+ */
+ -->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../app/code/Magento/Webapi/etc/webapi.xsd">
+    <!-- Get Attachment by Product Id -->
+    <route url="/V1/product/attachments/products/:id" method="GET">
+        <service class="Hexamarvel\Attachments\Api\ProductAttachmentInterface" method="getAttachmentsByProductId"/>
+        <resources>
+            <resource ref="Hexamarvel_Attachments::main" />
+        </resources>
+    </route>
+    <!-- Get Attachment by attachment Id -->
+    <route url="/V1/product/attachments/:id" method="GET">
+        <service class="Hexamarvel\Attachments\Api\ProductAttachmentInterface" method="get"/>
+        <resources>
+            <resource ref="Hexamarvel_Attachments::main" />
+        </resources>
+    </route>
+    <!-- Get List of All Attachment -->
+    <route url="/V1/product/attachments" method="GET">
+        <service class="Hexamarvel\Attachments\Api\ProductAttachmentInterface" method="getList"/>
+        <resources>
+            <resource ref="Hexamarvel_Attachments::main" />
+        </resources>
+    </route>
+    <!-- Delete Attachment by Attachment Id -->
+    <route url="/V1/product/attachments/delete/:id" method="DELETE">
+        <service class="Hexamarvel\Attachments\Api\ProductAttachmentInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Hexamarvel_Attachments::main" />
+        </resources>
+    </route>
+    <!-- Create new Attachment -->
+    <route url="/V1/product/attachments/create" method="POST">
+        <service class="Hexamarvel\Attachments\Api\ProductAttachmentInterface" method="save"/>
+        <resources>
+            <resource ref="Hexamarvel_Attachments::main" />
+        </resources>
+    </route>
+    <!-- Update Attachment by Attachment Id -->
+    <route url="/V1/product/attachments/update/:id" method="PUT">
+        <service class="Hexamarvel\Attachments\Api\ProductAttachmentInterface" method="update"/>
+        <resources>
+            <resource ref="Hexamarvel_Attachments::main" />
+        </resources>
+    </route>
+</routes>

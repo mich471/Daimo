@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Hexamarvel Team
+ * @copyright Copyright (c) 2021 Hexamarvel (https://www.hexamarvel.com)
+ * @package Hexamarvel_Attachments
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <virtualType name="Hexamarvel\Attachments\ImageUpload" type="Hexamarvel\Attachments\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">hexaattachment/tmp/icons</argument>
+            <argument name="basePath" xsi:type="string">hexaattachment/products/icons</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Hexamarvel\Attachments\Controller\Adminhtml\Attachments\UploadIcon">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Hexamarvel\Attachments\ImageUpload</argument>
+        </arguments>
+    </type>
+    <virtualType name="Hexamarvel\Attachments\FileUpload" type="Hexamarvel\Attachments\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">hexaattachment/tmp/attachments</argument>
+            <argument name="basePath" xsi:type="string">hexaattachment/products/attachments</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="pdf" xsi:type="string">pdf</item>
+                <item name="docx" xsi:type="string">docx</item>
+                <item name="csv" xsi:type="string">csv</item>
+                <item name="xlsx" xsi:type="string">xlsx</item>
+                <item name="txt" xsi:type="string">txt</item>
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="png" xsi:type="string">png</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="flv" xsi:type="string">flv</item>
+                <item name="mpeg" xsi:type="string">mpeg</item>
+                <item name="mp4" xsi:type="string">mp4</item>
+                <item name="mp3" xsi:type="string">mp3</item>
+                <item name="avi" xsi:type="string">avi</item>
+                <item name="mov" xsi:type="string">mov</item>
+                <item name="zip" xsi:type="string">zip</item>
+                <item name="rar" xsi:type="string">rar</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Hexamarvel\Attachments\Controller\Adminhtml\Attachments\UploadFile">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Hexamarvel\Attachments\FileUpload</argument>
+        </arguments>
+    </type>
+</config>

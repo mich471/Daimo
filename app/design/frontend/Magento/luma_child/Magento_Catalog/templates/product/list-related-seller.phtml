@@ -1,0 +1,73 @@
+<?php
+$_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+$_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$currentProduct = $_objectManager->get('Magento\Framework\Registry')->registry('current_product');
+$sellerId=$currentProduct->getSellerId();
+$isSeller = $currentProduct->getIsSellerProduct();
+$productCollection = $_objectManager->create('Magento\Catalog\Model\ResourceModel\Product\CollectionFactory');
+$collection = $productCollection->create()
+->addAttributeToSelect('*')
+->addAttributeToFilter('status', '1')
+->addAttributeToFilter('visibility', \Magento\Catalog\Model\Product\Visibility::VISIBILITY_BOTH)
+->addAttributeToFilter('seller_id', $sellerId)->setPageSize(4);
+$collection->getSelect()->orderRand();
+$_products = $collection->getItems();
+$image = 'related_products_list';
+?>
+
+<?php if ($isSeller && $sellerId != '' && $sellerId != 0): ?>
+        </br> </br>
+<div class="block related">
+    <div class="block-title title">
+        <strong><?= $block->escapeHtml(__('Mais do mesmo vendedor')) ?></strong>
+        <?php echo $this->getChildHtml("sellerextra"); ?>
+    </div>
+    <div class="products wrapper grid products-grid ">
+        <ol class="products list items product-items">
+            <?php foreach ($_products as $_item):?>
+                <li class="item product product-item">
+                    <div class="product-item-info">
+                        <a href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
+                           class="product photo product-item-photo">
+                            <?= $block->getImage($_item, $image)->toHtml() ?>
+                        </a>
+                        <div class="product details product-item-details">
+                            <strong class="product name product-item-name">
+                                <a
+                                    class="product-item-link"
+                                    title="<?= $block->escapeHtmlAttr($_item->getName()) ?>"
+                                    href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>">
+                                    <?= $block->escapeHtml($_item->getName()) ?>
+                                </a>
+                            </strong>
+                            <div class="product-item-price-container">
+                                <?= /* @noEscape */ $block->getProductPrice($_item) ?>
+                                <?php if ($addToBlockWishlist = $block->getChildBlock('wishlist')):?>
+                                    <?php echo $this->getChildHtml("wishlist"); ?>
+                                <?php endif; ?>
+                            </div>
+                                <div class="product actions product-item-actions">
+                                    <div class="actions-primary">
+
+                                        <a
+                                        class="action tocart primary"
+                                        title="<?= $block->escapeHtmlAttr($_item->getName()) ?>"
+                                        href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>">
+                                        <span><?= $block->escapeHtml(__('See details')) ?></span>
+                                        </a>
+                                    </div>
+                                        <div class="secondary-addto-links actions-secondary"
+                                             data-role="add-to-links">
+                                            <?php if ($addToBlock = $block->getChildBlock('addto')):?>
+                                                <?= $addToBlock->setProduct($_item)->getChildHtml() ?>
+                                            <?php endif; ?>
+                                        </div>
+                                </div>
+                        </div>
+                    </div>
+                </li>
+            <?php endforeach ?>
+        </ol>
+    </div>
+</div>
+<?php endif ?>

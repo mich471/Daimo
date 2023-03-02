@@ -1,0 +1,417 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_CookieConsent
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="pr_cookie" translate="label" type="text" sortOrder="1547904" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Cookie Consent</label>
+            <tab>plumrocket</tab>
+            <resource>Plumrocket_CookieConsent::configuration</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <attribute type="expanded">1</attribute>
+                <field id="version" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\Version</frontend_model>
+                    <attribute type="pr_extension_name">CookieConsent</attribute>
+                </field>
+                <field id="enabled" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Extension</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="serial" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\Serial</frontend_model>
+                    <label>Serial Key</label>
+                    <attribute type="pr_extension_name">CookieConsent</attribute>
+                </field>
+            </group>
+            <group id="main_settings" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Main Settings</label>
+
+                <field id="use_cookie_before_opt_in" translate="label" type="select" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable Cookies Before Customer Opt-In</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable all cookies until the customer accepts or declines them. We recommend enabling this feature for CCPA law where consent is not required for collecting personal data.</comment>
+                </field>
+                <field id="consent_expiry" translate="label" type="text" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Consent Expiration (days)</label>
+                    <comment>Set number of days when the consent cookies are set to expire.</comment>
+                </field>
+                <field id="block_unknown_cookie" translate="label" type="select" sortOrder="600" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Block Unknown Cookies</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Block all cookies that are not listed in the "Manage Cookies" grid until a visitor clicks on the "Accept All Cookies" button.</comment>
+                </field>
+                <field id="reload_after_accept" translate="label" type="select" sortOrder="700" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Reload Page After Accept Button Click</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Reloading a page after "Accept Cookies Button" is clicked helps to enable certain javascripts and third-party cookies. We recommend setting this option to "Yes" if "Enable Cookies Before Customer Opt-In" option above is set to "No".</comment>
+                </field>
+                <field id="reload_after_decline" translate="label" type="select" sortOrder="800" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Reload Page After Decline Button Click</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Reloading a page after "Decline Cookies Button" is clicked helps to disable certain javascripts and third-party cookies. We recommend setting this option to "Yes" if "Enable Cookies Before Customer Opt-In" option above is set to "Yes".</comment>
+                </field>
+            </group>
+            <group id="cookie_notice" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Cookie Consent Banner</label>
+
+                <field id="display_style" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Style</label>
+                    <source_model>Plumrocket\CookieConsent\Model\Config\Source\BannerDisplayStyle</source_model>
+                    <comment>Select the design of the cookie notice. Please note, the option “Full-Screen Cookie Wall”, unlike other options, prevents visitors from using the website until they agree to enable cookies.</comment>
+                </field>
+                <field id="hide_on_urls" type="textarea" sortOrder="30" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Hide On Urls</label>
+                    <comment>You can disable cookie consent banner on specific pages. Enter each URL in new line. Both the absolute or relative path is allowed.</comment>
+                </field>
+                <field id="title" type="text" sortOrder="55" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                    <depends>
+                        <field id="display_style" separator=",">wall,popup</field>
+                    </depends>
+                </field>
+                <field id="text" translate="label" type="editor" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notice Text</label>
+                    <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\Editor</frontend_model>
+                    <attribute type="pr_editor_height">200px</attribute>
+                </field>
+                <field id="title_color" translate="label" type="text" sortOrder="65" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title Color</label>
+                    <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                    <depends>
+                        <field id="display_style" separator=",">wall,popup</field>
+                    </depends>
+                </field>
+                <field id="text_color" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Text Color</label>
+                    <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                </field>
+                <field id="background_color" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Background Color</label>
+                    <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                </field>
+                <field id="overlay_background_color" translate="label" type="text" sortOrder="85" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Overlay Background Color</label>
+                    <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                    <depends>
+                        <field id="display_style" separator=",">wall,popup</field>
+                    </depends>
+                </field>
+                <field id="overlay_blur" translate="label" type="select" sortOrder="87" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Overlay Background Blur</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="display_style" separator=",">wall,popup</field>
+                    </depends>
+                </field>
+                <group id="accept_button" translate="label" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Accept Button</label>
+
+                    <field id="label" type="text" sortOrder="10" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Label</label>
+                        <comment><![CDATA[Enter here "Allow Cookies", "Accept", etc.]]></comment>
+                    </field>
+                    <field id="text_color" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Text Color</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                    </field>
+                    <field id="text_color_on_hover" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Text Color On Hover</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                    </field>
+                    <field id="background_color" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Background Color</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                    </field>
+                    <field id="background_color_on_hover" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Background Color On Hover</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                    </field>
+                </group>
+                <group id="decline_button" translate="label" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Decline Button</label>
+
+                    <field id="enabled" type="select" sortOrder="5" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Show</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="label" type="text" sortOrder="10" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Label</label>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="text_color" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Text Color</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="text_color_on_hover" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Text Color On Hover</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="background_color" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Background Color</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="background_color_on_hover" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Background Color On Hover</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="settings_button" translate="label" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Settings Button</label>
+
+                    <field id="enabled" type="select" sortOrder="10" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Show</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="label" type="text" sortOrder="20" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Label</label>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="type" type="select" sortOrder="30" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Type</label>
+                        <source_model>Plumrocket\CookieConsent\Model\Config\Source\SettingsButtonType</source_model>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="text_color" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Text Color</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                        <depends>
+                            <field id="type">button</field>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="text_color_on_hover" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Text Color On Hover</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                        <depends>
+                            <field id="type">button</field>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="background_color" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Background Color</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                        <depends>
+                            <field id="type">button</field>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="background_color_on_hover" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Background Color On Hover</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                        <depends>
+                            <field id="type">button</field>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="link_color" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Link Color</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                        <depends>
+                            <field id="type">link</field>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="link_color_on_hover" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Link Color On Hover</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                        <depends>
+                            <field id="type">link</field>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                </group>
+            </group>
+            <group id="settings_bar" translate="label" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Cookie Settings Panel</label>
+
+                <field id="show_details" type="select" sortOrder="30" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Information About Each Cookie</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Show info about a cookie (domain, type, duration, description, etc.) listed in "Manage Cookies" grid.</comment>
+                </field>
+                <field id="overview_title" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cookie Settings Header</label>
+                </field>
+                <field id="overview_text" translate="label" type="editor" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cookie Settings Description</label>
+                    <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\Editor</frontend_model>
+                    <attribute type="pr_editor_height">200px</attribute>
+                </field>
+                <field id="text_color" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Text Color</label>
+                    <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                </field>
+                <field id="background_color" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Background Color</label>
+                    <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                </field>
+                <group id="accept_button" translate="label" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Accept Button</label>
+
+                    <field id="label" type="text" sortOrder="10" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Label</label>
+                        <comment><![CDATA[Enter here "Allow Cookies", "Accept", etc.]]></comment>
+                    </field>
+                    <field id="text_color" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Text Color</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                    </field>
+                    <field id="text_color_on_hover" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Text Color On Hover</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                    </field>
+                    <field id="background_color" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Background Color</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                    </field>
+                    <field id="background_color_on_hover" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Background Color On Hover</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                    </field>
+                </group>
+                <group id="decline_button" translate="label" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Decline Button</label>
+
+                    <field id="enabled" type="select" sortOrder="5" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Show</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="label" type="text" sortOrder="10" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Label</label>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="text_color" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Text Color</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="text_color_on_hover" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Text Color On Hover</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="background_color" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Background Color</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="background_color_on_hover" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Background Color On Hover</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="confirm_button" translate="label" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Confirm Button</label>
+
+                    <field id="label" type="text" sortOrder="10" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Label</label>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="text_color" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Text Color</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="text_color_on_hover" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Text Color On Hover</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                    </field>
+                    <field id="background_color" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Background Color</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="background_color_on_hover" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Background Color On Hover</label>
+                        <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ColorPicker</frontend_model>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                </group>
+            </group>
+            <group id="settings_link" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Cookie Settings Link</label>
+
+                <field id="show_footer_link" type="select" sortOrder="10" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Add Footer Link</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Automatically add the "Cookie Settings" link in the website footer. By clicking on this link your customers and guest visitors can manage their cookie settings at any time. If you want to add this link manually, please use the widget code below.</comment>
+                </field>
+                <field id="widget_code" translate="label" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Widget Code</label>
+                    <frontend_model>Plumrocket\CookieConsent\Block\Adminhtml\System\Config\Form\WidgetCode</frontend_model>
+                    <comment>Use this Magento widget to insert the "Cookie Settings" link anywhere across your store. Widgets are useful when you need to manually display the cookie settings button in the website footer, Privacy Policy or Cookie Policy page, etc.</comment>
+                </field>
+            </group>
+
+            <group id="gtm" translate="label" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Google Tag Manager Settings</label>
+
+                <field id="enabled" type="select" sortOrder="10" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>prgdpr/gtm/enabled</config_path>
+                </field>
+                <field id="category" type="select" sortOrder="20" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Associated Cookie Category</label>
+                    <source_model>Plumrocket\CookieConsent\Model\Cookie\Attribute\Source\CategoryKey</source_model>
+                    <comment>Assign Google Tag Manager Script to a specific Cookie Category. This allows enabling/disabling Google Tag Manager when visitor enables/disables corresponding cookie category.</comment>
+                    <depends>
+                        <field id="*/*/enabled">1</field>
+                    </depends>
+                </field>
+                <field id="container_id" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Container Id</label>
+                    <comment>Enter your container ID formatted as "GTM-XXXXXX".</comment>
+                    <depends>
+                        <field id="*/*/enabled">1</field>
+                    </depends>
+                    <config_path>prgdpr/gtm/container_id</config_path>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

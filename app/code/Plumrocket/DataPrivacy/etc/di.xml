@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_DataPrivacy
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Plumrocket\DataPrivacyApi\Api\ConsentCheckboxesValidatorInterface"
+                type="Plumrocket\DataPrivacy\Model\Consent\Checkbox\CompositeValidator"/>
+    <preference for="\Plumrocket\DataPrivacyApi\Api\ConsentCheckboxProviderInterface"
+                type="Plumrocket\DataPrivacy\Model\Consent\Checkbox\Provider"/>
+    <preference for="Plumrocket\GDPR\Api\ConsentLocationTypeInterface"
+                type="Plumrocket\DataPrivacy\Model\Consent\Location\Type"/>
+    <preference for="Plumrocket\DataPrivacyApi\Api\ConsentLocationTypeInterface"
+                type="Plumrocket\DataPrivacy\Model\Consent\Location\Type"/>
+    <preference for="Plumrocket\GDPR\Api\CheckboxRepositoryInterface"
+                type="Plumrocket\DataPrivacy\Model\CheckboxRepository"/>
+    <preference for="Plumrocket\DataPrivacyApi\Api\CheckboxRepositoryInterface"
+                type="Plumrocket\DataPrivacy\Model\CheckboxRepository"/>
+    <preference for="Plumrocket\GDPR\Api\Data\CheckboxInterface"
+                type="Plumrocket\DataPrivacy\Model\Checkbox"/>
+    <preference for="Plumrocket\DataPrivacyApi\Api\Data\CheckboxInterface"
+                type="Plumrocket\DataPrivacy\Model\Checkbox"/>
+    <preference for="Plumrocket\GDPR\Api\Data\CheckboxSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults" />
+    <preference for="Plumrocket\DataPrivacyApi\Api\Data\CheckboxSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults" />
+    <preference for="Plumrocket\GDPR\Api\Data\ConsentLocationInterface"
+                type="Plumrocket\DataPrivacy\Model\Consent\Location"/>
+    <preference for="Plumrocket\DataPrivacyApi\Api\Data\ConsentLocationInterface"
+                type="Plumrocket\DataPrivacy\Model\Consent\Location"/>
+    <preference for="Plumrocket\DataPrivacyApi\Api\Data\PolicyInterface"
+                type="Plumrocket\DataPrivacy\Model\Policy"/>
+    <preference for="Plumrocket\DataPrivacyApi\Api\IsAlreadyCheckedCheckboxInterface"
+                type="Plumrocket\DataPrivacy\Model\Consent\Checkbox\IsAlreadyChecked"/>
+    <preference for="Plumrocket\DataPrivacyApi\Api\ConvertConsentCheckboxToArrayInterface"
+                type="Plumrocket\DataPrivacy\ViewModel\ConvertConsentCheckbox"/>
+    <preference for="Plumrocket\DataPrivacy\Model\Consent\Validation\NotAgreedResponseStrategyInterface"
+                type="Plumrocket\DataPrivacy\Model\Consent\Validation\RedirectResponseStrategy"/>
+    <preference for="Plumrocket\DataPrivacyApi\Api\Data\RemovalRequestInterface"
+                type="Plumrocket\DataPrivacy\Model\RemovalRequest"/>
+    <preference for="Plumrocket\DataPrivacyApi\Api\RemovalRequestRepositoryInterface"
+                type="Plumrocket\DataPrivacy\Model\RemovalRequest\Repository"/>
+
+    <preference for="Plumrocket\DataPrivacyApi\Api\Data\RemovalRequestResultsInterface"
+                type="Magento\Framework\Api\SearchResults" />
+    <preference for="Plumrocket\DataPrivacyApi\Api\CheckboxProviderInterface"
+                type="Plumrocket\GDPR\Model\Checkbox\Provider" />
+    <preference for="Plumrocket\GDPR\Api\CheckboxProviderInterface"
+                type="Plumrocket\GDPR\Model\Checkbox\Provider" />
+
+    <type name="Plumrocket\DataPrivacy\Model\Consent\Checkbox\CompositeValidator">
+        <arguments>
+            <argument name="consentCheckboxesValidators" xsi:type="array">
+                <item name="default" xsi:type="object">Plumrocket\DataPrivacy\Model\Consent\Checkbox\Validator\DefaultValidator</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Plumrocket\DataPrivacyApi\Api\Data\CheckboxInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">prgdpr_checkbox_entity</item>
+                    <item name="eavEntityType" xsi:type="string">prgdpr_checkbox</item>
+                    <item name="identifierField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="PrDataPrivacyLocationSchemaLocator" type="Magento\Framework\Config\SchemaLocator">
+        <arguments>
+            <argument name="realPath" xsi:type="string">urn:magento:module:Plumrocket_DataPrivacy:etc/pr_data_privacy_consent_location.xsd</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PrDataPrivacyLocationConfigReader" type="Magento\Framework\Config\Reader\Filesystem">
+        <arguments>
+            <argument name="idAttributes" xsi:type="array">
+                <item name="/locations/location" xsi:type="string">name</item>
+            </argument>
+            <argument name="fileName" xsi:type="string">pr_data_privacy_consent_location.xml</argument>
+            <argument name="converter" xsi:type="object">Plumrocket\DataPrivacy\Model\Consent\Location\Config\Converter</argument>
+            <argument name="schemaLocator" xsi:type="object">PrDataPrivacyLocationSchemaLocator</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Plumrocket\DataPrivacy\Model\Consent\Location\ConfigProvider">
+        <arguments>
+            <argument name="reader" xsi:type="object">PrDataPrivacyLocationConfigReader</argument>
+        </arguments>
+    </type>
+
+    <type name="Plumrocket\Newsletterpopup\Api\PopupFieldsRegistryInterface">
+        <arguments>
+            <argument name="fields" xsi:type="array">
+                <item name="data_privacy_consents" xsi:type="array">
+                    <item name="enable" xsi:type="string">1</item>
+                    <item name="label" xsi:type="string">Data Privacy Integration</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">215</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Plumrocket\Token\Api\CustomerTypePoolInterface">
+        <arguments>
+            <argument name="types" xsi:type="array">
+                <item name="prgdpr_guest_privacy_center" xsi:type="object">Plumrocket\DataPrivacy\Model\Guest\PrivacyCenterToken</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="prgdpr_removalrequests_listing_data_source" xsi:type="string">Plumrocket\DataPrivacy\Model\ResourceModel\RemovalRequest\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

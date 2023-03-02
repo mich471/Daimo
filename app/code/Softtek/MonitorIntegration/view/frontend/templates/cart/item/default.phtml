@@ -1,0 +1,141 @@
+<?php
+/**
+ *
+ * @package     Faonni_OverrideCartItemTemplate
+ * @copyright   Copyright (c) 2016 Karliuka Vitalii(karliuka.vitalii@gmail.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/** @var $block \Magento\Checkout\Block\Cart\Item\Renderer */
+
+$_item = $block->getItem();
+$product = $_item->getProduct();
+$isVisibleProduct = $product->isVisibleInSiteVisibility();
+$stockHelper = $this->helper(\Softtek\MonitorIntegration\Helper\ProductValidations::class);
+$stockStatus = $stockHelper->isValidStock($product->getSku());
+$helper = $this->helper(Magento\Msrp\Helper\Data::class);
+$canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinimalPriceLessMsrp($product);
+?>
+<tbody class="cart item">
+<?php if ($stockStatus['status'] != 1): ?>
+    <tr class="item-info">
+        <td colspan="100">
+            <div class="messages">
+                <div class="message message-error error">
+                    <div data-ui-id="checkout-cart-validationmessages-message-error"><?php echo $block->escapeHtml(__('No hay stock para este producto.')); ?>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+<?php endif; ?>
+
+
+<tr class="item-info">
+    <td data-th="<?php echo $block->escapeHtml(__('Item')); ?>" class="col item">
+        <?php if ($block->hasProductUrl()):?>
+        <a href="<?php /* @escapeNotVerified */ echo $block->getProductUrl() ?>"
+           title="Custom text"
+           tabindex="-1"
+           class="product-item-photo">
+            <?php else:?>
+            <span class="product-item-photo">
+            <?php endif;?>
+            <?php echo $block->getImage($block->getProductForThumbnail(), 'cart_page_product_thumbnail')->toHtml(); ?>
+            <?php if ($block->hasProductUrl()):?>
+        </a>
+    <?php else: ?>
+        </span>
+    <?php endif; ?>
+        <div class="product-item-details">
+            <strong class="product-item-name">
+                <?php if ($block->hasProductUrl()):?>
+                    <a href="<?php /* @escapeNotVerified */ echo $block->getProductUrl() ?>"><?php echo $block->escapeHtml($block->getProductName()) ?> </a>
+                <?php else: ?>
+                    <?php echo $block->escapeHtml($block->getProductName()) ?>
+                <?php endif; ?>
+            </strong>
+            <?php if ($_options = $block->getOptionList()):?>
+                <dl class="item-options">
+                    <?php foreach ($_options as $_option) : ?>
+                        <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                        <dt><?php echo $block->escapeHtml($_option['label']) ?></dt>
+                        <dd>
+                            <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                                <?php /* @escapeNotVerified */ echo $_formatedOptionValue['full_view'] ?>
+                            <?php else: ?>
+                                <?php /* @escapeNotVerified */ echo $_formatedOptionValue['value'] ?>
+                            <?php endif; ?>
+                        </dd>
+                    <?php endforeach; ?>
+                </dl>
+            <?php endif;?>
+            <?php if ($messages = $block->getMessages()): ?>
+                <?php foreach ($messages as $message): ?>
+                    <div class="cart item message <?php /* @escapeNotVerified */ echo $message['type'] ?>"><div><?php echo $block->escapeHtml($message['text']) ?></div></div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+            <?php if ($addInfoBlock): ?>
+                <?php echo $addInfoBlock->setItem($_item)->toHtml() ?>
+            <?php endif;?>
+        </div>
+    </td>
+
+    <?php if ($canApplyMsrp): ?>
+        <td class="col msrp" data-th="<?php echo $block->escapeHtml(__('Price')); ?>">
+                <span class="pricing msrp">
+                    <span class="msrp notice"><?php /* @escapeNotVerified */ echo __('See price before order confirmation.'); ?></span>
+                    <?php $helpLinkId = 'cart-msrp-help-' . $_item->getId(); ?>
+                    <a href="#" class="action help map" id="<?php /* @escapeNotVerified */ echo($helpLinkId); ?>" data-mage-init='{"addToCart":{"helpLinkId": "#<?php /* @escapeNotVerified */ echo $helpLinkId;?>","productName": "<?php /* @escapeNotVerified */ echo $product->getName(); ?>","showAddToCart": false}}'>
+                        <span><?php /* @escapeNotVerified */ echo __("What's this?"); ?></span>
+                    </a>
+                </span>
+        </td>
+    <?php else: ?>
+        <td class="col price" data-th="<?php echo $block->escapeHtml(__('Price')); ?>">
+            <?php echo $block->getUnitPriceHtml($_item); ?>
+        </td>
+    <?php endif; ?>
+    <td class="col qty" data-th="<?php echo $block->escapeHtml(__('Qty')); ?>">
+        <div class="field qty">
+            <label class="label" for="cart-<?php /* @escapeNotVerified */ echo $_item->getId() ?>-qty">
+                <span><?php /* @escapeNotVerified */ echo __('Qty') ?></span>
+            </label>
+            <div class="control qty">
+                <input id="cart-<?php /* @escapeNotVerified */ echo $_item->getId() ?>-qty"
+                       name="cart[<?php /* @escapeNotVerified */ echo $_item->getId() ?>][qty]"
+                       data-cart-item-id="<?php /* @escapeNotVerified */ echo $_item->getSku() ?>"
+                       value="<?php /* @escapeNotVerified */ echo $block->getQty() ?>"
+                       type="number"
+                       size="4"
+                       title="<?php echo $block->escapeHtml(__('Qty')); ?>"
+                       class="input-text qty"
+                       maxlength="12"
+                       data-validate="{required:true,'validate-greater-than-zero':true}"
+                       data-role="cart-item-qty"/>
+            </div>
+            <?php if ($stockStatus['status'] == -1): ?>
+                <br>
+                <span style="color:red; font-size: 110%; font-weight: bold; white-space:nowrap;"><?php echo $block->escapeHtml(__('Stock Actual ' . $stockStatus['stock']));?></span>
+            <?php endif; ?>
+        </div>
+    </td>
+
+    <td class="col subtotal" data-th="<?php echo $block->escapeHtml(__('Subtotal'));?>">
+        <?php if ($canApplyMsrp): ?>
+            <span class="cart msrp subtotal">--</span>
+        <?php else: ?>
+            <?php echo $block->getRowTotalHtml($_item); ?>
+        <?php endif; ?>
+    </td>
+</tr>
+
+<tr class="item-actions">
+    <td colspan="100">
+        <div class="actions-toolbar">
+            <?php /* @escapeNotVerified */ echo $block->getActions($_item) ?>
+        </div>
+    </td>
+</tr>
+</tbody>

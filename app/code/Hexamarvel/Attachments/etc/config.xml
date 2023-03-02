@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Hexamarvel Team
+ * @copyright Copyright (c) 2021 Hexamarvel (https://www.hexamarvel.com)
+ * @package Hexamarvel_Attachments
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store: etc/config.xsd">
+    <default>
+        <hexaattachment>
+            <general>
+                <enable>1</enable>
+                <display_area>productshortdesc</display_area>
+                <attch_title>Attachment</attch_title>
+                <tab_title>Attachment</tab_title>
+                <tab_sortorder>20</tab_sortorder>
+            </general>
+        </hexaattachment>
+    </default>
+</config>

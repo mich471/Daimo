@@ -1,0 +1,263 @@
+<?php
+/**
+ *
+ * Edit customer register template
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * @category   Softtek
+ * @package    Softtek_CheckoutBR
+ * @author     www.sofftek.com
+ * @copyright  Softtek Brasil
+ * @license    http://opensource.org/licenses/osl-3.0.php
+ */
+?>
+<?php
+/** @var \Magento\Customer\Block\Form\Register $block */
+?>
+<?php
+/**
+ * Create account form template
+ *
+ * @var $block \Magento\Customer\Block\Form\Register
+ */
+?>
+<?php echo $block->getChildHtml('form_fields_before')?>
+<?php /* Extensions placeholder */ ?>
+<?php echo $block->getChildHtml('customer.form.register.extra')?>
+<form class="form create account form-create-account" action="<?php echo $this->getUrl('*/index/storesave') ?>" method="post" id="form-validate" enctype="multipart/form-data" autocomplete="off">
+    <?php echo $block->getBlockHtml('formkey'); ?>
+    <fieldset class="fieldset create info">
+        <legend class="legend"><span><?php /* @escapeNotVerified */ echo __('Personal Information') ?></span></legend><br>
+        <input type="hidden" name="success_url" value="<?php /* @escapeNotVerified */ echo $block->getSuccessUrl() ?>">
+        <input type="hidden" name="error_url" value="<?php /* @escapeNotVerified */ echo $block->getErrorUrl() ?>">
+
+        <?php echo $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')->setObject($block->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
+
+        <?php $_persontype= $block->getLayout()->createBlock('Softtek\Vendor\Block\Magento\Customer\Widget\Persontype')->setTemplate('Softtek_Vendor::widget/persontypefields.phtml') ?>
+        <?php echo $_persontype->toHtml() ?>
+
+        <?php $_additionalcompanyinfo = $block->getLayout()->createBlock('Softtek\Vendor\Block\Magento\Customer\Widget\AdditionalCompanyInfo')->setTemplate('Softtek_Vendor::widget/additionalcompanyinfo.phtml') ?>
+        <?php echo $_additionalcompanyinfo->toHtml() ?>
+    </fieldset>
+
+        <fieldset class="fieldset address">
+            <legend class="legend"><span><?php /* @escapeNotVerified */ echo __('Address Information') ?></span></legend><br>
+            <input type="hidden" name="create_address" value="1" />
+
+            <div class="field zip required">
+                <label for="zip" class="label"><span><?php /* @escapeNotVerified */ echo __('Zip/Postal Code') ?></span></label>
+                <div class="control">
+                    <input type="text" name="CEP" value="<?php echo $block->escapeHtml($block->getFormData()->getPostcode()) ?>" title="<?php /* @escapeNotVerified */ echo __('Zip/Postal Code') ?>" id="zip" class="input-text validate-zip-international <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('postcode') ?>" data-validate="{required:true}">
+                </div>
+            </div>
+
+            <div class="field required">
+                <label for="city" class="label"><span><?php /* @escapeNotVerified */ echo __('City') ?></span></label>
+                <div class="control">
+                    <input type="text" name="city" value="<?php echo $block->escapeHtml($block->getFormData()->getCity()) ?>" title="<?php /* @escapeNotVerified */ echo __('City') ?>" class="input-text <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('city') ?>" id="city">
+                </div>
+            </div>
+
+            <div class="field region required">
+                <label for="region_id" class="label"><span><?php /* @escapeNotVerified */ echo __('State/Province') ?></span></label>
+                <div class="control">
+                    <?php $block->setData('country_id', 'BR'); ?>
+                    <select id="region_id" name="region_id" title="<?php /* @escapeNotVerified */ echo __('State/Province') ?>" class="validate-select">
+                        <option value=""><?php /* @escapeNotVerified */ echo __('Please select a region, state or province.') ?></option>
+                        <?php foreach ($block->getRegionCollection() as $region): ?>
+                            <option value="<?php echo $region->getId(); ?>" title="<?php echo $region->getName(); ?>"><?php echo $region->getName(); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <input type="text" id="region" name="region" value="<?php echo $block->escapeHtml($block->getRegion()) ?>" title="<?php /* @escapeNotVerified */ echo __('State/Province') ?>" class="input-text <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region') ?>" style="display:none;">
+                </div>
+            </div>
+
+            <div class="field country required">
+                <label for="country" class="label"><span><?php /* @escapeNotVerified */ echo __('Country') ?></span></label>
+                <div class="control">
+                    <?php echo $block->getCountryHtmlSelect() ?>
+                </div>
+            </div>
+            <?php $addressAttributes = $block->getChildBlock('customer_form_address_user_attributes');?>
+            <?php if ($addressAttributes): ?>
+                <?php $addressAttributes->setEntityType('customer_address'); ?>
+                <?php $addressAttributes->setFieldIdFormat('address:%1$s')->setFieldNameFormat('address[%1$s]');?>
+                <?php $block->restoreSessionData($addressAttributes->getMetadataForm(), 'address');?>
+                <?php echo $addressAttributes->setShowContainer(false)->toHtml()?>
+            <?php endif;?>
+            <div class="field telephone required">
+                <label for="telephone" class="label"><span><?php /* @escapeNotVerified */ echo __('Phone') ?></span></label>
+                <div class="control">
+                    <input type="text" name="telephone" id="telephone" value="<?php echo $block->escapeHtml($block->getFormData()->getTelephone()) ?>" title="<?php /* @escapeNotVerified */ echo __('Phone') ?>" class="input-text <?php /* @escapeNotVerified */ echo $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('telephone') ?>">
+                </div>
+            </div>
+
+            <input type="hidden" name="default_billing" value="1">
+            <input type="hidden" name="default_shipping" value="1">
+        </fieldset>
+
+
+    <fieldset class="fieldset create account" data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>">
+        <legend class="legend"><span><?php /* @escapeNotVerified */ echo __('Sign-in Information') ?></span></legend><br>
+        <div class="field required">
+            <label for="email_address" class="label"><span><?php /* @escapeNotVerified */ echo __('Email') ?></span></label>
+            <div class="control">
+                <input type="email" name="email" autocomplete="email" id="email_address" value="<?php echo $block->escapeHtml($block->getFormData()->getEmail()) ?>" title="<?php /* @escapeNotVerified */ echo __('Email') ?>" class="input-text" data-validate="{required:true, 'validate-email':true}">
+            </div>
+        </div>
+        <div class="field password required" data-mage-init='{"passwordStrengthIndicator": {}}'>
+            <label for="password" class="label"><span><?php /* @escapeNotVerified */ echo __('Password') ?></span></label>
+            <div class="control">
+                <input type="password" name="password" id="password"
+                       title="<?php /* @escapeNotVerified */ echo __('Password') ?>"
+                       class="input-text"
+                       data-password-min-length="<?php echo $block->escapeHtml($block->getMinimumPasswordLength()) ?>"
+                       data-password-min-character-sets="<?php echo $block->escapeHtml($block->getRequiredCharacterClassesNumber()) ?>"
+                       data-validate="{required:true, 'validate-customer-password':true}"
+                       autocomplete="off">
+                <div id="password-strength-meter-container" data-role="password-strength-meter" >
+                    <div id="password-strength-meter" class="password-strength-meter">
+                        <?php /* @escapeNotVerified */ echo __('Password Strength'); ?>:
+                        <span id="password-strength-meter-label" data-role="password-strength-meter-label" >
+                            <?php /* @escapeNotVerified */ echo __('No Password'); ?>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="field confirmation required">
+            <label for="password-confirmation" class="label"><span><?php /* @escapeNotVerified */ echo __('Confirm Password') ?></span></label>
+            <div class="control">
+                <input type="password" name="password_confirmation" title="<?php /* @escapeNotVerified */ echo __('Confirm Password') ?>" id="password-confirmation" class="input-text" data-validate="{required:true, equalTo:'#password'}" autocomplete="off">
+            </div>
+        </div>
+        <!-- PURPLETREE SELLER IMPLEMENATION -->
+        <?php
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $dataHelper = $objectManager->create('Purpletree\Marketplace\Helper\Data');
+        $sellerReq=$dataHelper->getGeneralConfig('manage_links/seller_on_signup_page');
+        $moduleEnable=$dataHelper->getGeneralConfig('general/enabled');
+        ?>
+
+            <div class="beseller">
+                <div class="besellerchk" style="display: none;">
+                    <input type="checkbox" id="seller-check" class="seller-check" name="is_seller" title="<?php echo __('Become a Seller') ?>" value="1" >
+                    <label for="seller-check" name="seller_label" class="label"><span><?php /* @escapeNotVerified */ echo __('Become a Seller') ?></span></label>
+                </div>
+                <br/>
+                <div class="besellername required">
+                    <label for="store-name" name="seller_label" class="label"><span><?php /* @escapeNotVerified */ echo __('Store Name') ?></span><span style="color:red"><?php  echo __('*') ?></span></label>
+                    <br/>
+                    <input type="text" id="store-name" class="store-name" name="store_name" data-validate="{'required':true}" />
+                    <p style="font-size: 11px;padding-top: 3px;"></p>
+                </div>
+                <br/>
+                <div class="besellerurl required">
+                    <label for="store-url" name="seller_label" class="label"><span><?php /* @escapeNotVerified */ echo __('Store URL') ?></span><span style="color:red"><?php  echo __('*') ?></span></label>
+                    <br/>
+                    <input type="text" id="store-url" class="store-url validate-code" name="store_url" data-validate="{'required':true, 'no-whitespace':true}" />
+                    <p style="font-size: 11px;padding-top: 3px;"><?php  echo __('Enter Unique Alphanumeric Storeurl to be used as your URL.') ?></p>
+                </div>
+                <div class="errormsg"  style=" color: #e02b27;font-size: 12px;">
+                </div>
+            </div>
+
+        <script type="text/javascript">
+            require([
+                'jquery', 'jquery/ui'], function($){
+                $(document).ready(function(){
+                    //$('.seller-check').click(function(){
+                    $('.seller-check').on('click', function() {
+                        if($(this).is(":checked")){
+                            $('.besellerurl').css('display', 'block');
+                            $('.besellername').css('display', 'block');
+                        }
+                        else if($(this).is(":not(:checked)")){
+                            $('.besellerurl').css('display', 'none');
+                            $('.besellername').css('display', 'none');
+                        }
+                    });
+                });
+                $(document).ready(function(){
+                    $('form.create.account.form-create-account button.submit').on('click', function() {
+                        var testing = true;
+                        if($('.seller-check').is(":checked")){
+                            var testing = false;
+                            var storeurl = $("#store-url").val();
+                            if(storeurl != '') {
+                                $.ajax({
+                                    url: "<?php echo $this->getUrl('marketplace/index/sellerunique'); ?>",
+                                    dataType: "json",
+                                    showLoader: true,
+                                    data:'store_url='+storeurl,
+                                    type: 'POST',
+                                    success: function (result) {
+                                        if(result!=0)
+                                        {
+                                            $('.errormsg').css('display', 'block');
+                                            $('.errormsg').html('<span><?php echo __("Enter Unique Store URL"); ?></span>');
+                                        }
+                                        else
+                                        {
+                                            testing = true;
+                                            $('form.create.account.form-create-account').submit();
+                                            $('.errormsg').css('display', 'none');
+                                        }
+                                    }
+                                });
+                            } else {
+                                $('.errormsg').css('display', 'block');
+                                $('.errormsg').html('<span><?php echo __("Store URL Required"); ?></span>');
+                            }
+                        }
+                        return testing;
+                    });
+                });
+            });
+        </script>
+        <?php echo $block->getChildHtml('form_additional_info'); ?>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action submit primary" title="<?php /* @escapeNotVerified */ echo __('Create an Account') ?>"><span><?php /* @escapeNotVerified */ echo __('Create an Account') ?></span></button>
+        </div>
+        <div class="secondary">
+            <a class="action back" href="<?php echo $block->escapeUrl($block->getBackUrl()) ?>"><span><?php /* @escapeNotVerified */ echo __('Back') ?></span></a>
+        </div>
+    </div>
+</form>
+<script>
+    require([
+        'jquery',
+        'mage/mage'
+    ], function($){
+
+        var dataForm = $('#form-validate');
+        var ignore = null;
+
+        dataForm.mage('validation', {
+            ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+        }).find('input:text').attr('autocomplete', 'off');
+    });
+</script>
+<?php if ($block->getShowAddressFields()): ?>
+    <script type="text/x-magento-init">
+    {
+        "#country": {
+            "regionUpdater": {
+                "optionalRegionAllowed": <?php /* @escapeNotVerified */ echo($block->getConfig('general/region/display_all') ? 'true' : 'false'); ?>,
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "postcodeId": "#zip",
+                "form": "#form-validate",
+                "regionJson": <?php /* @escapeNotVerified */ echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
+                "defaultRegion": "<?php /* @escapeNotVerified */ echo $block->getFormData()->getRegionId() ?>",
+                "countriesWithOptionalZip": <?php /* @escapeNotVerified */ echo $this->helper('Magento\Directory\Helper\Data')->getCountriesWithOptionalZip(true) ?>
+            }
+        }
+    }
+</script>
+<?php endif; ?>

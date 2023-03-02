@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <body>
+
+        <referenceContainer name="product.info.extrahint">
+            <block class="Magento\Cms\Block\Block" name="product_shiping_info" before="-">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">product_shiping_info</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+
+        <referenceBlock name="product.info.addtocart">
+            <block class="Magento\Catalog\Block\Product\View" name="product.info.weight" as="product.info.weight" template="Magento_Catalog::product/view/product-weight.phtml"/>
+        </referenceBlock>
+
+        <referenceBlock name="product.info.addtocart.additional">
+            <block class="Magento\Catalog\Block\Product\View" name="product.info.weight.additional" as="product.info.weight.additional" template="Magento_Catalog::product/view/product-weight.phtml"/>
+        </referenceBlock>
+
+        <referenceBlock name="product.info.details">
+
+            <block class="Magento\Cms\Block\Block" name="product_beneficios" as="product_beneficios" group="detailed_info">
+                <arguments>
+                    <argument translate="true" name="title" xsi:type="string">Benefícios</argument>
+                    <argument name="sort_order" xsi:type="string">15</argument>
+                    <argument name="block_id" xsi:type="string">product_beneficios</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Cms\Block\Block" name="product_aplicacoes" as="product_aplicacoes" group="detailed_info">
+                <arguments>
+                    <argument translate="true" name="title" xsi:type="string">Aplicações</argument>
+                    <argument name="sort_order" xsi:type="string">16</argument>
+                    <argument name="block_id" xsi:type="string">product_aplicacoes</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+
+        <move element="related.product.addto.wishlist" destination="catalog.product.related"/>
+
+        <move element="upsell.product.addto.wishlist" destination="product.info.upsell"/>
+        <move element="product.info.mailto" destination="product.info.addto" after="-"/>
+
+
+        <referenceContainer name="content.aside">
+            <block class="Magento\Catalog\Block\Product\ProductList\Related" name="catalog.product.related.seller" template="Magento_Catalog::product/list-related-seller.phtml" >
+
+                <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="catalog.product.related.seller.addto" as="addto">
+                    <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
+                           name="catalog.product.related.seller.addto.compare" as="compare"
+                           template="Magento_Catalog::product/list/addto/compare.phtml"/>
+                </block>
+
+
+                <block class="Magento\Wishlist\Block\Catalog\Product\ProductList\Item\AddTo\Wishlist"
+                       name="catalog.product.related.seller.addto.wishlist" as="wishlist" before="compare"
+                       template="Magento_Wishlist::catalog/product/list/addto/wishlist.phtml"/>
+
+
+               <block class="Purpletree\Marketplace\Block\ProductView" name="catalog.product.related.seller.extra" as="sellerextra" template="Purpletree_Marketplace::productview-extra.phtml"/>
+            </block>
+
+            <block class="Magento\Catalog\Block\Product\ProductList\Related" name="catalog.product.related.category" template="Magento_Catalog::product/list-related-category.phtml" after="-">
+
+                <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="catalog.product.related.category.addto" as="addto">
+                    <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
+                           name="catalog.product.related.category.addto.compare" as="compare"
+                           template="Magento_Catalog::product/list/addto/compare.phtml"/>
+                </block>
+
+
+                <block class="Magento\Wishlist\Block\Catalog\Product\ProductList\Item\AddTo\Wishlist"
+                       name="catalog.product.related.category.addto.wishlist" as="wishlist" before="compare"
+                       template="Magento_Wishlist::catalog/product/list/addto/wishlist.phtml"/>
+            </block>
+
+
+
+        </referenceContainer>
+
+        <referenceBlock name="catalog.product.related" remove="true"/>
+        <referenceBlock name="product.info.upsell" remove="true"/>
+
+        <referenceBlock name="product.attributes">
+            <arguments>
+                <argument name="serializer_json" xsi:type="object">Softtek\Marketplace\Helper\Serializer</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

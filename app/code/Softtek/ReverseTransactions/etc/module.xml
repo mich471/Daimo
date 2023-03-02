@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Softtek ReverseTransactions Module
+ *
+ * @package SofttekReverseTransactions
+ * @author Juan Carlos Flores <juan.floress@softtek.com>
+ * @copyright Softtek 2020
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Softtek_ReverseTransactions" setup_version="1.0.0">
+        <sequence>
+            <module name="Magento_Checkout"/>
+        </sequence>
+    </module>
+</config>

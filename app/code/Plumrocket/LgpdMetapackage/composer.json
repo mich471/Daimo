@@ -1,0 +1,11 @@
+{
+  "name": "plumrocket/lgpd-metapackage",
+  "version": "1.1.1",
+  "description": "Package for Brazilian General Data Protection Act (LGPD)",
+  "type": "metapackage",
+  "require": {
+    "plumrocket/module-lgpd-addon": ">=1.0.0",
+    "plumrocket/module-data-privacy": ">=3.2.1",
+    "plumrocket/module-cookie-consent": ">=1.2.3"
+  }
+}

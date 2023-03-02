@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Hexamarvel Team
+ * @copyright Copyright (c) 2021 Hexamarvel (https://www.hexamarvel.com)
+ * @package Hexamarvel_Attachments
+ */
+ -->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+   <table name="hexamarvel_attachments" resource="default" comment="Hexamarvel Attachments">
+       <column xsi:type="int" name="id" padding="10" identity="true" unsigned="true" nullable="false" comment="Entity Id"/>
+       <column xsi:type="text" name="name" nullable="false" comment="Attachment name"/>
+       <column xsi:type="text" name="icon" nullable="false" comment="Icons"/>
+       <column xsi:type="text" name="file" nullable="false" comment="Files"/>
+       <column xsi:type="text" name="products" nullable="false" comment="Product ids"/>
+       <column xsi:type="varchar" name="customer_group" nullable="false" comment="custom group"/>
+       <column xsi:type="varchar" name="stores" nullable="false" comment="stores"/>
+       <column xsi:type="int" name="is_active" default="1" nullable="false" comment="is active"/>
+       <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+       <constraint xsi:type="primary" referenceId="PRIMARY">
+           <column name="id"/>
+       </constraint>
+   </table>
+</schema>

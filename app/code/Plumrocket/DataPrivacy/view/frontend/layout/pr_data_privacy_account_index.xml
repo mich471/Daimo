@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_DataPrivacy
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="prgdpr_account_index"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Plumrocket\GDPR\Block\Account\Index" name="prgdpr_index" cacheable="false" template="Plumrocket_DataPrivacy::account/dashboard.phtml">
+                <arguments>
+                    <argument name="viewModel" xsi:type="object">Plumrocket\DataPrivacy\ViewModel\Dashboard\Navigation</argument>
+                </arguments>
+                <container name="data_privacy_nav_links" htmlTag="ul" htmlClass="prgdpr__list">
+                    <block name="pr_privacy_policy_page" template="Plumrocket_DataPrivacy::account/navigation/default.phtml">
+                        <arguments>
+                            <argument name="canShow" xsi:type="helper"
+                                      helper="Plumrocket\DataPrivacy\Helper\Config\PrivacyCenterDashboard::getPrivacyPolicyPageUrl"/>
+                            <argument name="label" xsi:type="string" translate="true">Privacy Policy</argument>
+                            <argument name="description" xsi:type="string" translate="true">We take your privacy extremely seriously. This policy describes what, why and how we collect and use your personal information, how we protect it and how you can contact us.</argument>
+                            <argument name="icon" xsi:type="string" translate="false">privacy_policy</argument>
+                            <argument name="url" xsi:type="helper"
+                                      helper="Plumrocket\DataPrivacy\Helper\Config\PrivacyCenterDashboard::getPrivacyPolicyPageUrl"/>
+                            <argument name="target" xsi:type="string" translate="false">_blank</argument>
+                        </arguments>
+                    </block>
+                    <block name="pr_cookie_policy_page" template="Plumrocket_DataPrivacy::account/navigation/default.phtml">
+                        <arguments>
+                            <argument name="canShow" xsi:type="helper"
+                                      helper="Plumrocket\DataPrivacy\Helper\Config\PrivacyCenterDashboard::getCookiePolicyPageUrl"/>
+                            <argument name="label" xsi:type="string" translate="true">Cookie Policy</argument>
+                            <argument name="description" xsi:type="string" translate="true">We use cookies and similar technologies for a wide range of purposes on our website to deliver our services and to improve your experience.</argument>
+                            <argument name="icon" xsi:type="string" translate="false">cookie_policy</argument>
+                            <argument name="url" xsi:type="helper"
+                                      helper="Plumrocket\DataPrivacy\Helper\Config\PrivacyCenterDashboard::getCookiePolicyPageUrl"/>
+                            <argument name="target" xsi:type="string" translate="false">_blank</argument>
+                        </arguments>
+                    </block>
+                    <block name="protection_officer_email" template="Plumrocket_DataPrivacy::account/navigation/data_protection_officer.phtml">
+                        <arguments>
+                            <argument name="label" xsi:type="string" translate="true">Contact Data Protection Officer</argument>
+                            <argument name="description" xsi:type="string" translate="true">If you have any questions or suggestions, please refer to our Data Protection Officer (DPO), who will be pleased to help you.</argument>
+                            <argument name="icon" xsi:type="string" translate="false">dpo</argument>
+                            <argument name="viewModel" xsi:type="object">Plumrocket\DataPrivacy\ViewModel\Dashboard\DataProtectionOfficer</argument>
+                        </arguments>
+                    </block>
+                    <block name="pr_my_consents" template="Plumrocket_DataPrivacy::account/navigation/default.phtml">
+                        <arguments>
+                            <argument name="canShow" xsi:type="helper"
+                                      helper="Plumrocket\DataPrivacy\Helper\Config\PrivacyCenterDashboard::showMyConsentsPage"/>
+                            <argument name="label" xsi:type="string" translate="true">My Consents</argument>
+                            <argument name="description" xsi:type="string" translate="true">Review the list of all consents given at our store. Update your consents and withdraw at any time.</argument>
+                            <argument name="icon" xsi:type="string" translate="false">consent_icon</argument>
+                            <argument name="url" xsi:type="url" path="prgdpr/consentcheckboxes/manage"/>
+                        </arguments>
+                    </block>
+                    <block name="pr_export" template="Plumrocket_DataPrivacy::account/navigation/export.phtml">
+                        <arguments>
+                            <argument name="canShow" xsi:type="helper"
+                                      helper="Plumrocket\DataPrivacy\Helper\Config::isAccountExportEnabled"/>
+                            <argument name="label" xsi:type="string" translate="true">Download your Data</argument>
+                            <argument name="description" xsi:type="string" translate="true">Download an archive of your account data (order history, addresses, reviews and more)</argument>
+                            <argument name="icon" xsi:type="string" translate="false">download</argument>
+                            <argument name="viewModel" xsi:type="object">Plumrocket\DataPrivacy\ViewModel\Dashboard\Navigation</argument>
+                        </arguments>
+                    </block>
+                    <block name="pr_delete" template="Plumrocket_DataPrivacy::account/navigation/delete.phtml">
+                        <arguments>
+                            <argument name="canShow" xsi:type="helper"
+                                      helper="Plumrocket\DataPrivacy\Helper\Config::isAccountDeletionEnabled"/>
+                            <argument name="icon" xsi:type="string" translate="false">delete_acc</argument>
+                            <argument name="viewModel" xsi:type="object">Plumrocket\DataPrivacy\ViewModel\Dashboard\Navigation</argument>
+                        </arguments>
+                    </block>
+                </container>
+                <block class="Magento\Cms\Block\Block" name="privacy_faqs">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">prgdpr_privacy_faqs</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

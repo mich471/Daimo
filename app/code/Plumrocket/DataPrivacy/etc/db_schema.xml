@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_DataPrivacy
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="plumrocket_gdpr_removal_requests" resource="default" engine="innodb" comment="Log of Account Removal Requests">
+        <column name="request_id" xsi:type="int" nullable="false" identity="true" unsigned="true" comment="Removal Request ID"/>
+        <column name="created_at" xsi:type="timestamp" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Request Date"/>
+        <column name="created_by" xsi:type="smallint" nullable="false" default="0" unsigned="true" comment="0 - customer, 1 - admin"/>
+        <column name="admin_id" xsi:type="int" nullable="false" unsigned="true" comment="Admin ID"/>
+        <column name="admin_comment" xsi:type="text" nullable="true" comment="Admin Comment"/>
+        <column name="customer_id" xsi:type="int" nullable="false" unsigned="true" comment="Customer Entity ID"/>
+        <column name="customer_email" xsi:type="varchar" length="254" nullable="false" comment="Customer Email"/>
+        <column name="website_id" xsi:type="smallint" nullable="false" unsigned="true" comment="Website"/>
+        <column name="customer_ip" xsi:type="varchar" length="255" nullable="false" comment="Customer IP"/>
+        <column name="cancelled_at" xsi:type="timestamp" on_update="false" nullable="true" default="NULL" comment="Cancellation Date"/>
+        <column name="cancelled_by" xsi:type="varchar" length="255" nullable="false" comment="Cancelled By"/>
+        <column name="scheduled_at" xsi:type="timestamp" on_update="false" nullable="true" default="NULL" comment="Removal Date"/>
+        <column name="status" xsi:type="varchar" length="32" nullable="false" default="pending" comment="Status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="request_id"/>
+        </constraint>
+        <index referenceId="PLUMROCKET_GDPR_REMOVAL_REQUESTS_CUSTOMER_ID" indexType="btree">
+            <column name="customer_ip"/>
+        </index>
+    </table>
+</schema>

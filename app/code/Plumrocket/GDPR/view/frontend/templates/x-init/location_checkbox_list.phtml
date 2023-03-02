@@ -1,0 +1,61 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_GDPR
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+
+use Plumrocket\GDPR\Helper\Checkboxes;
+
+/**
+ * This template has the following settings:
+ *
+ * - locationKey          - key of consent location
+ * - scope                - scope for data-bind, must be unique to avoid conflicts
+ * - checkboxTemplate     - optional, template of each checkbox
+ * - denyToOpenCmsInPopup - optional, if set 'true' disable opening popup
+ * - checkboxLabelStyle   - optional, inline styles for checkboxes labels.
+ *                          Many themes and designs use placeholders instead of label, but we need label for checkbox
+ */
+
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Plumrocket\GDPR\Helper\Checkboxes $helper */
+$helper = $this->helper(Checkboxes::class);
+$scope = $block->getData('scope');
+
+$checkboxListComponent = [
+    'component'            => 'Plumrocket_GDPR/js/view/consent/location/checkbox-list',
+    'locationKey'          => $block->getData('locationKey'),
+    'template'             => $block->getData('checkboxTemplate') ?: 'Plumrocket_GDPR/consent-checkbox',
+    'sourceUrl'            => $block->getUrl('pr_data_privacy/consent_checkbox/list'),
+    'isVisible'            => true,
+    'denyToOpenCmsInPopup' => (bool) $block->getData('denyToOpenCmsInPopup'),
+    'checkboxLabelStyle'   => (string) $block->getData('checkboxLabelStyle'),
+];
+?>
+
+<div data-bind="scope: '<?= $block->escapeJs($scope) ?>'" class="prgdpr-consent-checkboxes-block">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "<?= $block->escapeJs($scope) ?>":  <?= /* @noEscape */ $helper->serializeToJson($checkboxListComponent) ?>
+                }
+            }
+        }
+    }
+</script>

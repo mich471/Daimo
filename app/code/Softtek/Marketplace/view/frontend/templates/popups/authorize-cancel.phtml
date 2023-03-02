@@ -1,0 +1,149 @@
+<?php
+    $customerVm = $block->getData("customer_view_model");
+    $order = $customerVm->getOrder();
+    $payment = $order->getPayment();
+    $granTotalFormat = $order->formatPrice($order->getGrandTotal());
+    $ccType = $payment->getCcType();
+    $ccNumber = $payment->getCcLast4();
+    $boletoNumber = $customerVm->getBankTicketNumber();
+    $cancelRequestData = $customerVm->getCancelRequestData();
+    $isPaymentCaptured = $customerVm->isPaymentCaptured();
+?>
+<div id="authorize-cancel-order" class="authorize-cancel-modal" style="display:none;">
+    <form method="POST" id="authorize-cancel-order-form">
+        <input type="hidden" id="ac_order_id" name="ac_order_id" value="<?= $order->getId() ?>"/>
+        <input type="hidden" id="ac_pm_code" name="ac_pm_code" value="<?= $payment->getMethodInstance()->getCode() ?>"/>
+        <div class="authorize-cancel-order-info">
+            <p><strong><?= __('Order') ?> #<?= $order->getRealOrderId() ?></strong></p>
+            <fieldset class="ac-payment-info-fieldset">
+                <h3><?= __('Payment Information') ?>:</h3>
+                <p><strong><?= $payment->getMethodInstance()->getTitle() ?></strong></p>
+                <p><?= __('Chargeback option') ?>: <?= ($isPaymentCaptured) ? __('Refund Total') : __('No Refund') ?></p>
+                <?php if ($payment->getMethodInstance()->getCode() == "foxsea_paghiper") { ?>
+                    <p><?= __('Bank Ticket Number') ?>: <?= /* @noEscape */ $boletoNumber ?></p>
+                    <p><?= __('Grand Total') ?>: <?= /* @noEscape */ $granTotalFormat ?></p>
+                <?php } else { ?>
+                    <p><?= __('Credit Card Number') ?>: <?= /* @noEscape */ "****" . $ccNumber ?></p>
+                    <p><?= __('Grand Total') ?>: <?= /* @noEscape */ $granTotalFormat ?></p>
+                <?php } ?>
+            </fieldset>
+            <fieldset class="ac-apply-fieldset">
+                <h3><?= __('Reason') ?>:</h3>
+                <div>
+                    <input type="radio" id="ac_reason_out_stock" name="seller_reason" value="<?= __('Product out of stock') ?>" required />
+                    <label for="ac_reason_out_stock"><?= __('Product out of stock') ?></label><br />
+
+                    <input type="radio" id="at_customer_request" name="seller_reason" value="<?= __("At customer's request") ?>" />
+                    <label for="at_customer_request"><?= __("At customer's request") ?></label><br />
+
+                    <input type="radio" id="ac_reason_other" name="seller_reason" value="<?= __("Otro") ?>" />
+                    <label for="ac_reason_other"><?= __("Otro") ?></label>
+                </div><br />
+                <div>
+                    <label for="ac_comment"><?= __('Comments:') ?></label>
+                    <textarea name="seller_comment" id="ac_comment"  class="commet"></textarea>
+                </div>
+            </fieldset>
+            <fieldset class="ac-cancel-info">
+                <h4><?= __('Observação') ?>:</h4>
+                <?php if ($payment->getCode() == "foxsea_paghiper") { ?>
+                    <p><?= __('CNPJ') ?>: <?= $cancelRequestData['databank_cnpj'] ?? ''  ?></p>
+                    <p><?= __('Bank') ?>: <?= $cancelRequestData['databank_banknumber'] ?? ''  ?></p>
+                    <p><?= __('Account Type') ?>: <?= (isset($cancelRequestData['databank_actype']) && $cancelRequestData['databank_actype'] == 'conta_corrente') ? __('Checking Account') : __('Savings Account'); ?></p>
+                    <p><?= __('Agency') ?>: <?= $cancelRequestData['databank_agnumber'] ?? ''  ?></p>
+                    <p><?= __('Account Number') ?>: <?= $cancelRequestData['databank_acnumber'] ?? ''  ?></p>
+                    <p><?= __('Cancel Amount') ?>: <?= $granTotalFormat  ?></p>
+                <?php } else { ?>
+                    <p><?= __('The refund will be made to the same card with which the payment was made') ?></p>
+                <?php } ?>
+            </fieldset>
+        </div>
+    </form>
+    <div id="ac-msg"></div>
+</div>
+<script type="text/javascript">
+    require([
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ], function ($, modal) {
+            var dataAuthorizeForm = $('#authorize-cancel-order-form');
+            ignore = null;
+
+            dataAuthorizeForm.submit(function () {
+                $(".messages").fadeOut();
+
+                if (dataAuthorizeForm.validation('isValid')) {
+                    $('#ac-msg').css('color', '#e80033');
+                    $('#ac-msg').css('font-weight', 'bold');
+                    $('#ac-msg').css('margin-bottom', '20px');
+                    $.ajax({
+                        url: '<?= $this->getUrl('cancelorder/cancelorder/authorizeRequest'); ?>',
+                        data: $("#authorize-cancel-order-form").serialize(),
+                        showLoader: true,
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response.success == true) {
+                                $('#authorize-cancel-order-form').hide();
+                                $('#authorize-cancel-order').attr('disabled', true);
+                                $('.authorize-cancel').hide();
+                                $('.modal-footer').attr('style', 'display: none !important');
+                                $('#ac-msg').css('color', '#006400');
+                                setTimeout(function () {
+                                    $('body').loader('hide');
+                                    $('#authorize-cancel-order').attr('disabled', false);
+                                    location.reload();
+                                }, 2000);
+                            }
+                            $('#ac-msg').html(response.message).fadeIn('slow');
+                            $('#ac-msg').show();
+                            if (response.success == true) {
+                                $("#authorize-cancel-order").append($('#ac-msg'));
+                            } else {
+                                $(".modal-footer").prepend($('#ac-msg'));
+                            }
+                        },
+                        error: function (error) {
+                            $('#ac-msg').html(error).fadeIn('slow');
+                            $('#ac-msg').show();
+                            $( ".modal-footer" ).prepend( $('#ac-msg') );
+                        }
+                    });
+                    return false;
+                }
+            })
+                .mage('validation', {ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'})
+                .find('input:text')
+                .attr('autocomplete', 'off');
+
+            var options = {
+                type: 'popup',
+                modalClass: 'authorize-cancel-modal',
+                responsive: true,
+                innerScroll: true,
+                title: '<?= __('Autorizar') ?>',
+                buttons: [
+                    {
+                        text: "<?= $block->escapeHtml(__('Cancel')) ?>",
+                        click: function () {
+                            this.closeModal();
+                        }
+                    },
+                    {
+                        text: "<?= $block->escapeHtml(__('Authorize')) ?>",
+                        class: 'action authorize primary',
+                        click: function () {
+                            dataAuthorizeForm.submit();
+                        }
+                    }
+                ]
+            };
+            var AuthorizePopup = modal(options, $('#authorize-cancel-order'));
+
+            $(document).on('click', '.authorize-cancel', function (event) {
+                event.preventDefault();
+                $('#authorize-cancel-order').modal('openModal');
+            });
+        }
+    );
+</script>

@@ -1,0 +1,23 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+
+<?php 
+    $_product = $block->getProduct();
+    $customerID = $_product->getSellerId(); 
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $customerObj = $objectManager->create('Magento\Customer\Model\Customer')
+    ->load($customerID);
+?>
+
+<?php if ($customerID): ?>
+
+    <div class="seller-by">
+        <span><?= $block->escapeHtml(__('Sold by:')) ?></span> <b><?php echo $customerObj->getFirstname().'&nbsp;'. $customerObj->getLastname(); ?></b>
+    </div>
+<?php endif ?>

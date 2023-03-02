@@ -1,0 +1,23 @@
+<!--@subject {{trans "Update to your %store_name order" store_name=$store.frontend_name}} @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+{{template config_path="design/email/header_template"}}
+
+<p>{{trans "Hi"}}, {{var receiver_name}},</p>
+<p>
+    {{trans "Your order #%increment_id has as a new comment. You can check the status of your order by"  increment_id=$order_number}} <a href="{{var order_url}}">{{trans "logging into your account"}}</a>.
+</p>
+<p>
+    {{trans "Message"}}:
+</p>
+<p>
+    {{var comment}}
+</p>
+
+{{template config_path="design/email/footer_template"}}

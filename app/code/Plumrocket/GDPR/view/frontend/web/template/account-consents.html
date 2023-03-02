@@ -1,0 +1,73 @@
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_GDPR
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+
+<div data-role="prgdpr-consent-checkboxes" afterRender="checkboxesRendered">
+    <div class="prgdpr-consent-checkboxes" data-bind="visible: isVisible">
+        <if args="getRequiredConsents().length">
+            <div class="prgdpr-block-title">
+                <h2 data-bind="i18n: 'Required Consents'"></h2>
+            </div>
+            <p data-bind="i18n: 'These consents are required for the regular use of the website. You can withdraw your consent by deleting your account.'"></p>
+            <!-- ko foreach: getRequiredConsents() -->
+                <!-- ko ifnot: canDecline -->
+                <div class="prgdpr-consent-checkbox required">
+                    <input type="checkbox" data-bind="attr: {
+                         checked: $parent.isChecked($data),
+                         disabled: $parent.isDisabled($data),
+                        'id': $parent.getCheckboxId($parentContext, consentId),
+                        'name': 'prgdpr_consent[' + consentId + '][' + $parent.getCmsPageVersion($data) + ']',
+                        'value': consentId
+                    }" data-validate="{required: true}"/>
+                    <label data-bind="attr: {'for': $parent.getCheckboxId($parentContext, consentId)}">
+                        <span bindHtml="checkboxLabel"></span>
+                    </label>
+                    <span if="cms_page" data-bind="attr: {'data-checkboxid': $parent.getCheckboxId($parentContext, consentId)}"
+                          afterRender="function(element, data) {$parent.initModal(element, data)}"></span>
+                    <span if="$parent.isChecked($data)" data-bind="text: '(' + $t('Date') + ' ' + createdAt + ')'"></span>
+                    <span if="$parent.getCmsPageVersion($data)" data-bind="text: '(' + $t('version') + ': ' + $parent.getCmsPageVersion($data) + ')'"></span>
+                </div>
+                <!-- /ko -->
+            <!-- /ko -->
+            <br />
+        </if>
+        <if args="getOptionalConsents().length">
+            <div class="prgdpr-block-title prgdpr-optional-title">
+                <h2 data-bind="i18n: 'Optional Consents'"></h2>
+            </div>
+            <p class="prgdpr-update-text" data-bind="i18n: 'Review the list of consents given at our store. Update your consents and withdraw at any time.'"></p>
+            <!-- ko foreach: getOptionalConsents() -->
+                <div class="prgdpr-consent-checkbox required">
+                    <input type="checkbox" data-bind="attr: {
+                         checked: $parent.isChecked($data),
+                         disabled: $parent.isDisabled($data),
+                        'id': $parent.getCheckboxId($parentContext, consentId),
+                        'name': 'prgdpr_consent[' + consentId + '][' + $parent.getCmsPageVersion($data) + ']',
+                        'value': consentId
+                    }"/>
+                    <label data-bind="attr: {'for': $parent.getCheckboxId($parentContext, consentId)}">
+                        <span bindHtml="checkboxLabel"></span>
+                    </label>
+                    <span if="cms_page" data-bind="attr: {'data-checkboxid': $parent.getCheckboxId($parentContext, consentId)}"
+                          afterRender="function(element, data) {$parent.initModal(element, data)}"></span>
+                    <span if="$parent.isChecked($data)" data-bind="text: '(' + $t('Date') + ' ' + createdAt + ')'"></span>
+                    <span if="$parent.getCmsPageVersion($data)" data-bind="text: '(' + $t('version') + ': ' + $parent.getCmsPageVersion($data) + ')'"></span>
+                </div>
+            <!-- /ko -->
+        </if>
+    </div>
+</div>

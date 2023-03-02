@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_CookieConsent
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Plumrocket_CookieConsent::css/cookie-item.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <uiComponent name="pr_cookie_item_form"/>
+            <referenceContainer name="page.main.actions">
+                <block class="Magento\Backend\Block\Store\Switcher" name="pr.cookie.store.switcher" template="Magento_Backend::store/switcher.phtml"/>
+            </referenceContainer>
+        </referenceContainer>
+    </body>
+</page>

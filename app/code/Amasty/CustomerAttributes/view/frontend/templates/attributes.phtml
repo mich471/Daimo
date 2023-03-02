@@ -1,0 +1,13 @@
+<?php
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Amasty\CustomerAttributes\Block\Customer\Form\Attributes */
+?>
+<?php /* @todo replace .form-inline with better class name */?>
+<?php /* ToDo UI: check if we need this wrapper in the process of global forms refactoring */ ?>
+
+<div class="entry-edit form-inline">
+    <?php echo $block->getFormHtml();?>
+</div>
+<?php echo $block->getChildHtml('form_after');?>

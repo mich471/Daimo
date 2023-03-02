@@ -1,0 +1,20 @@
+{
+    "name": "plumrocket/module-data-privacy",
+    "version": "3.2.1",
+    "description": "Data Privacy Extension for Magento 2",
+    "type": "magento2-module",
+    "require": {
+        "magento/framework": ">=101.0.0",
+        "plumrocket/module-plumbase": ">=2.5",
+        "plumrocket/module-data-privacy-api": ">=2.1",
+        "plumrocket/module-gdpr-old": ">=3.2"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Plumrocket\\DataPrivacy\\": ""
+        }
+    }
+}

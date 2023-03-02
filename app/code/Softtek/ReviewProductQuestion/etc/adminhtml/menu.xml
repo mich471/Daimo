@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Softtek_ReviewProductQuestion::title" title="Product Questions Reviews" translate="title" module="Softtek_ReviewProductQuestion" sortOrder="50" parent="Softtek_Base::softtek" dependsOnModule="Softtek_ReviewProductQuestion" resource="Softtek_ReviewProductQuestion::title"/>
+        <add id="Softtek_ReviewProductQuestion::question" title="Questions" translate="title" module="Softtek_ReviewProductQuestion" sortOrder="100" parent="Softtek_ReviewProductQuestion::title" action="question/question/index" resource="Softtek_ReviewProductQuestion::question"/>
+    </menu>
+</config>

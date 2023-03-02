@@ -1,0 +1,34 @@
+<?php
+/**
+ * @category    Softtek
+ * @package     Softtek_Marketplace
+ * @author      J. Abraham Serena <jorge.serena@softtek.com>
+ * @copyright   © Softtek 2022. All rights reserved.
+ */
+?>
+<?php
+    $currentUrl = $this->getCurrentUrl();
+    $customerId = $this->getCustomerId();
+    $seller = $this->getIsSeller();
+    $sellerApprove = $this->isSellerApprove();
+?>
+
+<?php if ($seller): ?>
+    <div id="perguntas" class="block account-nav block-collapsible-nav pts-main">
+        <div class="title block-collapsible-nav-title" data-mage-init='{"toggleAdvanced": {"toggleContainers": "#block-collapsible-nav-seller", "selectorsToggleClass": "active"}}'>
+            <strong><?php echo __('Perguntas recebidas'); ?></strong>
+        </div>
+        <div class="content block-collapsible-nav-content" id="block-collapsible-nav-seller-payment" style="padding: 1px 0 !important;">
+            <nav class="account-nav">
+                <ul class="nav items">
+                    <li class="nav item <?php echo ($currentUrl =='sellerquestioninfo')? "current":"";?>">
+                        <a href="<?php echo $this->getUrl('sellerquestioninfo/index/questioninfo'); ?>"> <?php echo __('Perguntas recebidas') ?> </a>
+                    </li>
+                    <li class="nav item">
+                        <span class="delimiter"></span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+<?php endif; ?>

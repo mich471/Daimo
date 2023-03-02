@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Softtek\Marketplace\Block\Order\View" name="order.comments" template="Magento_Sales::order/order_comments.phtml" after="sales.order.info"/>
+        </referenceContainer>
+
+        <referenceBlock name="sales.order.info.buttons">
+            <arguments>
+                <argument name="customer_view_model" xsi:type="object">Softtek\Marketplace\ViewModel\Customer</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,39 @@
+<?php
+/** @var \Softtek\Vendor\Block\Magento\Customer\Widget\AdditionalCompanyInfo $block */
+?>
+<div class="field required" data-container="type_company">
+        <label class="label" for="profile-name">
+                <span>
+                    <?php /* @escapeNotVerified */ echo __('Tipo de empresa') ?>
+                </span>
+        </label>
+        <div class="control">
+            <select id="type_company"
+                    name="type_company"
+                    title="<?= /* @noEscape */ __('Tipo de empresa') ?>"
+                    class="validate-select type_company">
+                <?php foreach($block->getOptionsTypeCompany() as $option) : ?>
+                    <option value="<?= $option['value'] ?>"><?= $option['label'] ?></option>
+                <?php endforeach; ?>
+                    <option value=""></option>
+            </select>
+        </div>
+</div>
+<div class="field required" data-container="operating_segment">
+    <label class="label" for="profile-name">
+                <span>
+                    <?php /* @escapeNotVerified */ echo __('Segmento de atuação') ?>
+                </span>
+    </label>
+    <div class="control">
+        <select id="operating_segment"
+                name="operating_segment"
+                title="<?= /* @noEscape */ __('Segmento de atuação') ?>"
+                class="validate-select operating_segment">
+            <?php foreach($block->getOptionsOperatingSegmentType() as $option) : ?>
+                <option value="<?= $option['value'] ?>"><?= $option['label'] ?></option>
+            <?php endforeach; ?>
+            <option value=""></option>
+        </select>
+    </div>
+</div>

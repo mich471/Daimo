@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_GeoIPLookup
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Plumrocket\GeoIPLookup\Api\GeoIPLookupInterface" type="Plumrocket\GeoIPLookup\Model\Api\GeoIPLookup" />
+    <preference for="Plumrocket\GeoIPLookup\Api\GeoLocationValidatorInterface" type="Plumrocket\GeoIPLookup\Model\GeoLocationValidator" />
+    <preference for="Plumrocket\GeoIPLookup\Api\LocationsListInterface" type="Plumrocket\GeoIPLookup\Model\LocationsList" />
+    <preference for="Plumrocket\GeoIPLookup\Model\Cache\GeoIpInterface" type="Plumrocket\GeoIPLookup\Model\Cache\Session" />
+
+    <type name="Plumrocket\CCPA\Model\Validator\CcpaGeoLocationValidator">
+        <arguments>
+            <argument name="geoIpModel" xsi:type="object">Plumrocket\GeoIPLookup\Model\GeoIPLookup</argument>
+        </arguments>
+    </type>
+
+    <type name="Plumrocket\GeoIPLookup\Plugin\Plumrocket\CanManageCookie">
+        <arguments>
+            <argument name="geoLocationValidator" xsi:type="object">Plumrocket\GeoIPLookup\Api\GeoLocationValidatorInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\CookieConsent\Api\CanManageCookieInterface">
+        <plugin name="prGeoIpCanManageCookie"
+                type="Plumrocket\GeoIPLookup\Plugin\Plumrocket\CanManageCookie" sortOrder="10"/>
+    </type>
+
+    <type name="Magento\Framework\HTTP\PhpEnvironment\RemoteAddress">
+        <arguments>
+            <argument name="alternativeHeaders" xsi:type="array">
+                <item name="cloud-flare-real-visitor-ip" xsi:type="string">HTTP_CF_CONNECTING_IP</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\DataPrivacyApi\Api\ConsentCheckboxProviderInterface">
+        <plugin name="pr-geo-ip-filter-checkboxes"
+                type="Plumrocket\GeoIPLookup\Plugin\Plumrocket\DataPrivacy\FilterConsentCheckboxesPlugin"
+                sortOrder="10"/>
+    </type>
+</config>

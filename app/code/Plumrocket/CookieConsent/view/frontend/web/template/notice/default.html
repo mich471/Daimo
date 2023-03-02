@@ -1,0 +1,61 @@
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_CookieConsent
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+
+<div id="pr-cookie-notice" afterRender="autoOpen()">
+    <div class="pr-cookie-notice-wrap">
+        <div class="pr-cookie-notice-text"
+        data-bind="html: noticeTextHtml"
+        ></div>
+        <div class="actions pr-cookie-notice-actions">
+            <button click="allowAll" id="btn-cookie-allow" class="action allow primary pr-cookie-notice-btn"
+                data-bind="style: {
+                    color: acceptButtonConfig.text_color,
+                    backgroundColor: acceptButtonConfig.background_color,
+                    borderColor: acceptButtonConfig.background_color
+                }"
+            >
+                <translate args="acceptButtonConfig.label"></translate>
+            </button>
+            <button click="declineAll" id="btn-cookie-decline" class="action decline pr-cookie-notice-btn" if="declineButtonConfig.enabled"
+                data-bind="style: {
+                    color: declineButtonConfig.text_color,
+                    backgroundColor: declineButtonConfig.background_color,
+                    borderColor: declineButtonConfig.background_color
+                }"
+            >
+                <translate args="declineButtonConfig.label"></translate>
+            </button>
+            <button click="openSettings" class="action pr-cookie-notice-btn pr-cookie-setting-btn" if="settingsButtonConfig.enabled"
+            data-bind="css: {
+                'setting-link': settingsButtonConfig.type == 'link'
+                },
+
+                style: {
+                    color: settingsButtonConfig.text_color,
+                    backgroundColor: settingsButtonConfig.type === 'button' ? settingsButtonConfig.background_color : '',
+                    borderColor: settingsButtonConfig.background_color
+                }"
+            >
+                <translate args="settingsButtonConfig.label"></translate>
+            </button>
+        </div>
+    </div>
+    <!-- ko if: getDisplayStyle() === 'bottom' -->
+    <button class="pr-cookie-close-modal" data-bind="click: disableNotice" aria-label="Close notice"></button>
+    <!-- /ko -->
+</div>

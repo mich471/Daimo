@@ -1,0 +1,67 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product additional attributes template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Attributes
+ */
+?>
+<?php
+    $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+    $_product = $block->getProduct();
+?>
+<?php if ($_additional = $block->getAdditionalData()) :?>
+    <div class="additional-attributes-wrapper table-wrapper">
+        <table class="data table additional-attributes" id="product-attribute-specs-table">
+            <caption class="table-caption"><?= $block->escapeHtml(__('More Information')) ?></caption>
+            <tbody>
+            <?php foreach ($_additional as $_data) :?>
+                <tr>
+                    <th class="col label" scope="row"><?= $block->escapeHtml($_data['label']) ?></th>
+                    <?php if ($_data["code"] == 'technical_information') { ?>
+                        <?php
+                            $originalValue = $_data['value'];
+                            $decodedValue = $originalValue;
+                            if ($originalValue) {
+                                $serializerJson = $block->getSerializerJson();
+                                $decodedValueArray = $serializerJson->unserialize(preg_replace("/\"\"/", "", stripslashes(stripslashes($originalValue))), true);
+                                if (is_array($decodedValueArray)) {
+                                    if (array_key_exists("data", $decodedValueArray)) {
+                                        $spOutput = [];
+                                        $spOutput[] = "<table class=\"prod-more-info\">";
+                                        $colHeader = [];
+                                        foreach ($decodedValueArray["data"] as $spRow) {
+                                            if (!count($colHeader)) {
+                                                foreach ($spRow as $spK => $spV) {
+                                                    $colHeader[] = $block->escapeHtml(__($spK));
+                                                }
+                                                $spOutput[] = "<tr><th>" . implode("</th><th>", $colHeader) . "</th></tr>";
+                                            }
+                                            $cellValue = [];
+                                            foreach ($spRow as $spK => $spV) {
+                                                $cellValue[] = $spV;
+                                            }
+                                            $spOutput[] = "<tr><td>" . implode("</td><td>", $cellValue) . "</td></tr>";
+                                        }
+                                        $spOutput[] = "</table>";
+                                        $decodedValue = implode("\n", $spOutput) . "\n";
+                                    }
+                                }
+                            }
+                        ?>
+                        <td class="col data" data-th="<?= $block->escapeHtmlAttr($_data['label']) ?>"><?= /* @noEscape */ $decodedValue ?></td>
+                    <?php } else { ?>
+                        <td class="col data" data-th="<?= $block->escapeHtmlAttr($_data['label']) ?>"><?= /* @noEscape */ $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></td>
+                    <?php } ?>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php endif;?>

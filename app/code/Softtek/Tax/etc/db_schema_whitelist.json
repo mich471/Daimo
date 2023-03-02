@@ -1,0 +1,7 @@
+{
+    "tax_calculation_rate": {
+        "column": {
+            "source_warehouse": true
+        }
+    }
+}

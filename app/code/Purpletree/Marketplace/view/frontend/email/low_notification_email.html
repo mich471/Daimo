@@ -1,0 +1,37 @@
+<!--
+/**
+* Purpletree_Marketplace low_notification_email
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Purpletree License that is bundled with this package in the file license.txt.
+* It is also available through online at this URL: https://www.purpletreesoftware.com/license.html
+*
+* @category    Purpletree
+* @package     Purpletree_Marketplace
+* @author      Purpletree Software
+* @copyright   Copyright (c) 2017
+* @license     https://www.purpletreesoftware.com/license.html
+*/
+-->
+
+<!--@subject Produto está com pouco estoque  @-->
+
+
+
+{{template config_path="design/email/header_template"}}
+
+
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans "%seller_name," seller_name=$seller_name}}</p>
+            <p>
+			{{trans 'O estoque de %product_name' product_name=$product_name }}
+			{{trans 'está abaixo de  %low_stock_qty.' low_stock_qty=$low_stock_qty}} {{trans 'Por favor atualize o estoque do produto.'}}
+			</p>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

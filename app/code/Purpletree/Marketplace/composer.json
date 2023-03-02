@@ -1,0 +1,26 @@
+{
+  "name": "purpletree/marketplace",
+  "description": "Marketplace",
+  "require": {
+	"php": ">=5.6.5, <=5.6.99 | 7.0.2 | 7.0.4 | >=7.0.6, <7.1 | >=7.1.0, <7.5"
+  },
+  "type": "magento2-module",
+  "version": "1.2.39",
+  "license": [
+    "custom"
+  ],
+  "author": [
+      {
+         "name": "Purpletree",
+         "email": "support@purpletreesoftware.com",
+         "homepage": "https://www.purpletreesoftware.com",
+         "role": "Developer"
+      }
+	  ],
+  "autoload": {
+    "files": [ "registration.php" ],
+	"psr-4": {
+            "Purpletree\\Marketplace\\": ""
+        }
+  }
+} 

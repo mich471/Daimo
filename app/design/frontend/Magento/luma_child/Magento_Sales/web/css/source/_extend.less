@@ -1,0 +1,218 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Common
+//  _____________________________________________
+& when (@media-common = true) {
+    .actions {
+        display: flex;
+        justify-content: space-between;
+    }
+    .request-cancel-modal{
+        .modal-inner-wrap{
+            .request-cancel-modal{
+                .container_comment_reason, .container_comment_reason_1{
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .modal-popup {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .modal-inner-wrap {
+            max-width: max-content;
+            width: 50%;
+
+            .modal-content {
+                .modal-header {
+                    .modal-title {
+                        font-size: 35px;
+                        font-weight: 500;
+                    }
+                }
+
+                .modal-form {
+                    width: auto;
+                    margin: 0 auto;
+                    height: auto;
+                    text-align: center;
+
+                    #or_question_1-error {
+                        position: absolute;
+                        bottom: 44em;
+                        left: 32%;
+                    }
+
+                    #or_question_2-error {
+                        position: absolute;
+                        bottom: 35em;
+                    }
+
+                    #or_question_3-error {
+                        position: absolute;
+                        bottom: 35rem;
+                    }
+
+                    .required::after {
+                        content: " *";
+                        color: red;
+                    }
+
+                    .modal-form-tittle {
+                        text-align: center;
+                    }
+
+                    .ranking {
+                        direction: rtl;
+                        unicode-bidi: bidi-override;
+                        #or_question_1_5 ,#or_question_2_5,#or_question_3_5{
+                            opacity: 0;
+                        }
+
+                        .ranking-input {
+                            display: none;
+                        }
+
+                        input[type="radio"]:checked ~ label {
+                            color: #FECB2F;
+                        }
+
+                        label {
+                            color: grey;
+                            font-size: 4rem;
+                        }
+
+                        label:hover,
+                        label:hover ~ label {
+                            color: #FECB2F;
+                        }
+                    }
+
+                    .secondary-questions {
+                        .container-ranking {
+                            display: flex;
+                            align-items: center;
+                            margin-bottom: 13px;
+
+                            .secondary-questions-tittle {
+                                margin-right: 2rem;
+                            }
+
+                            .left {
+                                margin-right: 5rem;
+                            }
+
+                            .ranking {
+                                .ranking-input[type="radio"],
+                                .ranking-input1[type="radio"] {
+                                    display: none;
+                                }
+
+                                .ranking-input[type="radio"]:checked ~ .ranking-label,
+                                .ranking-input1[type="radio"]:checked ~ .ranking-label1 {
+                                    color: #FECB2F;
+                                }
+
+                                .ranking-label:hover,
+                                .ranking-input1:hover,
+                                .ranking-label:hover ~ .ranking-input-label,
+                                .ranking-label1:hover ~ .ranking-input1-label {
+                                    color: #FECB2F;
+                                }
+
+                            }
+                        }
+
+                    }
+
+                    .modal-commmet {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        direction: initial;
+
+                        .modal-commmet-tittle {
+                            font-size: 2rem;
+                        }
+
+                        .commet {
+                            height: 80px;
+                        }
+                    }
+
+                    .actions-toolbar {
+                        margin-top: 30px;
+                        display: flex;
+                        justify-content: center;
+
+                        .primary {
+                            padding: 11px 163px;
+                        }
+                    }
+                }
+            }
+
+            .modal-footer {
+                .btnClose-evaluate-order {
+                    display: none;
+                }
+
+                .btnToEvaluate {
+                    display: none;
+                    margin-right: 14rem;
+                    padding: 7px 59px;
+                }
+
+                .btnClose-confirm-delivery {
+                    padding: 7px 59px;
+                }
+            }
+        }
+    }
+}
+
+//Order Review popup - Mobile
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .order-evaluation-popup {
+        .modal-header, .modal-content, .modal-footer {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+        .modal-form {
+            .modal-commmet {
+                .modal-commmet-tittle {
+                    font-size: 1.5rem;
+                }
+            }
+            h3 {
+                font-size: 1.5rem !important;
+                margin-bottom: 1rem;
+            }
+            .secondary-questions {
+                .container-ranking {
+                    .left {
+                        margin-right: 4rem !important;
+                    }
+                    .secondary-questions-tittle {
+                        margin-right: 2.6rem;
+                    }
+                }
+            }
+            .modal-form-tittle {
+                margin-bottom: 1rem;
+            }
+            .ranking {
+                label {
+                    font-size: 2rem !important;
+                }
+            }
+        }
+    }
+}

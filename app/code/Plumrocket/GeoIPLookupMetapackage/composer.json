@@ -1,0 +1,10 @@
+{
+  "name": "plumrocket/module-geoiplookup",
+  "version": "1.2.5",
+  "description": "Package for Geo IP Lookup",
+  "type": "metapackage",
+  "require": {
+      "plumrocket/module-plumbase": ">=2.5",
+      "plumrocket/module-geo-ip-lookup": ">=1.2.5"
+  }
+}

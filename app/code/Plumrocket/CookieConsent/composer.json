@@ -1,0 +1,19 @@
+{
+    "name": "plumrocket/module-cookie-consent",
+    "description": "N/A",
+    "require": {
+        "php": ">=7.1",
+        "plumrocket/module-plumbase": ">=2.5",
+        "plumrocket/module-geo-ip-lookup": ">=1.2.5"
+    },
+    "type": "magento2-module",
+    "version": "1.4.0",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Plumrocket\\CookieConsent\\": ""
+        }
+    }
+}

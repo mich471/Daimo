@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_DataPrivacy
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Plumrocket\DataPrivacy\Observer\NewsletterSubscriberSaveAfterObserver">
+        <arguments>
+            <argument name="createCustomerFullActionPaths" xsi:type="array">
+                <item name="customer_account_createpost" xsi:type="boolean">true</item>
+                <item name="pslogin_account_login" xsi:type="boolean">true</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Customer\CustomerData\SectionPoolInterface">
+        <arguments>
+            <argument name="sectionSourceMap" xsi:type="array">
+                <item name="data_privacy" xsi:type="string">Plumrocket\DataPrivacy\CustomerData\DataPrivacy</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

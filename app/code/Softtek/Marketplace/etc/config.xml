@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<purpletree_marketplace>
+			<general>
+                <order_message_for_customer>purpletree_marketplace_general_order_message_for_customer</order_message_for_customer>
+                <order_message_for_seller>purpletree_marketplace_general_order_message_for_seller</order_message_for_seller>
+                <order_message_for_admin>purpletree_marketplace_general_order_message_for_admin</order_message_for_admin>
+                <cancel_request_for_seller>purpletree_marketplace_general_cancel_request_for_seller</cancel_request_for_seller>
+                <seller_registration_email>purpletree_marketplace_general_seller_registration_email</seller_registration_email>
+                <seller_ask_final_approval_email>purpletree_marketplace_general_seller_ask_final_approval_email</seller_ask_final_approval_email>
+                <seller_preapproved_email>purpletree_marketplace_general_seller_preapproved_email</seller_preapproved_email>
+                <seller_approved_email>purpletree_marketplace_general_seller_approved_email</seller_approved_email>
+			</general>
+		</purpletree_marketplace>
+        <sales_email>
+            <order>
+                <boleto_template>sales_email_order_boleto_template</boleto_template>
+            </order>
+        </sales_email>
+	</default>
+</config>

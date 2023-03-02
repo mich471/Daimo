@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <foxsea_paghiper>
+                <active>1</active>
+                <model>Foxsea\Paghiper\Model\Payment\Paghiper</model>
+                <order_status>pending_payment</order_status>
+                <title>Boleto Bancário (Cybersource v2)</title>
+                <can_use_checkout>1</can_use_checkout>
+                <payment_action>order</payment_action>
+                <information>Por favor verifique o seu CPF/CNPJ</information>
+                <merchant_id>softtekbr_boleto</merchant_id>
+                <transaction_key>6zuR9IdA0uP/YgsXFm12i/FO1cF9R24WfUX51QAi/S4cpzSwIxT8uHMTYcmnR1azRqeUNocB3UBJ9UusZo7CWUp72x8e6hgmooyR7Ypc8ONlpY0oQLF3c2I0/6akzv5FPPT9+/w7ZXlOtEQqa1ZRVTdhC1iiGMTK9Yn94ZPZBNxrSVvFI2u9myP04buI0C5/JZZfSPW/dhDaBk2fAp2NJX+HUKPXXp+XGoRfPpw6L47PIzgd42/lD2amq7fl/NeuDsQWouoPvaL+KU0OwMeSXgheKzBr+qXATG8D3ty3gJoVVQei7yz51HzbEoYpBOok8l6BRHQxeoUDo4Sp5qtjzg==</transaction_key>
+                <wsdl>https://ics2wstest.ic3.com/commerce/1.x/transactionProcessor/CyberSourceTransaction_1.192.wsdl</wsdl>
+                <nvp_wsdl>https://ics2wstest.ic3.com/commerce/1.x/transactionProcessor/CyberSourceTransaction_NVP_1.192.wsdl</nvp_wsdl>
+                <days_due_date>14</days_due_date>
+                <open_after_day_due></open_after_day_due>
+                <late_payment_fine></late_payment_fine>
+                <per_day_interest></per_day_interest>
+                <early_payment_discount></early_payment_discount>
+                <early_payment_discounts_cents></early_payment_discounts_cents>
+                <cs_tsa_host>apitest.cybersource.com</cs_tsa_host>
+                <cs_tsa_simulate_approved_boletos>0</cs_tsa_simulate_approved_boletos>
+                <paid_boleto_template>payment_other_foxsea_paghiper_paid_boleto_template</paid_boleto_template>
+            </foxsea_paghiper>
+        </payment>
+    </default>
+</config>

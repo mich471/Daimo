@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="form.additional.info">
+            <block
+                cacheable="false"
+                class="Softtek\Marketplace\Block\Customer\Account\SellerFields"
+                name="Marketplace.create"
+                template="Softtek_Marketplace::seller_fields.phtml"
+                ifconfig="purpletree_marketplace/registartion_form/enabled"
+            />
+        </referenceContainer>
+    </body>
+</page>

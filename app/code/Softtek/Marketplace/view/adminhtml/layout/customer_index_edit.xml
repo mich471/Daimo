@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	   <head>
+		<script src="Purpletree_Marketplace::css/purpletree_marketplace_admin_design.css"/>
+	</head>
+    <body>
+        <referenceBlock name="customer_form">
+             <block class="Softtek\Marketplace\Block\Adminhtml\Customer\Edit\SellerInformation" name="custom_edit_tab_is_seller_information" before="customer_edit_tab_view">
+			   <arguments>
+                        <argument name="sort_order" xsi:type="number">2</argument>
+                    </arguments>
+			 </block>
+        </referenceBlock>
+    </body>
+</page>

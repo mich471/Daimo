@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="Marketplace.becomeseller" remove="true"/>
+        <referenceContainer name="content">
+            <block
+                cacheable="false"
+                class="Softtek\Marketplace\Block\Customer\Account\SellerFields"
+                name="stm.Marketplace.becomeseller"
+                template="Softtek_Marketplace::becomeseller.phtml"
+                ifconfig="purpletree_marketplace/registartion_form/enabled"
+            />
+        </referenceContainer>
+    </body>
+</page>

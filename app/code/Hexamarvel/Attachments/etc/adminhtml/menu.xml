@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Hexamarvel Team
+ * @copyright Copyright (c) 2021 Hexamarvel (https://www.hexamarvel.com)
+ * @package Hexamarvel_Attachments
+ */
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Hexamarvel_Attachments::main"
+            title="Hexamarvel"
+            module="Hexamarvel_Attachments"
+            resource="Hexamarvel_Attachments::main"
+            sortOrder="51" />
+        <add id="Hexamarvel_Attachments::attachment"
+            title="Attachments"
+            module="Hexamarvel_Attachments"
+            resource="Hexamarvel_Attachments::attachment"
+            parent="Hexamarvel_Attachments::main"
+            sortOrder="5" />
+        <add id="Hexamarvel_Attachments::manage_attachments"
+            title="Manage Attachments"
+            module="Hexamarvel_Attachments"
+            action="hexaattachment/attachments"
+            resource="Hexamarvel_Attachments::manage_attachments"
+            parent="Hexamarvel_Attachments::attachment"
+            sortOrder="10" />
+        <add id="Hexamarvel_Attachments::attachments_configuration"
+            title="Configuration"
+            module="Hexamarvel_Attachments"
+            action="adminhtml/system_config/edit/section/hexaattachment"
+            resource="Hexamarvel_Attachments::attachments_configuration"
+            parent="Hexamarvel_Attachments::attachment"
+            sortOrder="20" />
+    </menu>
+</config>

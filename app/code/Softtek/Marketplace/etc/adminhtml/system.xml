@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="purpletree_marketplace">
+            <group id="registartion_form" translate="label" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Seller Registration Form</label>
+                <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Module Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="general">
+                <field id="reactivation_email_template" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Reactivate Account Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent when account is reactivated</comment>
+                </field>
+                <field id="seller_registration_email" translate="label comment" type="select" sortOrder="32" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Seller Registration - Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent to admin user when a new seller is registered</comment>
+                </field>
+                <field id="seller_ask_final_approval_email" translate="label comment" type="select" sortOrder="34" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Seller Ask Final Approval - Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent to admin user when a new seller request approval after fill up store data</comment>
+                </field>
+                <field id="seller_preapproved_email" translate="label comment" type="select" sortOrder="36" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Seller Pre-Approved - Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent to seller when an admin user pre-approves its registration</comment>
+                </field>
+                <field id="seller_approved_email" translate="label comment" type="select" sortOrder="36" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Seller Approved - Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent to seller when an admin user approves its registration</comment>
+                </field>
+                <field id="order_message_for_customer" translate="label comment" type="select" sortOrder="38" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Order Message For Customer</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent when seller send a message to customer in order</comment>
+                </field>
+                <field id="order_message_for_seller" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Order Message For Seller</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent when customer send a message to seller in order</comment>
+                </field>
+                <field id="order_message_for_admin" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Order Message For Admin</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent when customer send a message to admin in order</comment>
+                </field>
+                <field id="cancel_request_for_seller" translate="label comment" type="select" sortOrder="42" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cancel Request For Seller</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>This email is sent when customer send a cancel request</comment>
+                </field>
+            </group>
+        </section>
+        <section id="sales_email">
+            <group id="order">
+                <field id="boleto_template" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>New Boleto Bancario Order Confirmation Template</label>
+                    <comment>Email template for orders payed with Boleto Bancario</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

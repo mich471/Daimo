@@ -1,0 +1,28 @@
+{
+    "name": "hexamarvel/module-attachments",
+    "description": "PDF, DOC, txt attachments for products",
+    "require": {
+        "php": "~7.1.3||~7.2.0||~7.3.0||~7.4.0||~7.4.1"
+    },
+    "type": "magento2-module",
+    "version": "1.0.7",
+    "license": [
+        "GPL-3.0"
+    ],
+    "authors": [
+        {
+            "name": "Hexamarvel",
+            "email": "hello@hexamarvel.com",
+            "homepage": "https://www.hexamarvel.com",
+            "role": "Leader"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Hexamarvel\\Attachments\\": ""
+        }
+    }
+}

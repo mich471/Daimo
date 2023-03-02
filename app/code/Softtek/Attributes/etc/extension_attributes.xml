@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Softtek Attributes Module
+ *
+ * @package Softtek_Attributes
+ * @author Paul Soberanes <paul.soberanes@softtek.com>
+ * @copyright Softtek 2020
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\InventoryApi\Api\Data\SourceInterface">
+        <attribute code="seller_id" type="string" />
+        <attribute code="seller_name" type="string" />
+    </extension_attributes>
+</config>

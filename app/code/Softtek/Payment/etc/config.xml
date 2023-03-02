@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Softtek. All rights reserved.
+ * Author Paul Soberanes <paul.soberanes@softtek.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <softtek_payment>
+                <active>1</active>
+                <model>Softtek\Payment\Model\Payment</model>
+                <payment_action>authorize_capture</payment_action>
+                <title>Softtek Payment Gateway</title>
+                <merchant_id />
+                <api_key />
+                <api_secret />
+                <cctypes>AE,VI,MC,DI,JCB</cctypes>
+                <can_use_checkout>1</can_use_checkout>
+                <allowspecific>0</allowspecific>
+                <min_order_total>1</min_order_total>
+                <profile_id />
+            </softtek_payment>
+        </payment>
+    </default>
+</config>

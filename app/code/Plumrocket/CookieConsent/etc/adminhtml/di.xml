@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_CookieConsent
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Plumrocket\CookieConsent\Ui\Locator\CategoryLocatorInterface" type="Plumrocket\CookieConsent\Ui\Locator\CategoryContainerLocator" />
+    <preference for="Plumrocket\CookieConsent\Ui\Locator\CookieLocatorInterface" type="Plumrocket\CookieConsent\Ui\Locator\CookieContainerLocator" />
+    <type name="Plumrocket\CookieConsent\Ui\DataProvider\Cookie\Category\Form\Modifier\Eav">
+        <arguments>
+            <argument name="locator" xsi:type="object">Plumrocket\CookieConsent\Ui\Locator\CategoryLocatorInterface</argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\CookieConsent\Ui\DataProvider\Cookie\Category\Form\Modifier\System">
+        <arguments>
+            <argument name="locator" xsi:type="object">Plumrocket\CookieConsent\Ui\Locator\CategoryLocatorInterface</argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\CookieConsent\Ui\DataProvider\Cookie\Item\Form\Modifier\Eav">
+        <arguments>
+            <argument name="locator" xsi:type="object">Plumrocket\CookieConsent\Ui\Locator\CookieLocatorInterface</argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\CookieConsent\Ui\DataProvider\Cookie\Item\Form\Modifier\System">
+        <arguments>
+            <argument name="locator" xsi:type="object">Plumrocket\CookieConsent\Ui\Locator\CookieLocatorInterface</argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\CookieConsent\Ui\DataProvider\Cookie\Item\Form\Modifier\Duration">
+        <arguments>
+            <argument name="locator" xsi:type="object">Plumrocket\CookieConsent\Ui\Locator\CookieLocatorInterface</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="CookieCategoryFormModifierPool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="eav" xsi:type="array">
+                    <item name="class" xsi:type="string">Plumrocket\CookieConsent\Ui\DataProvider\Cookie\Category\Form\Modifier\Eav</item>
+                    <item name="sortOrder" xsi:type="number">100</item>
+                </item>
+                <item name="system" xsi:type="array">
+                    <item name="class" xsi:type="string">Plumrocket\CookieConsent\Ui\DataProvider\Cookie\Category\Form\Modifier\System</item>
+                    <item name="sortOrder" xsi:type="number">200</item>
+                </item>
+                <item name="key" xsi:type="array">
+                    <item name="class" xsi:type="string">Plumrocket\CookieConsent\Ui\DataProvider\Cookie\Category\Form\Modifier\Key</item>
+                    <item name="sortOrder" xsi:type="number">300</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Plumrocket\CookieConsent\Ui\DataProvider\Cookie\Category\Form\DataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">CookieCategoryFormModifierPool</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="CookieFormModifierPool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="eav" xsi:type="array">
+                    <item name="class" xsi:type="string">Plumrocket\CookieConsent\Ui\DataProvider\Cookie\Item\Form\Modifier\Eav</item>
+                    <item name="sortOrder" xsi:type="number">100</item>
+                </item>
+                <item name="system" xsi:type="array">
+                    <item name="class" xsi:type="string">Plumrocket\CookieConsent\Ui\DataProvider\Cookie\Item\Form\Modifier\System</item>
+                    <item name="sortOrder" xsi:type="number">200</item>
+                </item>
+                <item name="duration" xsi:type="array">
+                    <item name="class" xsi:type="string">Plumrocket\CookieConsent\Ui\DataProvider\Cookie\Item\Form\Modifier\Duration</item>
+                    <item name="sortOrder" xsi:type="number">300</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Plumrocket\CookieConsent\Ui\DataProvider\Cookie\Item\Form\DataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">CookieFormModifierPool</argument>
+        </arguments>
+    </type>
+</config>

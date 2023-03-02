@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="footer2">
+            <block class="Magento\Cms\Block\Block" name="footer2_links_block">
+            </block>
+        </referenceContainer>
+
+        <move element="header.links" destination="header-wrapper" after="-"/>
+
+        <referenceContainer name="header-wrapper">
+            <block class="Magento\Customer\Block\Account\Navigation" name="header.wrapper.wishlist">
+                <arguments>
+                    <argument name="css_class" xsi:type="string">header-wrapper-wishlist</argument>
+                </arguments>
+                <block class="Magento\Wishlist\Block\Link" name="wish-list-link2" after="-">
+                    <arguments>
+                        <argument name="sortOrder" xsi:type="number">60</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+
+
+        <referenceBlock name="marketplace-link-header" remove="true" />
+        <referenceBlock name="footer_links" remove="true" />
+
+
+    </body>
+</page>

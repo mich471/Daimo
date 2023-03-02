@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="sales_email">
+            <group id="ordercancel" translate="label" type="text" sortOrder="10" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Order Cancel</label>
+                <field id="emailcancel_to" translate="label" type="text" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Send to</label>
+                    <validate>validate-email required-entry</validate>
+                    <can_be_empty>0</can_be_empty>
+                </field>
+            </group>
+        </section>
+        <tab id="monitor" translate="label" sortOrder="500">
+            <label>Monitor</label>
+        </tab>
+        <section id="monitor_config" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Config</label>
+            <tab>monitor</tab>
+            <resource>Softtek_MonitorIntegration::config_extension</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Monitor Configuration</label>
+                <field id="monitor_url" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Service URL</label>
+                </field>
+                <field id="notify_errors_mail" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notification Email</label>
+                </field>
+                <field id="client_code" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Client Code</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

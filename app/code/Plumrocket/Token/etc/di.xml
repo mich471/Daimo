@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Token
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Plumrocket\Token\Api\Data\CustomerInterface" type="Plumrocket\Token\Model\Customer" />
+    <preference for="Plumrocket\Token\Api\Data\CustomerSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Plumrocket\Token\Api\CustomerHashValidatorInterface" type="Plumrocket\Token\Model\CustomerHashValidator" />
+    <preference for="Plumrocket\Token\Api\GenerateForCustomerInterface" type="Plumrocket\Token\Model\GenerateForCustomer" />
+    <preference for="Plumrocket\Token\Api\GenerateHashInterface" type="Plumrocket\Token\Model\GenerateHash" />
+    <preference for="Plumrocket\Token\Api\CustomerValidatorInterface" type="Plumrocket\Token\Model\CustomerValidator" />
+    <preference for="Plumrocket\Token\Api\CustomerRepositoryInterface" type="Plumrocket\Token\Model\ResourceModel\CustomerRepository" />
+    <preference for="Plumrocket\Token\Api\CustomerTypePoolInterface" type="Plumrocket\Token\Model\CustomerTypesPool" />
+</config>

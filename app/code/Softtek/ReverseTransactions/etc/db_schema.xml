@@ -1,0 +1,22 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+        <table name="softtek_reverse_transactions">
+            <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+            <column xsi:type="varchar" name="customer_email" nullable="false" length="255" comment="Customer Email"/>
+            <column xsi:type="varchar" name="increment_id" nullable="false" length="255" comment="Magento Increment Id"/>
+            <column xsi:type="varchar" name="transaction_id" nullable="false" length="255" comment="Payment Transaction Id"/>
+            <column xsi:type="datetime" name="transaction_date" nullable="true" comment="Transaction Date"/>
+            <column xsi:type="decimal" name="amount" scale="6" precision="20"   unsigned="true" comment="Order amount"/>
+            <column xsi:type="varchar" name="currency_code" nullable="false" length="5" comment="Order Currency Code"/>
+            <column xsi:type="varchar" name="status" nullable="false" length="255" comment="Status of transaction"/>
+            <column xsi:type="varchar" name="payment_method" nullable="true" comment="Payment method used in the order"/>
+            <column xsi:type="varchar" name="payment_type_code" nullable="true" comment="Transaction payment type"/>
+            <column xsi:type="boolean" name="is_processed" nullable="false" default="0" comment="Flag to check if cron already processed this entry"/>
+            <column xsi:type="boolean" name="has_error" nullable="false" default="0" comment="Flag to check if there was an error in reverse/cancellation"/>
+            <column xsi:type="text" name="reverse_error_details" nullable="true" comment="Error details when attempt to reverse/cancel"/>
+            <column xsi:type="datetime" name="processed_date" nullable="true" comment="Processed date by cron"/>
+            <constraint xsi:type="primary" referenceId="PRIMARY">
+                <column name="id"/>
+            </constraint>
+        </table>
+</schema>

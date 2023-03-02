@@ -1,0 +1,468 @@
+<div class="actions">
+    <?php $_order = $block->getOrder();
+    $seller_id = $_order->getSellerId();
+    $status = $_order->getStatus();
+    $payment_method = $_order->getPayment()->getMethodInstance()->getTitle();
+    $cc_type = $_order->getPayment()->getCcType();
+    $cc_last_4 = $_order->getPayment()->getCcLast4();
+    $granTotalFormat = $_order->formatPrice($_order->getGrandTotal());
+    $store = $block->getData("customer_view_model")->getStoreDetails($seller_id);
+    $hasOrderReview = $block->getData("customer_view_model")->hasOrderReview();
+    ?>
+    <?php if ($status != "cancelamento_solicitado" && $status != "closed" && $status != "canceled" && $status != "complete" && $status != "devolvidobb" && $status != "devolvidoc") : ?>
+        <?php if ($status == "processing" || $status == "notafiscalemitida" || $status == "pickingpacking" || $status == "shipping" || $status == "readytopickorship") : ?>
+            <a href="#" class="action cancel">
+                <?= /* @escapeNotVerified */
+                __('Cancel order') ?>
+            </a>
+        <?php endif ?>
+        <?php if ($status == "entregue" || $status == "entrega_confirmada"): ?>
+            <a href="#" class="action cancel">
+                <?= /* @escapeNotVerified */
+                __('Return Orde') ?>
+            </a>
+            <style>
+                .modal-title {
+                    display: none;
+                }
+
+                .modal-header::before {
+                    content: "Solicitar Devolução do Pedido";
+                    font-size: 26px;
+                    font-weight: 300;
+                    word-wrap: break-word;
+                    min-height: 1em;
+                    padding-bottom: 10px;
+                }
+            </style>
+        <?php endif ?>
+    <?php endif ?>
+    <a href="<?= $block->escapeUrl($block->getViewUrl($_order)) ?>" class="action view">
+        <span><?= $block->escapeHtml(__('View Order')) ?></span>
+    </a>
+    <?php if ($this->helper(\Magento\Sales\Helper\Reorder::class)->canReorder($_order->getId())) : ?>
+        <a href="#" data-post='<?= /* @noEscape */
+        $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)
+            ->getPostData($block->getReorderUrl($_order))
+        ?>' class="action order">
+            <span><?= $block->escapeHtml(__('Reorder')) ?></span>
+        </a>
+    <?php endif ?>
+    <a href="<?= $block->escapeUrl($block->getPrintUrl($_order)) ?>"
+       class="action print"
+       target="_blank"
+       rel="noopener">
+        <span><?= $block->escapeHtml(__('Print Order')) ?></span>
+    </a>
+    <?= $block->getChildHtml() ?>
+
+    <?php if ($status == "concluido") : ?>
+        <?php if ($hasOrderReview): ?>
+            <a class="action open-modal-form-evaluate-order"
+               href="#"
+               title="Modal"
+               style="display: none"
+            <span>Avaliar pedido</span>
+            </a>
+            <?php ?>
+        <?php else: ?>
+            <a class="action open-modal-form-evaluate-order"
+               href="#"
+               title="Modal"
+            <span>Avaliar pedido</span>
+            </a>
+        <?php endif ?>
+    <?php endif ?>
+
+    <?php if ($status == "entregue") : ?>
+        <a class="action open-modal-form-confirm-delivery"
+           href="#"
+           title="Modal">
+            <span>Obrigado por confirmar o recebimento</span>
+        </a>
+    <?php endif ?>
+    <?php if ($status == "concluido") : ?>
+        <a class="action open-modal-form-confirm-delivery"
+           style="display: none"
+           href="#"
+           title="Modal">
+            <span>Confirmar recebimento</span>
+        </a>
+    <?php endif ?>
+
+    <form class="modal-form" id="modal-form-evaluate-order" method="post" autocomplete="off" style="display: none"
+          action="<?php echo $block->getBaseUrl() . 'sellerinfo/index/orderReviewSave'; ?>"
+          data-mage-init='{"validation":{}}'>
+        <input type="hidden" name="order_id" value="<?php echo $_order->getId(); ?>">
+
+
+        <div class="questions">
+            <div class="container-ranking">
+                <h3 class="modal-form-tittle required"><?= __('Utilize as estrelas para indicar como foi sua experiência o pedido') ?>
+                    <?= __('Nº').$_order->getRealOrderId() ?>, <?= __('do vendedor').$_order->getSeller(); ?></h3>
+                <h3 class="questions-tittle required"><?= __('General Service') ?></h3>
+                <div class="ranking">
+                    <input type="radio" id="or_question_1_5" name="or_question_1" value="5" required>
+                    <label for="or_question_1_5">★</label>
+                    <input class="ranking-input" type="radio" id="or_question_1_4" name="or_question_1" value="4">
+                    <label for="or_question_1_4">★</label>
+                    <input class="ranking-input" type="radio" id="or_question_1_3" name="or_question_1" value="3">
+                    <label for="or_question_1_3">★</label>
+                    <input class="ranking-input" type="radio" id="or_question_1_2" name="or_question_1" value="2">
+                    <label for="or_question_1_2">★</label>
+                    <input class="ranking-input" type="radio" id="or_question_1_1" name="or_question_1" value="1">
+                    <label for="or_question_1_1">★</label>
+                </div>
+            </div>
+            <hr>
+            <div class="container-ranking">
+                <h3 class="questions-tittle required"><?= __('Product quality') ?></h3>
+                <div class="ranking">
+                    <input id="or_question_2_5" type="radio" name="or_question_2" value="5" required>
+                    <label class="ranking-label" for="or_question_2_5">★</label>
+                    <input class="ranking-input" type="radio" id="or_question_2_4" name="or_question_2" value="4">
+                    <label class="ranking-label" for="or_question_2_4">★</label>
+                    <input class="ranking-input" type="radio" id="or_question_2_3" name="or_question_2" value="3">
+                    <label class="ranking-label" for="or_question_2_3">★</label>
+                    <input class="ranking-input" type="radio" id="or_question_2_2" name="or_question_2" value="2">
+                    <label class="ranking-label" for="or_question_2_2">★</label>
+                    <input class="ranking-input" type="radio" id="or_question_2_1" name="or_question_2" value="1">
+                    <label class="ranking-label" for="or_question_2_1">★</label>
+                </div>
+            </div>
+            <hr>
+            <div class="container-ranking">
+                <h3 class="questions-tittle left required"><?= __('Logistic service') ?></h3>
+                <div class="ranking">
+                    <input id="or_question_3_5" type="radio" name="or_question_3" value="5" required>
+                    <label class="ranking-label1" for="or_question_3_5">★</label>
+                    <input class="ranking-input" type="radio" id="or_question_3_4" name="or_question_3" value="4">
+                    <label class="ranking-label1" for="or_question_3_4">★</label>
+                    <input class="ranking-input" type="radio" id="or_question_3_3" name="or_question_3" value="3">
+                    <label class="ranking-label1" for="or_question_3_3">★</label>
+                    <input class="ranking-input" type="radio" id="or_question_3_2" name="or_question_3" value="2">
+                    <label class="ranking-label1" for="or_question_3_2">★</label>
+                    <input class="ranking-input" type="radio" id="or_question_3_1" name="or_question_3" value="1">
+                    <label class="ranking-label1" for="or_question_3_1">★</label>
+                </div>
+            </div>
+            <hr>
+            <div class="modal-commmet ">
+                <h3 class="modal-commmet-tittle required">Deixar comentário</h3>
+                <textarea name="or_comment" id="or_comment" class="commet" placeholder="O que você gostou ou não gostou? Deixe um comentário"></textarea>
+            </div>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button id="btnSubmit" type="submit" class="btnOrderReviewSubmit action submit primary"
+                            title="<?php echo __('Submit') ?>">
+                        <span><?php echo __('Avaliar') ?></span></button>
+                </div>
+            </div>
+        </div>
+        <div id="rc-msg"></div>
+    </form>
+    <form class="modal-form" id="modal-form-confirm-delivery" method="post" autocomplete="off" style="display: none"
+          action="<?php echo $block->getBaseUrl() . 'sales/order/view/order_id/'; ?>"
+          data-mage-init='{"validation":{}}'>
+
+        <div class="control display-one">
+            <h3>Está tudo certo com o seu pedido #<?= $_order->getRealOrderId() ?>?</h3>
+        </div>
+
+        <div class="control display-two" style="display: none">
+            <h3>O pedido Nº<?= $_order->getRealOrderId() ?> foi concluído.</h3>
+
+            <p>Por favor avalie sua experiência de compra com o vendedor </p>
+        </div>
+
+    </form>
+    <div id="request-cancel-order" class="request-cancel-modal" style="display:none;">
+        <div id="request-cancel-order-info">
+            <p><?= __('Order no.').$_order->getRealOrderId() ?></p>
+            <p><?= __('Payment method:').' '.$payment_method ?></p>
+            <?php if ($payment_method == "Boleto bancário") { ?>
+                <p><?= $cc_type ?></p>
+                <p><?= $cc_last_4 ?></p>
+            <?php } ?>
+            <p>Total: <?= /* @noEscape */
+                $granTotalFormat ?></p>
+
+            <?php if ($payment_method != "Boleto bancário") { ?>
+                <hr>
+                <p>O reembolso será feito no mesmo cartão com o qual o pagamento foi feito.</p>
+                <hr>
+            <?php } ?>
+
+        </div>
+
+        <form method="POST" id="request-cancel-order-form">
+            <h3> <?= __('I want to cancel my order:')?> </h3>
+            <p> <?= __('Please specify reason for cancellation:')?></p>
+            <input type="hidden" id="order_id" name="order_id" value="<?= $_order->getId() ?>"/>
+            <input type="hidden" id="payment_method" name="payment_method" value="<?= $payment_method ?>"/>
+            <?php if ($payment_method <> "Boleto bancário") { ?>
+                <input type="hidden" id="cc_type" name="cc_type" value="<?= $cc_type ?>"/></p>
+                <input type="hidden" id="cc_last_4" name="cc_last_4" value="<?= $cc_last_4 ?>"/></p>
+            <?php } ?>
+            <input type="hidden" id="grand_total" name="grand_total" value="<?= $_order->getGrandTotal() ?>"/>
+            <input type="hidden" id="status" name="status" value="0"/>
+            <input type="hidden" id="redirect_url" name="redirect_url"
+                   value="<?= $this->getUrl('sales/order/view/order_id/') . $_order->getId(); ?>"/>
+            <input type="radio" id="reason_1" name="reason" value="<?= __('I need to change the shipping address')?>" required>
+            <label for="reason_1"><?= __('I need to change the shipping address')?></label><br>
+
+            <input type="radio" id="reason_2" name="reason" value="<?= __('I need to change the shipping option')?>">
+            <label for="reason_2"> <?= __('I need to change the shipping option')?></label><br>
+
+            <input type="radio" id="reason_3" name="reason" value="<?= __('I need to change the payment method')?>">
+            <label for="reason_3"><?= __('I need to change the payment method')?></label><br>
+
+            <input type="radio" id="reason_4" name="reason"
+                   value="<?= __('I bought the wrong product')?>">
+            <label for="reason_4"><?= __('I bought the wrong product')?></label><br>
+
+            <input type="radio" id="reason_5" name="reason"
+                   value="<?= __('I bought the wrong amount')?>">
+            <label for="reason_5"><?= __('I bought the wrong amount')?></label><br>
+
+            <input type="radio" id="reason_6" name="reason"
+                   value="<?= __('I gave up on the purchase')?>">
+            <label for="reason_6"> <?= __('I gave up on the purchase')?></label><br>
+
+            <input type="radio" id="reason_7" name="reason" value="<?= __('Seller canceled the order')?>">
+            <label for="reason_7"> <?= __('Seller canceled the order')?></label><br>
+
+            <input type="radio" id="reason_8" name="reason" value="<?= __('Outro: (please specify)')?>">
+            <label for="reason_8"> <?= __('Outro: (please specify)')?></label><br><br>
+            <div class="container_comment_reason expanded">
+                <p> <?= __('Please describe the reason for your request:')?></p>
+                <textarea id="comment_reason" name="comment_reason" rows="5" cols="50" maxlength="255" placeholder="Máximo 255 caracteres" required></textarea>
+            </div>
+
+
+            <!--<-------------------------------------------------------------------------------------------------------------------->
+            <h3> <?= __('I want to return my order:')?> </h3>
+            <p><?= __('Please specify the reason for the return:') ?></p>
+            <input type="radio" id="reason_9" name="reason" value="<?= __('Please describe the reason for your request:')?>" required>
+            <label for="reason_9"><?= __('Please describe the reason for your request:')?></label><br>
+
+            <input type="radio" id="reason_10" name="reason" value="<?= __("I didn't receive the order")?>">
+            <label for="reason_10"> <?= __("I didn't receive the order")?></label><br>
+
+            <input class="reason_11"type="radio" id="reason_11" name="reason" value="<?= __('I received the incomplete order (Ex: Missing items)')?>">
+            <label for="reason_11"> <?= __('I received the incomplete order (Ex: Missing items)')?></label><br>
+
+            <input type="radio" id="reason_12" name="reason"
+                   value="<?= __('I received the wrong product, different from what is in the order')?>">
+            <label for="reason_12"> <?= __('I received the wrong product, different from what is in the order')?></label><br>
+
+            <input type="radio" id="reason_13" name="reason"
+                   value="<?= __('I received the product with physical damage (Ex: crumpled or torn packaging)')?>">
+            <label for="reason_13"><?= __('I received the product with physical damage (Ex: crumpled or torn packaging)')?></label><br>
+
+            <input type="radio" id="reason_14" name="reason"
+                   value="<?= __('I received a product that had problems in its use')?>">
+            <label for="reason_14"> <?= __('I received a product that had problems in its use')?></label><br>
+
+            <input type="radio" id="reason_15" name="reason" value="<?= __('I changed my mind')?>">
+            <label for="reason_15"> <?= __('I changed my mind')?></label><br>
+
+            <input type="radio" id="reason_16" name="reason" value="<?= __('Outro: (please specify)')?>">
+            <label for="reason_16"> <?= __('Outro: (please specify)')?></label><br><br>
+            <div class="container_comment_reason_1">
+                <p><?= __('Please describe the reason for your request:')?></p>
+                <textarea id="comment_reason_1" name="comment_reason_1" rows="5" cols="50" maxlength="255" placeholder="Máximo 255 caracteres" required></textarea>
+            </div>
+
+            <?php if ($payment_method == "Boleto bancário") { ?>
+                <p>Os dados bancários para reembolso devem ser os mesmos do comprador:</p>
+                <input type="text" id="databank_cnpj" name="databank_cnpj" placeholder="CNPJ" required/><br/>
+                <input type="number" id="databank_banknumber" name="databank_banknumber" placeholder="Banco" required
+                       maxlenght="3"/><br/>
+                <select id="databank_actype" name="databank_actype" required>
+                    <option value="">Tipo de conta</option>
+                    <option value="conta_corrente">Conta Corrente</option>
+                    <option value="conta_poupanca">Conta Poupança</option>
+                </select>
+                <input type="number" id="databank_agnumber" name="databank_agnumber" placeholder="Agência" required
+                       maxlenght="4"/><br/>
+                <input type="number" id="databank_acnumber" name="databank_acnumber" placeholder="Número da conta"
+                       required
+                       maxlenght="12"/><br/>
+            <?php } ?>
+        </form>
+        <div id="rc-msg"></div>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        ".open-modal-form-confirm-delivery"
+    :
+        {
+            "Magento_Sales/js/modal-form-confirm-delivery"
+        :
+            {
+            }
+        }
+    }
+</script>
+<script type="text/x-magento-init">
+    {
+        ".open-modal-form-evaluate-order"
+    :
+        {
+            "Magento_Sales/js/modal-form-evaluate-order"
+        :
+            {
+            }
+        }
+    }
+</script>
+<script type="text/javascript">
+    require(['jquery'], function ($, modal) {
+        $(document).on('click', '.btnNext', function (event) {
+            $.ajax({
+                url: "<?php echo $this->getUrl('sellerinfo/index/orderstatechange'); ?>",
+                showLoader: true,
+                data: 'id_order=' + <?= $_order->getId()?>,
+                type: 'GET',
+                success: function (response) {
+                    $('#msg').html("Confirmação do pedido realizada com sucesso!").fadeIn('slow');
+                    $('.open-modal-form-evaluate-order').css('display', 'block');
+                    $('.open-modal-form-confirm-delivery').css('display', 'none');
+                }
+            }, 1000);
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function (
+            $,
+            modal
+        ) {
+            var dataForm = $('#request-cancel-order-form');
+            ignore = null;
+
+            dataForm.submit(function () {
+                $(".messages").fadeOut();
+
+                if (dataForm.validation('isValid')) {
+                    $('#rc-msg').css('color', '#e80033');
+                    $('#rc-msg').css('font-weight', 'bold');
+                    $('#rc-msg').css('margin-bottom', '20px');
+                    $.ajax({
+                        url: '<?= $this->getUrl('cancelorder/cancelorder/requests/'); ?>',
+                        data: $("form").serialize(),
+                        showLoader: true,
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response.success == true) {
+                                $('#request-cancel-order-form').hide();
+                                $('#request-cancel-order').attr('disabled', true);
+                                $('.request-cancel').hide();
+                                $('#request-cancel-order-info').hide();
+                                $('.modal-footer').attr('style', 'display: none !important');
+                                $('#rc-msg').css('color', '#006400');
+                                setTimeout(function () {
+                                    $('body').loader('hide');
+                                    $('#request-cancel-order').attr('disabled', false);
+                                    location.reload();
+                                }, 2000);
+                            }
+                            $('#rc-msg').html(response.message).fadeIn('slow');
+                            $('#rc-msg').show();
+                            if (response.success == true) {
+                                $("#request-cancel-order").append($('#rc-msg'));
+                            } else {
+                                $(".modal-footer").prepend($('#rc-msg'));
+                            }
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            $('#rc-msg').html(thrownError).fadeIn('slow');
+                            $('#rc-msg').show();
+                            $(".modal-footer").prepend($('#rc-msg'));
+                        }
+                    });
+                    return false;
+                }
+            })
+                .mage('validation', {ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'})
+                .find('input:text')
+                .attr('autocomplete', 'off');
+
+            var options = {
+                type: 'popup',
+                modalClass: 'request-cancel-modal',
+                responsive: true,
+                innerScroll: true,
+                title: 'Solicitar Cancelamento do Pedido',
+                buttons: [
+                    {
+                        text: "<?= $block->escapeHtml(__('Cancel')) ?>",
+                        click: function () {
+                            this.closeModal();
+                        }
+                    },
+                    {
+                        text: "<?= $block->escapeHtml(__('Confirmar')) ?>",
+                        class: 'action export primary',
+                        click: function () {
+                            dataForm.submit();
+                        }
+                    }
+                ]
+            };
+            var popup = modal(options, $('#request-cancel-order'));
+        }
+    );
+</script>
+
+<script type="text/javascript">
+    require(['jquery'], function ($, modal) {
+        $(document).on('click', '.cancel', function (event) {
+            event.preventDefault();
+            $('#request-cancel-order').modal('openModal');
+            $('.modal-footer').show();
+        });
+        //to hide and show the "Outro" section popup-cancel
+        $('#reason_1, #reason_2 , #reason_3, #reason_4 ,#reason_5,#reason_6,#reason_7').click(function () {
+            $('.container_comment_reason, .container_comment_reason_1').css('display', 'none');
+            $('.container_comment_reason #comment_reason, .container_comment_reason_1 #comment_reason_1').removeProp('required');
+            $('.container_comment_reason #comment_reason, .container_comment_reason_1 #comment_reason_1').html('');
+        });
+        $('#reason_9, #reason_10 , #reason_11, #reason_12 ,#reason_13, #reason_14, #reason_15').click(function () {
+            $('.container_comment_reason, .container_comment_reason_1').css('display', 'none');
+            $('.container_comment_reason #comment_reason, .container_comment_reason_1 #comment_reason_1').removeProp('required');
+            $('.container_comment_reason #comment_reason, .container_comment_reason_1 #comment_reason_1').html('');
+        });
+
+        $('#reason_8').click(function () {
+            $('.container_comment_reason').css('display', 'block');
+            $('.container_comment_reason #comment_reason').attr('required', 'required');
+        });
+        $('#reason_16').click(function () {
+            $('.container_comment_reason_1').css('display', 'block')
+            $('.container_comment_reason_1 #comment_reason_1').attr('required', 'required');
+        });
+    });
+</script>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'inputMask',
+        'mage/url',
+        'loader'
+    ], function ($) {
+        $(document).ready(function () {
+            $('#databank_cnpj').mask('99.999.999/9999-99', {clearIfNotMatch: true});
+            $('#databank_banknumber').mask('999', {clearIfNotMatch: true});
+        });
+    });
+</script>

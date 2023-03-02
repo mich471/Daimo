@@ -1,0 +1,216 @@
+
+<?php
+/**
+ * @category    Softtek
+ * @package     Softtek_Marketplace
+ * @author      J. Abraham Serena <jorge.serena@softtek.com>
+ * @copyright   © Softtek 2022. All rights reserved.
+ */
+
+use Amazon\Core\Model\Config\Source\Button\Size;
+?>
+	<div>
+		<h3>
+			Perguntas ao vendedor
+		</h3>
+	</div>
+<?php
+$blockObj= $block->getLayout()->createBlock('PHPCuong\ProductQuestionAndAnswer\Block\Customer\ListSeller');
+$_helperquestion = $this->helper('Softtek\Questions\Helper\Data');
+$listid = [];
+$answerlist = [];
+?>
+<?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $customerSession = $objectManager->create('Magento\Customer\Model\Session');
+    $customerQuestions = $_helperquestion->getQuestions($customerSession->getCustomer()->getEntityId(), $this->getRequest()->getParam('limit'), $this->getRequest()->getParam('p'));
+?>
+<?php if ($customerQuestions && count($customerQuestions)): ?>
+    <div id="question-info-msg" class="question-info-msg-modal" style="display:none;"></div>
+    <div class="table-wrapper questions">
+        <table class="data table table-questions" id="my-questions-table">
+            <thead>
+                <tr>
+                    <th scope="col" class="col date"><?php /* @escapeNotVerified */ echo __('Created') ?></th>
+                    <th scope="col" class="col item"><?php /* @escapeNotVerified */ echo __('Product Name') ?></th>
+                    <th scope="col" class="col description"><?php /* @escapeNotVerified */ echo __('Pergunta') ?></th>
+                    <th scope="col" class="col actions"><?php /* @escapeNotVerified */ echo __('Status') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($customerQuestions as $question): ?>
+                    <?php array_push($listid, $question["question_id"])?>
+                <tr>
+                    <td data-th="<?php echo $blockObj->escapeHtml(__('Created')) ?>" class="col date"><?php /* @escapeNotVerified */ echo $blockObj->dateFormat($question["question_created_at"]); ?></td>
+                    <td data-th="<?php echo $blockObj->escapeHtml(__('Product Name')) ?>" class="col item">
+                        <strong class="product-name">
+                            <a href='<?php echo $_SERVER['HTTP_HOST']?><?php echo $question["product_url"] ?>.html'><?php echo $blockObj->escapeHtml($question["product_name"]); ?></a>
+                        </strong>
+                    </td>
+                    <td data-th="<?php echo $blockObj->escapeHtml(__('Pergunta')) ?>" class="col description question-list">
+                        <?php echo $blockObj->escapeHtml(strip_tags($question["question_detail"])); ?>
+                        <h4><?php echo __('Answers'); ?>: </h4>
+                        <?php if (!empty($answers = $blockObj->getAnswerList($question["question_id"]))): ?>
+                            <ul class="parent">
+                            <?php foreach ($answers as $answer): ?>
+
+                                <?php $like = ($answer['likes'] > 0) ? $answer['likes'] : ''; ?>
+                                <?php $dislike = ($answer['dislikes'] > 0) ? $answer['dislikes'] : ''; ?>
+                                <li>
+                                    <p class="table">
+                                        <!--span class="first-character"><?php /*echo $answer['first_character'];*/?></span>-->
+                                        <span class="author-name">
+                                            <strong><?php echo strip_tags($answer['author_name']);?></strong>
+                                            <small class="time"><?php echo __('Responded'); ?>  <?php echo __('em'); ?> <?php /* @escapeNotVerified */ echo $blockObj->dateFormatWithTime($question["question_created_at"]); ?></small>
+                                        </span>
+                                    </p>
+                                </li>
+                                <p><textarea disabled placeholder="<?php echo __('Escreva a resposta máximo 255 caracteres'); ?>" maxlength="255" rows="5" cols="20" wrap="hard" id= "inputanswer_<?php echo $question["question_id"];?>"><?php echo strip_tags($answer['content']);?></textarea></p>
+                            <?php endforeach; ?>
+                            </ul>
+                        <?php else: ?>
+                            <ul>
+                            <textarea placeholder="<?php echo __('Escreva a resposta máximo 255 caracteres'); ?>" maxlength="255" rows="5" cols="20" wrap="hard" id= "inputanswer_<?php echo $question["question_id"];?>"></textarea>
+                            </ul>
+                        <?php endif; ?>
+                    </td>
+                    <td data-th="<?php echo $blockObj->escapeHtml(__('Status')) ?>" class="col actions">
+                    <ul>
+                        <li><span><?php echo $this->helper('PHPCuong\ProductQuestionAndAnswer\Helper\Data')->getStatusText($question["question_status_id"]); ?></span></li>
+                    </ul>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($blockObj->getToolbarHtml()): ?>
+        <div class="toolbar products-reviews-toolbar bottom">
+            <?php echo $blockObj->getToolbarHtml() ?>
+        </div>
+    <?php endif; ?>
+    <div id="likes-dislikes"></div>
+    <script type="text/x-magento-init">
+        {
+            "#likes-dislikes": {
+                "PHPCuong_ProductQuestionAndAnswer/js/process-like-dislike": {
+                    "likeDislikeUrl": "<?php /* @escapeNotVerified */ echo $blockObj->getLikeDislikeUrl();?>",
+                    "loadingNumberImage": "<?php echo $blockObj->getViewFileUrl('PHPCuong_ProductQuestionAndAnswer::images/loading-number.gif'); ?>"
+                }
+            }
+        }
+    </script>
+<?php else: ?>
+    <div class="message info empty"><span><?php /* @escapeNotVerified */ echo __('Nenhuma pergunta recebida.') ?></span></div>
+<?php endif; ?>
+<?php if ($customerQuestions && count($customerQuestions)): ?>
+<button id = "saveanswer">Salvar</button>
+<?php else: ?>
+<?php endif; ?>
+<div class="actions-toolbar">
+    <div class="secondary">
+        <a class="action back" href="<?php echo $blockObj->escapeUrl($blockObj->getBackUrl()) ?>">
+            <span><?php /* @escapeNotVerified */ echo __('Back') ?></span>
+        </a>
+    </div>
+</div>
+<script type="text/x-magento-init">
+	{
+		"*": {
+			"Softtek_Marketplace/js/seller_payment": {
+				"SaveQuestionURL": "<?php echo $block->getUrl('sellerquestioninfo/question/save') ?>",
+				"customerId": "<?php echo $block->getCustomerId() ?>"
+			}
+		}
+	}
+</script>
+<script type="text/javascript">
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function (
+            $,
+            modal
+        ) {
+
+            document.getElementById('saveanswer').addEventListener('click', function() {
+                    <?php foreach ($listid as $id): ?>
+                    var question = <?php echo json_encode($_helperquestion->getQuestion($id)); ?> ;
+                    var answer = document.getElementById("inputanswer_<?php echo $id ?>").value;
+                    if(answer != ""){
+                    <?php $answers = $blockObj->getAnswerList($id); ?>
+                    var create = true;
+                    var idanswer = "";
+                    console.log(<?php echo json_encode($answers); ?>);
+                    <?php foreach ($answers as $answer): ?>
+                        var actualanswer = <?php echo  json_encode($answer['content'])?>;
+
+                        idanswer = <?php echo json_encode($answer['id']) ?>;
+
+                    <?php endforeach; ?>
+                        var id = <?php echo $id ?>;
+                        var userId = <?php echo json_encode($customerSession->getCustomer()->getEntityId()); ?>;
+                        var nameseller = <?php echo json_encode(($customerSession->getCustomer()->getFirstname()." ".$customerSession->getCustomer()->getLastname())); ?>;
+                        var emailseller = <?php echo json_encode($customerSession->getCustomer()->getEmail()); ?>;
+                        $.ajax({
+                            url: window.location.origin + '/sellerquestioninfo/question/save/',
+                            data: {
+                                answer : answer,
+                                nameseller : nameseller,
+                                emailseller : emailseller,
+                                idQuestion : id,
+                                userId : userId,
+                                idanswer : idanswer,
+                            },
+                            type: "POST",
+                            dataType: "json",
+                            showLoader: true,
+                            success: function (response) {
+                                $('#question-info-msg').modal('openModal');
+                            }
+                        });
+
+
+                }
+                    <?php endforeach; ?>
+                    location.reload;
+                }, false);
+
+                var options = {
+                type: 'popup',
+                modalClass: 'question-info-msg-modal',
+                responsive: true,
+                innerScroll: true,
+                title: 'Resposta enviada com sucesso!',
+                buttons: [
+                    {
+                        text: "<?= $block->escapeHtml(__('Fechar')) ?>",
+                        click: function () {
+                            this.closeModal();
+                            location.reload();
+                        }
+                    }
+                ]
+            };
+            var popup = modal(options, $('#question-info-msg'));
+        }
+    );
+</script>
+<script>
+
+</script>
+<script type="text/javascript">
+    require([
+        'jquery'
+    ], function ($) {
+        $(document).ready(function () {
+            $('textarea').on("keydown", function(e){
+                if (e.shiftKey && (e.which == 188 || e.which == 190 || e.which == 13)) {
+                    e.preventDefault();
+                }
+            });
+        });
+    });
+</script>

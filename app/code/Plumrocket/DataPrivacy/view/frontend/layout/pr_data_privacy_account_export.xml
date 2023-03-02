@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_DataPrivacy
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceContainer name="content">
+            <block name="prgdpr_export" cacheable="false" template="Plumrocket_DataPrivacy::account/export.phtml">
+                <arguments>
+                    <argument name="viewModel" xsi:type="object">Plumrocket\DataPrivacy\ViewModel\Dashboard\Export</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,52 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var \Magento\Sales\Block\Order\History $block */
+?>
+<?php $_orders = $block->getOrders(); ?>
+<?= $block->getChildHtml('info') ?>
+<?php if ($_orders && count($_orders)) : ?>
+    <div class="table-wrapper orders-history">
+        <table class="data table table-order-items history" id="my-orders-table">
+            <caption class="table-caption"><?= $block->escapeHtml(__('Orders')) ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col id"><?= $block->escapeHtml(__('Order #')) ?></th>
+                    <th scope="col" class="col id"><?= $block->escapeHtml(__('Question 1 - General Experience')) ?></th>
+                    <th scope="col" class="col id"><?= $block->escapeHtml(__('Question 2 - Quality of the purchased item')) ?></th>
+                    <th scope="col" class="col id"><?= $block->escapeHtml(__('Question 3 - Logistics service')) ?></th>
+                    <th scope="col" class="col id"><?= $block->escapeHtml(__('Comment')) ?></th>
+                    <th scope="col" class="col date"><?= $block->escapeHtml(__('Date')) ?></th>
+                    <th scope="col" class="col actions"><?= $block->escapeHtml(__('Action')) ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($_orders as $_order) : ?>
+                    <tr>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Order #')) ?>" class="col id"><?= $block->escapeHtml($_order->getIncrementId()) ?></td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Question 1 - General Experience')) ?>" class="col date"><?= /* @noEscape */ $_order->getQuestion1Raking() ?></td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Question 2 - Quality of the purchased item')) ?>" class="col date"><?= /* @noEscape */ $_order->getQuestion2Raking() ?></td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Question 3 - Logistics service')) ?>" class="col date"><?= /* @noEscape */ $_order->getQuestion3Raking() ?></td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Comment')) ?>" class="col date"><?= /* @noEscape */ $_order->getComment() ?></td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Date')) ?>" class="col date"><?= /* @noEscape */ $block->formatDate($_order->getCreatedAt()) ?></td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Actions')) ?>" class="col actions">
+                            <a href="<?= $block->escapeUrl($block->getViewUrl($_order)) ?>" class="action view">
+                                <span><?= $block->escapeHtml(__('View Order')) ?></span>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()) : ?>
+        <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+    <?php endif ?>
+<?php else : ?>
+    <div class="message info empty"><span><?= $block->escapeHtml(__('You have reviewed no orders.')) ?></span></div>
+<?php endif ?>

@@ -1,0 +1,24 @@
+<?php
+/**
+ * @package     Plumrocket_DataPrivacy
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+
+<?php if ($block->getData('canShow')): ?>
+    <li class="prgdpr__item">
+        <a class="prgdpr__link"
+           <?= /* @noEscape */ $block->getData('target') ? 'target="' . $block->getData('target') . '"' : '' ?>
+           href="<?= $block->escapeUrl($block->getData('url')) ?>"
+        >
+            <svg class="prgdpr__icon" width="70" height="70">
+                <use xlink:href="#<?= /* @noEscape */ $block->getData('icon') ?>"></use>
+            </svg>
+            <b class="prgdpr__name"><?= $block->escapeHtml($block->getData('label')) ?></b>
+            <p class="prgdpr__text"><?= $block->escapeHtml($block->getData('description')) ?></p>
+        </a>
+    </li>
+<?php endif; ?>

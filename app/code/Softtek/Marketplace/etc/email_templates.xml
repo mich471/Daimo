@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../Magento/Email/etc/email_templates.xsd">
+    <template id="purpletree_marketplace_general_reactivation_email_template" label="Reactivate Account Email Template" file="reactivation_email_template.html" type="html" module="Softtek_Marketplace" area="frontend" />
+    <template id="purpletree_marketplace_general_seller_preapproved_email" label="Seller PreApproved Email" file="seller_preapproved_email.html" type="html" module="Softtek_Marketplace" area="frontend"/>
+    <template id="purpletree_marketplace_general_seller_ask_final_approval_email" label="Seller Ask Approval Email" file="seller_ask_final_approval_email.html" type="html" module="Softtek_Marketplace" area="frontend"/>
+    <template id="purpletree_marketplace_general_seller_approved_email" label="Seller Approved Email" file="seller_approved_email.html" type="html" module="Softtek_Marketplace" area="frontend"/>
+    <template id="purpletree_marketplace_general_order_message_for_customer" label="Order Message for Customer" file="order_message_for_customer.html" type="html" module="Softtek_Marketplace" area="frontend" />
+    <template id="purpletree_marketplace_general_order_message_for_seller" label="Order Message for Seller" file="order_message_for_seller.html" type="html" module="Softtek_Marketplace" area="frontend" />
+    <template id="purpletree_marketplace_general_order_message_for_admin" label="Order Message For Admin" file="order_message_for_admin.html" type="html" module="Softtek_Marketplace" area="frontend" />
+    <template id="purpletree_marketplace_general_cancel_request_for_seller" label="Order Cancel Request for Seller" file="cancel_request_for_seller.html" type="html" module="Softtek_Marketplace" area="frontend" />
+    <template id="sales_email_order_boleto_template" label="New Order - Boleto Bancario" file="sales_email_order_boleto_template.html" type="html" module="Softtek_Marketplace" area="frontend" />
+    <template id="purpletree_marketplace_general_seller_registration_email" label="New Seller Registered Email Template" file="seller_registration_email.html" type="html" module="Softtek_Marketplace" area="frontend"/>
+</config>

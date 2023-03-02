@@ -1,0 +1,36 @@
+<?php
+/**
+ * @package     Plumrocket_DataPrivacy
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Plumrocket\DataPrivacy\ViewModel\Dashboard\Navigation $viewModel */
+$viewModel = $block->getData('viewModel');
+?>
+
+<?php if ($block->getData('canShow')): ?>
+    <li class="prgdpr__item">
+        <a class="prgdpr__link"
+           <?= /* @noEscape */ $block->getData('target') ? 'target="' . $block->getData('target') . '"' : '' ?>
+           href="<?= $block->escapeUrl($viewModel->getDeletingPageUrl()) ?>"
+        >
+            <svg class="prgdpr__icon" width="70" height="70">
+                <use xlink:href="#<?= /* @noEscape */ $block->getData('icon') ?>"></use>
+            </svg>
+            <?php
+                if ($viewModel->isCustomerLoggedIn()) {
+                    $deleteAccountTitle = __('Delete your Account');
+                    $deleteAccountText = __('Deleting your account will permanently erase your customer data and access to all personal information from our site.');
+                } else {
+                    $deleteAccountTitle = __('Erase your Data');
+                    $deleteAccountText = __('Erasing your data will permanently delete your customer data and access to all personal information from our site.');
+                }
+            ?>
+
+            <b class="prgdpr__name"><?= $block->escapeHtml($deleteAccountTitle) ?></b>
+            <p class="prgdpr__text"><?= $block->escapeHtml($deleteAccountText) ?></p>
+        </a>
+    </li>
+<?php endif; ?>

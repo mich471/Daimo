@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @package     Plumrocket_DataPrivacy
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="pr_data_privacy" class="Plumrocket\DataPrivacy\Ui\Component\Form\Customer\DataPrivacyFieldset">
+        <settings>
+            <collapsible>false</collapsible>
+            <label translate="true">Data Privacy</label>
+            <componentType>fieldset</componentType>
+            <additionalClasses>
+                <class name="customer-data-privacy-form">true</class>
+            </additionalClasses>
+        </settings>
+        <fieldset name="removal_request">
+            <settings>
+                <label translate="true">Removal Requests</label>
+                <componentType>fieldset</componentType>
+            </settings>
+            <button name="add_removal_request">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="formElement" xsi:type="string">container</item>
+                        <item name="buttonClasses" xsi:type="string">add-new-removal-request</item>
+                        <item name="actions" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="targetName" xsi:type="string">${ $.parentName}.create_removal_request_modal.create_removal_request_form_loader</item>
+                                <item name="actionName" xsi:type="string">destroyInserted</item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="targetName" xsi:type="string">${ $.parentName}.create_removal_request_modal</item>
+                                <item name="actionName" xsi:type="string">openModal</item>
+                            </item>
+                            <item name="2" xsi:type="array">
+                                <item name="targetName" xsi:type="string">${ $.parentName}.create_removal_request_modal.create_removal_request_form_loader</item>
+                                <item name="actionName" xsi:type="string">render</item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <title translate="true">Delete &amp; Anonymize Customer Data</title>
+                </settings>
+            </button>
+            <modal name="create_removal_request_modal">
+                <settings>
+                    <options>
+                        <option name="title" xsi:type="string" translate="true">Delete &amp; Anonymize Customer Data</option>
+                    </options>
+                </settings>
+                <insertForm name="create_removal_request_form_loader"
+                            component="Plumrocket_DataPrivacy/js/customer/form/components/removal-request-insert-form">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="removalRequestListingProvider" xsi:type="string">ns = pr_removal_request_listing, index = pr_removal_request_listing</item>
+                            <item name="removalRequestModalProvider" xsi:type="string">${ $.parentName }</item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <formSubmitType>ajax</formSubmitType>
+                        <renderUrl path="mui/index/render_handle">
+                            <param name="handle">pr_data_privacy_removal_request_admin</param>
+                            <param name="buttons">1</param>
+                        </renderUrl>
+                        <loading>false</loading>
+                        <toolbarContainer>${ $.parentName }</toolbarContainer>
+                        <ns>pr_data_privacy_admin_removal_request_form</ns>
+                        <externalProvider>${ $.ns }.pr_data_privacy_admin_removal_request_form_data_source</externalProvider>
+                        <dataLinks>
+                            <exports>true</exports>
+                        </dataLinks>
+                        <exports>
+                            <link name="parentId">${ $.externalProvider }:data.customer_id</link>
+                        </exports>
+                        <imports>
+                            <link name="parentId">${ $.provider }:data.customer.entity_id</link>
+                        </imports>
+                    </settings>
+                </insertForm>
+            </modal>
+            <insertListing name="pr_removal_request_listing" component="Magento_Ui/js/form/components/insert-listing">
+                <settings>
+                    <dataLinks>
+                        <exports>false</exports>
+                        <imports>true</imports>
+                    </dataLinks>
+                    <externalProvider>pr_removal_request_listing.prgdpr_removalrequests_listing_data_source</externalProvider>
+                    <autoRender>true</autoRender>
+                    <dataScope>pr_removal_request_listing</dataScope>
+                    <ns>pr_removal_request_listing</ns>
+                    <exports>
+                        <link name="parent_id">${ $.externalProvider }:params.parent_id</link>
+                    </exports>
+                    <imports>
+                        <link name="parent_id">${ $.provider }:data.customer.entity_id</link>
+                        <link name="onAction">ns = ${ $.ns }, index = actions:action</link>
+                    </imports>
+                </settings>
+            </insertListing>
+        </fieldset>
+    </fieldset>
+</form>

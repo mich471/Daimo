@@ -1,0 +1,14 @@
+{
+    "name": "plumrocket/module-data-privacy-api",
+    "version": "2.1.0",
+    "description": "Data Privacy API Extension for Magento 2",
+    "type": "magento2-module",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Plumrocket\\DataPrivacyApi\\": ""
+        }
+    }
+}

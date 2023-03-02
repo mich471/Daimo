@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Hexamarvel Team
+ * @copyright Copyright (c) 2021 Hexamarvel (https://www.hexamarvel.com)
+ * @package Hexamarvel_Attachments
+ */
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="Hexamarvel" translate="label" sortOrder="999" class="hexamarvel-tab">
+            <label>Hexamarvel Extensions</label>
+        </tab>
+        <section id="hexaattachment" translate="label" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Product Attachment</label>
+            <tab>Hexamarvel</tab>
+            <resource>Hexamarvel_Attachments::attachments_configuration</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="display_area" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Display Area</label>
+                    <source_model>Hexamarvel\Attachments\Model\Config\Source\DisplayArea</source_model>
+                </field>
+                <field id="attch_title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Attachment Title</label>
+                    <depends>
+                        <field id="display_area" separator=",">productshortdesc</field>
+                    </depends>
+                </field>
+                <field id="tab_title" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Product Tab Title</label>
+                    <depends>
+                        <field id="display_area">producttab</field>
+                    </depends>
+                </field>
+                <field id="tab_sortorder" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Product Tab Sort order</label>
+                    <depends>
+                        <field id="display_area">producttab</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

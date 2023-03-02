@@ -1,0 +1,32 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Monitor Interface Error #%monitor_interface %store_name" monitor_interface=$monitorInterface store_name=$store.frontend_name}} @-->
+<!--@vars {
+    "var "monitorInterface":"Monitor Interface",
+    "var "monitorRequest":"Monitor Request",
+    "var "monitorResponse":"Monitor Response",
+    "var "dateLastRequest":"last request date",
+    var "orderId":"order id'
+} @-->
+{{template config_path="design/email/header_template"}}
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <p>
+                {{trans "Error in the following request %monitor_request" monitor_request=$monitorRequest|raw}}
+            </p>
+            <p>
+                {{trans "For the Order id number %order_id " order_id=$orderId|raw}}
+            </p>
+            <p>{{trans "with date %date." date=$dateLastRequest|raw}}</p>
+            <p>{{trans "The last response was: %monitor_response </strong>" monitor_response=$monitorResponse |raw}}</p>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

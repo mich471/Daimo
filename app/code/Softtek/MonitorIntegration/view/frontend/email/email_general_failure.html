@@ -1,0 +1,27 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Monitor Interface Error #%monitor_interface %store_name" monitor_interface=$monitorInterface store_name=$store.frontend_name}} @-->
+<!--@vars {
+    "var monitorInterface":"Monitor Interface",
+    "var exception":"Exception",
+    "var monitorResponse":"Monitor Response",
+    "var dateLastRequest":"last request date",
+    "var orderId":"order id"
+} @-->
+{{template config_path="design/email/header_template"}}
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <p> {{trans "Error generating the payload for the order <strong>%orderId</strong> " orderId=$orderId|raw}} </p>
+            <p>{{trans "with date of %date." date=$dateLastRequest|raw}}</p>
+            <p>{{trans "The exception was: <strong>%exception</strong>" exception=$exception|raw}}</p>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

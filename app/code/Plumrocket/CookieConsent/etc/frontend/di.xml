@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_CookieConsent
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\App\Action\AbstractAction">
+        <plugin name="pr-cookie-app-action-dispatchController-context-plugin"
+                type="Plumrocket\CookieConsent\Model\App\Action\ContextPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\Cookie\Helper\Cookie">
+        <plugin name="pr-cookie-restriction-mode"
+                type="Plumrocket\CookieConsent\Plugin\Cookie\RestrictionMode" sortOrder="10"/>
+    </type>
+    <type name="Magento\Framework\Stdlib\CookieManagerInterface">
+        <plugin name="pr-cookie-filter"
+                type="Plumrocket\CookieConsent\Plugin\CookieManagerPlugin" sortOrder="10"/>
+    </type>
+</config>

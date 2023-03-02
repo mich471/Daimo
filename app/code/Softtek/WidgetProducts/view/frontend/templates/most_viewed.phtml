@@ -1,0 +1,65 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+use Magento\Framework\App\Action\Action;
+
+/** @var \Softtek\WidgetProducts\Block\BestSeller\Index $block */
+/** @var \Softtek\WidgetProducts\Helper\Data $helper */
+?>
+<?php
+$helper = $helper = $this->helper('Softtek\WidgetProducts\Helper\Data');
+$collection = $helper->getMostViewedCollection($block->getproductsCount());
+$list_product = $helper->getListProduct();
+$image = 'new_products_content_widget_grid';
+$mode = 'grid';
+$type = 'widget-product-grid';
+$templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+$items = $collection;
+?>
+<?php if ($collection): ?>
+    <div class="block widget block-products-list <?= /* @noEscape */ $mode ?>">
+        <?php if ($block->getTitle()) : ?>
+            <div class="block-title title">
+                <strong><?= $block->escapeHtml(__($block->getTitle())) ?></strong>
+            </div>
+        <?php endif ?>
+        <div class="block-content">
+            <?= /* @noEscape */ '<!-- ' . $image . '-->' ?>
+            <div class="products-<?= /* @noEscape */ $mode ?> <?= /* @noEscape */ $mode ?>">
+                <ol class="product-items <?= /* @noEscape */ $type ?>">
+                    <?php $iterator = 1; ?>
+                    <?php foreach ($collection as $product): ?>
+                        <?= /* @noEscape */ ($iterator++ == 1) ? '<li class="product-item">' : '</li><li class="product-item">' ?>
+                        <div class="product-item-info">
+                            <?php $productImage = $list_product->getImage($product, $image); ?>
+                            <a href="<?php /* @escapeNotVerified */
+                            echo $product->getProductUrl() ?>" class="product-item-photo"
+                               tabindex="-1">
+                                <?php echo $helper->getLazyLoadedImage($productImage) ?>
+                            </a>
+                            <div class="product-item-details">
+                                <strong class="product-item-name">
+                                    <a title="<?= $block->escapeHtmlAttr($product->getName()) ?>"
+                                       href="<?= $block->escapeUrl($product->getProductUrl()) ?>"
+                                       class="product-item-link">
+                                        <?= $block->escapeHtml($product->getName()) ?>
+                                    </a>
+                                </strong>
+                                <?php if ($templateType) : ?>
+                                    <?= $helper->getReviewsSummaryHtml($product, $templateType) ?>
+                                <?php endif; ?>
+
+                                <?= $helper->getProductPriceHtml($product, $type) ?>
+
+                                <?= $block->getProductDetailsHtml($product) ?>
+                            </div>
+                        </div>
+                        <?= ($iterator == count($items) + 1) ? '</li>' : '' ?>
+                    <?php endforeach; ?>
+                </ol>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

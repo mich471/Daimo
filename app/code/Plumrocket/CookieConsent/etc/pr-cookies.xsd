@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * @package     Plumrocket_CookieConsent
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="cookies">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="cookie" type="cookieDeclaration" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="uniqueCookieName">
+            <xs:annotation>
+                <xs:documentation>
+                    Cookie name must be unique.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:selector xpath="cookie" />
+            <xs:field xpath="@name" />
+        </xs:unique>
+    </xs:element>
+
+    <xs:complexType name="cookieDeclaration">
+        <xs:annotation>
+            <xs:documentation>
+                Cookie declaration.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="duration" type="durationType" />
+            <xs:element name="description" type="xs:string" />
+        </xs:sequence>
+        <xs:attribute name="name" type="cookieNameDeclaration" use="required" />
+        <xs:attribute name="category" type="categoryKeyDeclaration" use="required" />
+        <xs:attribute name="type" type="cookieTypeDeclaration" default="first" />
+    </xs:complexType>
+
+    <xs:simpleType name="cookieNameDeclaration">
+        <xs:annotation>
+            <xs:documentation>
+                Cookie Name contain only [a-zA-Z0-9_\-*].
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z0-9_\-*]+" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="categoryKeyDeclaration">
+        <xs:annotation>
+            <xs:documentation>
+                Cookie category key contain only [a-zA-Z0-9_\-].
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z0-9_\-]+" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="cookieTypeDeclaration">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="first"/>
+            <xs:enumeration value="third"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="durationType" abstract="true" mixed="true"/>
+
+    <xs:complexType name="const">
+        <xs:complexContent>
+            <xs:extension base="durationType" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="number">
+        <xs:complexContent>
+            <xs:extension base="durationType"/>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

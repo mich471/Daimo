@@ -1,0 +1,76 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php /** @var  $block \Magento\Sales\Block\Order\View*/?>
+
+<?php $_history = $block->getVisibleStatusHistoryCollection() ?>
+<?php if (!empty($_history)) : ?>
+    <div class="block block-order-details-comments">
+        <div class="block-title"><strong><?= $block->escapeHtml(__('Order Comments')) ?></strong></div>
+        <div class="block-content">
+            <dl class="order-comments">
+                <?php foreach ($_history as $_historyItem) : ?>
+                    <dt class="comment-date" style="max-width: 190px;">
+                        <?php echo date('d',strtotime($_historyItem->getCreatedAt())).' '.__('of').' '.__(date("F",strtotime($_historyItem->getCreatedAt()))).' '.__('of').' '.date("Y",strtotime($_historyItem->getCreatedAt())).' '.__('at').' '.$block->formatTime($_historyItem->getCreatedAt(), \IntlDateFormatter::MEDIUM)?>
+                    </dt>
+                    <dd class="comment-content"><?= $block->escapeHtml($_historyItem->getComment()) ?></dd>
+                <?php endforeach; ?>
+            </dl>
+        </div>
+    </div>
+<?php endif; ?>
+<?php $_history = $block->getStatusMessagesCollection() ?>
+<div class="block block-order-details-messages" style="margin-bottom: 20px;">
+    <div class="block-title"><strong><?= $block->escapeHtml(__('Communication with the seller')) ?></strong></div>
+    <div class="block-content">
+        <dl class="order-comments">
+            <?php $messageFlag = false; ?>
+            <?php foreach ($_history as $_historyItem) : ?>
+                <?php $messageFlag = true; ?>
+                <dt class="comment-date" style="min-width: 350px;">
+                    <span class="note-list-date"><?php echo date('d',strtotime($_historyItem->getCreatedAt())).' '.__('of').' '.__(date("F",strtotime($_historyItem->getCreatedAt()))).' '.__('of').' '.date("Y",strtotime($_historyItem->getCreatedAt())).' '.__('at').' '.$block->formatTime($_historyItem->getCreatedAt(), \IntlDateFormatter::MEDIUM)?>,</span>
+
+                    <?php if ($_historyItem->getSmCustomerMessage() == 1) : ?>
+                        <?= $block->escapeHtml(__('Sent by') . ' ' . __('Customer')) ?>
+                    <?php else: ?>
+                        <?= $block->escapeHtml(__('Sent by') . ' ' . __('Store')) ?>
+                    <?php endif; ?>
+                </dt>
+                <dd class="comment-content"><?= $block->escapeHtml($_historyItem->getComment()) ?></dd>
+            <?php endforeach; ?>
+            <?php if (!$messageFlag) : ?>
+                <dt class="comment-date" style="max-width: 190px;"></dt>
+                <dd class="comment-content"><?= __('There are no direct communication messages with the client'); ?></dd>
+            <?php endif; ?>
+        </dl>
+    </div>
+</div>
+<form style="margin-top:20px;"class="form order-message" action="<?php echo $this->getUrl('sellerinfo/index/addMessageToSeller', ['order_id' => $block->getOrder()->getId()]); ?>" id="order-message-form" method="post" enctype="multipart/form-data">
+    <?php echo $this->getBlockHtml('formkey')?>
+    <fieldset class="fieldset" style="margin-bottom:15px;">
+        <div class="fields">
+            <div class="field seller_order_comment required">
+                <label for="history_comment" class="admin__field-label">
+                    <?= $block->escapeHtml(__('Send new message') . ' para ' . __('store')) ?>
+                </label>
+                <div class="admin__field-control">
+                             <textarea name="history[comment]"
+                                       rows="3"
+                                       cols="5"
+                                       id="history_comment"
+                                       class="admin__control-textarea"></textarea>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary pts-review-box">
+            <button type="submit" title="Submit" class="action submit primary pts-newbtn-next">
+                <span><?= __('Save') ?></span>
+            </button>
+        </div>
+    </div>
+</form>

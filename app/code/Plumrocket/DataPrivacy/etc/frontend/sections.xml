@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_DataPrivacy
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Customer:etc/sections.xsd">
+    <action name="customer/account/loginPost">
+        <section name="data_privacy" />
+    </action>
+    <action name="privacy-center/consentpopups/confirm">
+        <section name="data_privacy" />
+    </action>
+</config>

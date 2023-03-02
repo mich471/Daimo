@@ -1,0 +1,87 @@
+& when (@media-common = true) {
+    .generateticket {
+        .quantity-controls {
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px;
+            text-decoration: none;
+            color: #415364;
+        }
+    }
+    .fieldset{
+        .fields{
+            .rmcatheter{
+                .label::after{
+                    content: '' !important;
+                }
+            }
+        }
+    }
+    .pts-container_left{
+        .pts-left{
+            .content-review-link{
+                p{
+                   margin-top: 1rem;
+                    .product-item-link{
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+
+    .marketplace-index-orderview {
+        .order-items {
+            .actions-toolbar {
+                border-bottom: 1px solid #ccc;
+                padding-bottom: 10px;
+            }
+        }
+        .note-list {
+            font-size: 1.2rem;
+            list-style: none;
+            margin: 0 0 2.4rem;
+            padding: 0;
+            .note-list-customer-not-notified, .note-list-status {
+                font-weight: 700;
+                padding: 0 1rem 0 0;
+            }
+        }
+    }
+    .container-pts-rating-box{
+        display: flex;
+        flex-direction: column;
+        .text{
+            margin-top: 1rem;
+            margin-bottom: 0rem;
+        }
+    }
+    .logo img {
+        display: inherit;
+    }
+    .config-pricing-modal{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .modal-inner-wrap{
+            height: auto !important;
+            .modal-header{
+                .action-close{
+                    background: #00bab3 none repeat scroll 0 0;
+                    border: 1px solid #00bab3;
+                    padding: 15px;
+                    &:before{
+                        color: #fff;
+                        content: 'Ok';
+                        line-height: 19px;
+                        font-size: 20px;
+                    }
+                    &:hover{
+                        background: #00bab3 none repeat scroll 0 0;
+                        border: 1px solid #00bab3;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_GDPR
+ * @copyright   Copyright (c) 2018 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">prgdpr_consent_location_form.prgdpr_consent_location_form_data_source</item>
+            <item name="deps" xsi:type="string">prgdpr_consent_location_form.prgdpr_consent_location_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Consent Locations</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Plumrocket\GDPR\Block\Adminhtml\Consent\Location\Edit\BackButton</item>
+            <item name="delete" xsi:type="string">Plumrocket\GDPR\Block\Adminhtml\Consent\Location\Edit\DeleteButton</item>
+            <item name="duplicate" xsi:type="string">Plumrocket\GDPR\Block\Adminhtml\Consent\Location\Edit\DuplicateButton</item>
+            <item name="save" xsi:type="string">Plumrocket\GDPR\Block\Adminhtml\Consent\Location\Edit\SaveButton</item>
+            <item name="save_and_continue" xsi:type="string">Plumrocket\GDPR\Block\Adminhtml\Consent\Location\Edit\SaveAndContinueButton</item>
+        </item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">prgdpr_consent_location_form</item>
+        </item>
+    </argument>
+    <dataSource name="prgdpr_consent_location_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Plumrocket\GDPR\Model\Consent\Location\DataProvider</argument>
+            <argument name="name" xsi:type="string">prgdpr_consent_location_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">location_id</argument>
+            <argument name="requestFieldName" xsi:type="string">location_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="prgdpr/consent_location/save"/>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+    <fieldset name="general">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string"/>
+            </item>
+        </argument>
+        <field name="location_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">consent_location</item>
+                    <item name="dataScope" xsi:type="string">location_id</item>
+                </item>
+            </argument>
+        </field>
+        <field name="name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Location Name</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">consent_location</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="dataScope" xsi:type="string">name</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                        <item name="min_text_length" xsi:type="number">1</item>
+                        <item name="max_text_length" xsi:type="number">64</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="location_key">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Location Key</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">consent_location</item>
+                    <item name="dataScope" xsi:type="string">location_key</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                        <item name="validate-identifier" xsi:type="boolean">true</item>
+                        <item name="min_text_length" xsi:type="number">3</item>
+                        <item name="max_text_length" xsi:type="number">32</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="description">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Internal Note</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="source" xsi:type="string">consent_location</item>
+                    <item name="dataScope" xsi:type="string">description</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="max_text_length" xsi:type="number">255</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

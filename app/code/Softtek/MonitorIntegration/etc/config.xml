@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <sales_email>
+            <ordercancel>
+                <emailcancel_to>admin@localhost.com</emailcancel_to>
+            </ordercancel>
+        </sales_email>
+        <monitor_config>
+            <general>
+                <monitor_url>https://monitorlogistico.digitalsalesservices.com/api</monitor_url>
+                <notify_errors_mail>admin@localhost.com</notify_errors_mail>
+                <client_code>MAGENTO</client_code>
+            </general>
+        </monitor_config>
+    </default>
+</config>

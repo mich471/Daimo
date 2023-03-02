@@ -1,0 +1,21 @@
+{
+  "name": "softtek/review-product-question",
+  "version": "1.0.0",
+  "description": "N/A",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "*",
+    "php-cuong/magento2-product-question-and-answer": "2.2.*"
+  },
+  "license": [
+    "Proprietary"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Softtek\\ReviewProductQuestion\\": ""
+    }
+  }
+}

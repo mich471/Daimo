@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_DataPrivacy
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <!-- This code is adding the support of Porto theme -->
+    <update handle="prgdpr_porto"/>
+    <body>
+        <referenceContainer name="after.body.start">
+            <block class="Magento\Framework\View\Element\Template" name="consent_checkboxes_popups" template="Plumrocket_GDPR::consent-popups-load.phtml" ifconfig="prgdpr/general/enabled"/>
+        </referenceContainer>
+        <referenceContainer name="footer">
+            <block class="Magento\Newsletter\Block\Subscribe" name="form.subscribe" as="subscribe" before="-" template="Magento_Newsletter::subscribe.phtml"/>
+        </referenceContainer>
+        <referenceBlock name="form.subscribe">
+            <action method="setTemplate" ifconfig="prgdpr/general/enabled">
+                <argument name="template" xsi:type="string">Plumrocket_DataPrivacy::newsletter/subscribe.phtml</argument>
+            </action>
+            <block class="Magento\Framework\View\Element\Template" name="prgdpr_newsletter_checkbox" template="Plumrocket_GDPR::consent-checkboxes-load.phtml" ifconfig="prgdpr/general/enabled">
+                <arguments>
+                    <argument name="locationKey" xsi:type="string">newsletter</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="footer_links">
+            <block class="Plumrocket\DataPrivacy\Block\PrivacyCenter\GuestLink" name="prgdpr-privacy-center-link">
+                <arguments>
+                    <argument name="label" xsi:type="string">Privacy Center</argument>
+                    <argument name="path" xsi:type="string">privacy-center/account/check</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

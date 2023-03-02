@@ -1,0 +1,28 @@
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="Softtek\WidgetProducts\Block\BestSeller\Index" id="best_seller">
+        <label>Best Seller</label>
+        <description>Best Seller Products</description>
+        <parameters>
+            <parameter name="title" xsi:type="text" required="false" visible="true">
+                <label translate="true">Title</label>
+            </parameter>
+            <parameter name="products_count" xsi:type="text" required="true" visible="true">
+                <label translate="true">Number of Products to Display</label>
+                <value>4</value>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget class="Softtek\WidgetProducts\Block\MostViewed\Index" id="most_viewed">
+        <label>Most Viewed</label>
+        <description>Most Viewed Products</description>
+        <parameters>
+            <parameter name="title" xsi:type="text" required="false" visible="true">
+                <label translate="true">Title</label>
+            </parameter>
+            <parameter name="products_count" xsi:type="text" required="true" visible="true">
+                <label translate="true">Number of Products to Display</label>
+                <value>4</value>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

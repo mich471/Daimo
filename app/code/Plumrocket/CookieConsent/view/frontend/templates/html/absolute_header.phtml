@@ -1,0 +1,49 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_CookieConsent
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+
+<?php
+/** @var \Plumrocket\CookieConsent\Block\Html\BodyScripts $block */
+$essentialCategoriesWithScripts = $block->getEssentialCategoriesWithScripts();
+$optionalCategoriesWithScripts = $block->getOptionalCategoriesWithScripts();
+?>
+
+<?php foreach ($essentialCategoriesWithScripts as $category): ?>
+    <?= /* @noEscape */ $category->getHeadScripts() ?>
+<?php endforeach; ?>
+
+<?php if ($optionalCategoriesWithScripts): ?>
+    <?php foreach ($optionalCategoriesWithScripts as $category): ?>
+        <div id="pr-cookie-absolute-header-<?= $block->escapeHtmlAttr($category->getKey()) ?>"></div>
+    <?php endforeach; ?>
+
+    <script>
+        requirejs(['prCookieRestriction', 'prCookieBodyScripts'], function (prCookieRestriction, prCookieBodyScripts) {
+            'use strict';
+            var container;
+            <?php foreach ($optionalCategoriesWithScripts as $category): ?>
+            container = document.getElementById(
+                'pr-cookie-absolute-header-' + '<?= $block->escapeJs($category->getKey()) ?>'
+            );
+            if (container && prCookieRestriction.isAllowedCategory('<?= $block->escapeJs($category->getKey()) ?>')) {
+                container.innerHTML = '<?= $block->prepareHtml($category->getHeadScripts()) ?>';
+                prCookieBodyScripts.execute(container, 'pr-cookie-header-script');
+            }
+            <?php endforeach; ?>
+        });
+    </script>
+<?php endif; ?>

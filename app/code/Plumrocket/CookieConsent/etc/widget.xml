@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<!--
+ * @package     Plumrocket_CookieConsent
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+-->
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="Plumrocket\CookieConsent\Block\Widget\CookieSettingsButton" id="pr-settings-button">
+        <label>Cookie Settings Button</label>
+        <description>Allow visitors to manage their cookie consents. Use this widget to display the "Cookie Settings" link anywhere across your store (e.g., website footer, Privacy Policy, Cookie Policy, etc.).</description>
+        <parameters>
+            <parameter name="title" xsi:type="text" visible="true" sort_order="10">
+                <label>Title</label>
+                <value>Cookie Settings</value>
+            </parameter>
+            <parameter name="template" xsi:type="select" visible="true" required="true" sort_order="20">
+                <label translate="true">Template</label>
+                <options>
+                    <option name="default" value="widget/cookie_settings_button.phtml" selected="true">
+                        <label translate="true">Button Template</label>
+                    </option>
+                    <option name="link" value="widget/cookie_settings_link.phtml">
+                        <label translate="true">Link Template</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

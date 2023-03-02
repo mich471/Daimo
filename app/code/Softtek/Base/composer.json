@@ -1,0 +1,33 @@
+{
+    "name": "softtek/base",
+    "description":"Magento 2 base module used for others Softtek modules.",
+    "keywords": [
+        "magento 2"
+    ],
+    "type": "magento2-module",
+    "version": "1.0.2",
+    "license": [
+        "proprietary"
+    ],
+    "homepage": "https://www.softtek.com/",
+    "support": {
+        "email": "info.brasil@softtek.com",
+        "issues": ""
+    },
+    "authors": [
+        {
+            "name": "Softtek Brasil",
+            "email": "info.brasil@softtek.com",
+            "homepage": "https://www.softtek.com/",
+            "role": ""
+        }
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Softtek\\Base\\": ""
+        }
+    }
+}

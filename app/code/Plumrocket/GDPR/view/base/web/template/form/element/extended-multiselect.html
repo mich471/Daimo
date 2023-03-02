@@ -1,0 +1,47 @@
+<!--
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_GDPR
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+-->
+
+<div if="geoIpMessage" style="margin: 15px 5px;color: #eb5202;background: none;font-size:14px">
+    <div>
+        <i data-bind="html: geoIpMessage"></i>
+    </div>
+</div>
+
+<select multiple class="admin__control-multiselect" data-bind="
+    attr: {
+        name: inputName,
+        id: uid,
+        size: size ? size : '6',
+        disabled: disabled,
+        'aria-describedby': noticeId,
+        placeholder: placeholder
+    },
+    hasFocus: focused,
+    selectedOptions: value,
+    optionsValue: 'value',
+    optionsText: 'label',
+    foreach: options"
+>
+    <optgroup data-bind="attr: {label: label}, foreach: value" label="">
+        <option data-bind="
+            text: label,
+            value: value"
+        ></option>
+    </optgroup>
+</select>
+<!-- ko if: afterRender() --><!-- /ko -->

@@ -1,0 +1,9 @@
+.admin__menu .item-softtek > a::before{
+  content: url('images/menu.svg') !important;
+}
+
+
+.admin__menu .item-softtek._active>a::before,
+.admin__menu .item-softtek > a:hover::before{
+  content: url('images/menu-hover.svg') !important;
+}

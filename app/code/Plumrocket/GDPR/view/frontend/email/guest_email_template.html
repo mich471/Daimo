@@ -1,0 +1,33 @@
+<!--@subject Access Your Account Data @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"var store.getFrontendName()":"Store Name"}
+@-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+{{template config_path="design/email/header_template"}}
+
+<table>
+  <tr>
+    <td><h1>Access Your Account Data at {{var store.getFrontendName()}}</h1></td>
+  </tr>
+  <tr>
+    <td>
+      <p>Dear {{var guestName}},</p>
+      <p>Thank you for requesting your account data from our store.
+        To download or remove your data please click on the link below:</p>
+      <p><a href="{{var accessUrl}}">Click Here to Access Your Data</a></p>
+      <p>If you are experiencing troubles with the above link, please copy/paste the link below into your web browser:</p>
+      <p><a href="{{var accessUrl}}">{{var accessUrl}}</a></p>
+      <p>This link will be active until {{var expirationDate}}</p>
+      <p>If you have any questions about this email or you did not request to remove your account data - please
+        <a href="{{store url='contact'}}">contact</a> our support immediately.</p>
+    </td>
+  </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

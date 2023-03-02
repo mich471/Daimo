@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_DataPrivacy
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="prgdpr_email_removal_request_template" label="Removal Request" file="removal_request_template.html" type="html" module="Plumrocket_GDPR" area="frontend"/>
+    <template id="prgdpr_email_admin_removal_request_template" label="Removal Request Created by Admin" file="admin_removal_request_template.html" type="html" module="Plumrocket_DataPrivacy" area="frontend"/>
+</config>

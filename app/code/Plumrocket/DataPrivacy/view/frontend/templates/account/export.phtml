@@ -1,0 +1,156 @@
+<?php
+/**
+ * @package     Plumrocket_DataPrivacy
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Plumrocket\DataPrivacy\ViewModel\Dashboard\Export $viewModel */
+$viewModel = $block->getData('viewModel');
+?>
+
+<p><?= $block->escapeHtml(__('Download an archive of your account data, order history, addresses, reviews and more.')) ?></p>
+<p><?= $block->escapeHtml(__('Your account data belongs to you, and you can download an archive at any time. Downloading your information is a password-protected process that only you will have access to.')) ?></p>
+
+<br />
+<br />
+
+<h2><?= $block->escapeHtml(__('What else you should know')) ?></h2>
+<ul>
+    <li><?= $block->escapeHtml(__("You will receive your information in CSV file format, which could allow another service to more easily import it.")) ?></li>
+    <li><?= $block->escapeHtml(__("You should only download your data from a personal computer and not a public computer.")) ?></li>
+    <li><?= $block->escapeHtml(__("This feature is currently not available on mobile.")) ?></li>
+</ul>
+
+<div class="actions-toolbar prgdpr__actions-toolbar">
+    <div class="prgdpr__primary-btn prgdpr__btns primary">
+        <button type="button" class="action submit primary" id="show-export-modal">
+            <span><?= $block->escapeHtml(__('Download My Data')) ?></span>
+        </button>
+    </div>
+    <div class="prgdpr__secondary-btn prgdpr__btns secondary">
+        <button class="action submit" type="button" id="cancel-export">
+            <span><?= $block->escapeHtml(__('Cancel')) ?></span>
+        </button>
+    </div>
+</div>
+
+<div id="prgdpr-export-modal" style="display:none;">
+    <?php if ($viewModel->isLoggedIn()): ?>
+        <p><?= $block->escapeHtml(__('Please re-enter your store password to download your data.')) ?></p>
+    <?php else: ?>
+        <p><?= $block->escapeHtml(__('Do you want to download your personal data?')) ?></p>
+    <?php endif; ?>
+    <form class="form form-edit-account"
+          action="<?= $block->escapeUrl($viewModel->getExportUrl()) ?>"
+          method="post"
+          id="form-export"
+          data-hasrequired="<?= $block->escapeHtml(__('* Required Fields')) ?>"
+          autocomplete="off">
+        <fieldset class="prgdpr__fieldset fieldset" data-container="export-account">
+            <?= $block->getBlockHtml('formkey') ?>
+
+            <div class="prgdpr__password-wrap field password current required">
+                <input type="hidden" name="secure_token" value="<?= $block->escapeHtmlAttr($viewModel->getSecureToken()) ?>">
+
+                <?php if ($viewModel->isLoggedIn()): ?>
+                    <input class="prgdpr__input input-text" type="password" name="password" id="password" data-validate="{required:true}" autocomplete="off"/>
+                    <label class="prgdpr__label label" for="password">
+                      <span><?= $block->escapeHtml(__('Password')) ?></span>
+                    </label>
+                    <a class="forgot" href="<?= $block->escapeUrl($viewModel->getForgotPasswordUrl()) ?>"><?= $block->escapeHtml(__("Forgot your password?")) ?></a>
+                <?php endif; ?>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<script type="text/javascript">
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/modal'
+    ], function ($, modal) {
+        'use strict';
+
+        var dataForm = $('#form-export'),
+            ignore = null;
+
+        dataForm
+            .submit(function(){
+                $(".messages").fadeOut();
+
+                if (dataForm.validation('isValid')) {
+                    exportModal.closeModal();
+                    $('body').loader('show');
+                    $('#show-export-modal').attr('disabled', true);
+
+                    setTimeout(function () {
+                        $('body').loader('hide');
+                        $('#show-export-modal').attr('disabled', false);
+                    }, 1000);
+                }
+            })
+            .mage('validation', {ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'})
+            .find('input:text')
+            .attr('autocomplete', 'off');
+
+        var options = {
+            type: 'popup',
+            modalClass: 'prgdpr-account-modal',
+            responsive: true,
+            innerScroll: true,
+            focus: '#form-export #password',
+            title: "<?= $block->escapeHtml(__('Baixar meus dados')) ?>",
+            buttons: [
+                {
+                    text: "<?= $block->escapeHtml(__('Cancel')) ?>",
+                    click: function () {
+                        this.closeModal();
+                    }
+                },
+                {
+                    text: "<?= $block->escapeHtml(__('Download Now')) ?>",
+                    class: 'action export primary',
+                    click: function () {
+                        dataForm.submit();
+                    }
+                }
+            ],
+            opened: function($Event) {
+                $('#prgdpr-export-modal').find('input[name=password]').val('');
+            }
+        };
+
+        var exportModal = modal(options, $('#prgdpr-export-modal'));
+
+        $('#show-export-modal').on({
+            click: function () {
+                exportModal.openModal();
+            }
+        });
+
+        $('#cancel-export').on({
+            click: function () {
+                location.href = '<?= $block->escapeUrl($viewModel->goBackUrl()) ?>';
+            }
+        });
+
+    });
+</script>
+<script type="text/javascript">
+    var input = document.querySelector("#password");
+
+    if (input) {
+        var label = document.querySelector(".prgdpr__label[for='password']");
+        input.onfocus = function() {
+            label.classList.add("prgdpr__label--active");
+        };
+
+        input.onblur = function() {
+            if (input.value == false && input.value != "0"){
+                label.classList.remove("prgdpr__label--active");
+            }
+        };
+    }
+</script>

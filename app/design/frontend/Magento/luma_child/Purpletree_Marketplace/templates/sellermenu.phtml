@@ -1,0 +1,144 @@
+<!--
+/**
+* Purpletree_Marketplace sellermenu
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Purpletree License that is bundled with this package in the file license.txt.
+* It is also available through online at this URL: https://www.purpletreesoftware.com/license.html
+*
+* @category    Purpletree
+* @package     Purpletree_Marketplace
+* @author      Purpletree Infotech Private Limited
+* @copyright   Copyright (c) 2017
+* @license     https://www.purpletreesoftware.com/license.html
+*/
+-->
+
+<?php
+$currentUrl = $this->getCurrentUrl();
+$customerId = $this->getCustomerId();
+$moduleEnabled = $this->isModuleEnabled();
+$seller = $this->isSeller();
+$sellerApprove = $this->isSellerApprove();
+$reviewVisible = $this->getReviewsVisible();
+?>
+<?php
+if($moduleEnabled){
+?>
+<div class="block account-nav block-collapsible-nav pts-main">
+    <div class="title block-collapsible-nav-title" data-mage-init='{"toggleAdvanced": {"toggleContainers": "#block-collapsible-nav-seller", "selectorsToggleClass": "active"}}'>
+        <strong><?php echo __('Menu do vendedor'); ?></strong>
+    </div>
+    <div class="content block-collapsible-nav-content" id="block-collapsible-nav-seller">
+        <nav class="account-nav">
+            <ul class="nav items">
+
+				<?php if($seller==''){ if($sellerApprove!=''){?>
+						<?php if($this->getIsSeller() != 0){ ?>
+					<li class="nav item <?php echo ($currentUrl =='sellers')? "current":"";?>">
+						<?php
+						if($currentUrl == 'sellers'){ ?>
+								<strong><?php echo __('Store Info') ?></strong>
+							<?php
+							} else{ ?>
+								<a href="<?php echo $this->getUrl('marketplace/index/sellers'); ?>">
+									<?php echo __('Store Info') ?>
+								</a>
+							<?php
+							} ?>
+						</li>
+				<?php } }
+					else {?>
+
+					<?php } } else { ?>
+					<li class="nav item <?php echo ($currentUrl =='orders')? "current":"";?>">
+						<?php
+						if($currentUrl == 'orders'){ ?>
+							<strong><?php echo __('Vendor Orders') ?></strong>
+						<?php
+						} else{ ?>
+							<a href="<?php echo $this->getUrl('marketplace/index/orders'); ?>">
+								<?php echo __('Vendor Orders') ?>
+							</a>
+						<?php
+						} ?>
+					</li>
+					<li class="nav item <?php echo ($currentUrl =='products')? "current":"";?>">
+						<?php
+						if($currentUrl == 'products'){ ?>
+							<strong><?php echo __('My products') ?></strong>
+						<?php
+						} else{ ?>
+							<a href="<?php echo $this->getUrl('marketplace/index/products'); ?>">
+								<?php echo __('My products') ?>
+							</a>
+						<?php
+						} ?>
+					</li>
+					<li class="nav item <?php echo ($currentUrl =='sellers')? "current":"";?>">
+						<?php
+						if($currentUrl == 'sellers'){ ?>
+							<strong><?php echo __('Store Info') ?></strong>
+						<?php
+						} else{ ?>
+							<a href="<?php echo $this->getUrl('marketplace/index/sellers'); ?>">
+								<?php echo __('Store Info') ?>
+							</a>
+						<?php
+						} ?>
+					</li>
+          <li class="nav item <?php echo ($currentUrl =='questioninfo')? "current":"";?>">
+              <a href="<?php echo $this->getUrl('sellerquestioninfo/index/questioninfo'); ?>"> <?php echo __('Received questions') ?> </a>
+          </li>
+					<li class="nav item <?php echo ($currentUrl =='sellershipping')? "current":"";?>">
+						<?php
+						if($currentUrl == 'sellershipping'){ ?>
+							<strong><?php echo __('Shipping Rates') ?></strong>
+						<?php
+						} else{ ?>
+							<a href="<?php echo $this->getUrl('marketplace/index/sellershipping'); ?>">
+								<?php echo __('Shipping Rates') ?>
+							</a>
+						<?php } ?>
+					</li>
+          <li class="nav item <?php echo ($currentUrl =='paymentinfo')? "current":"";?>">
+              <a href="<?php echo $this->getUrl('sellerinfo/index/paymentinfo'); ?>"> <?php echo __('Payment Information') ?> </a>
+          </li>
+					<?php if($this->getAmastyShopbyBrand()){ ?>
+					<li class="nav item <?php echo ($currentUrl =='brandmanagement')? "current":"";?>">
+						<?php
+						if($currentUrl == 'brandmanagement'){ ?>
+							<strong><?php echo __('Brand Management') ?></strong>
+						<?php
+						} else{ ?>
+							<a href="<?php echo $this->getUrl('marketplace/index/brandmanagement'); ?>">
+								<?php echo __('Brand Management') ?>
+							</a>
+						<?php
+						} ?>
+					</li>
+					<?php } ?>
+					<?php if($reviewVisible){ ?>
+					<?php
+					} ?>
+
+                    <li class="nav item item-reviews">
+                        <?= $this->escapeHtml(__('My Evaluations')) ?>
+                        <ul>
+                            <?php if ($currentUrl != 'sellerOrderReviews') { ?>
+                                <li class="nav item"><a href="<?php echo $this->getUrl('sellerinfo/index/sellerOrderReviews'); ?>"><?= $this->escapeHtml(__('Order Evaluations')) ?></a></li>
+                            <?php } else { ?>
+                                <li class="nav item current"><strong><?= $this->escapeHtml(__('Order Evaluations')) ?></strong></li>
+                            <?php } ?>
+                        </ul>
+                    </li>
+
+				<?php
+				} ?>
+            </ul>
+        </nav>
+    </div>
+</div>
+<?php
+}
+?>

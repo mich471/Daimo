@@ -1,0 +1,29 @@
+<!--
+/**
+* Purpletree_Marketplace productview
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Purpletree License that is bundled with this package in the file license.txt.
+* It is also available through online at this URL: https://www.purpletreesoftware.com/license.html
+*
+* @category    Purpletree
+* @package     Purpletree_Marketplace
+* @author      Purpletree Infotech Private Limited
+* @copyright   Copyright (c) 2017
+* @license     https://www.purpletreesoftware.com/license.html
+*/
+-->
+
+<?php  	
+	$currentProduct = $block->getCurrentProduct();
+	$sellerId=$currentProduct->getSellerId();
+	$isSeller = $currentProduct->getIsSellerProduct();
+	$storeData=$this->getStoreDetails($sellerId); 
+	$reviewsavg=$this->getReviewsAvg($sellerId);
+	$review=$this->getReviewsCount($sellerId);
+	$isReviewVisible=$this->getReviewsVisible();
+?>
+
+<?php if ($isSeller && $sellerId != '' && $sellerId != 0): ?>
+	<a href="<?php echo $this->getUrl().$storeData['store_url']; ?>"><?= $block->escapeHtml(__('Ver todos os produtos')) ?></a>
+<?php endif ?>
